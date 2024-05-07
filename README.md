@@ -1,26 +1,26 @@
  # Wagtail over Django and Postgres with Docker-Compose
 
 ## General architecture
-
+```
 .
-├── ** docker-compose-getting-started.yaml
-├── ** requirements.txt
+├── **docker-compose-getting-started.yaml**
+├── **requirements.txt**
 └── django (webapp)
     ├── django
     ├── docs
     ├── extras
-    ├── ** getting_started_site
-    │   ├── ** manage.py
+    ├── **getting_started_site**
+    │   ├── **manage.py**
     │   ├── getting_started_site
     │   │   └── settings
-    │   │       └── ** base.py
+    │   │       └── **base.py**
     │   ├── home
     │   ├── media
     │   └── search
     ├── js_tests
     ├── scripts
     └── tests
-        
+```        
 Command to start:
 docker compose -f docker-compose-getting-started.yaml up -d
 or visual studio Ctrl+Shift+p: Compose up (docker-compose-getting-started.yaml)
