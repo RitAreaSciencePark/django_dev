@@ -6,15 +6,14 @@ services:
     build:
       context: .
       dockerfile: ./django/Dockerfile
-    
-    # CHANGE [wagtail project] with the name of your project. If it not yet created, follow the README.md
-    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 [wagtail project]/manage.py runserver 0.0.0.0:8080"]
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 django/djangovanilla/manage.py runserver 0.0.0.0:8080"]
     ports:
       - 8080:8080
       - 5678:5678
     volumes:
       - .:/app
-    user: 1000:1000
+    user: root:root
+    
   db:
     image: postgres
     environment:
