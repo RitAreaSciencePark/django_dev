@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body_class %}template-thankyou{% endblock %}
+
+{% block content %}
+    <h1>{{ page.thankyou_page_title }}</h1>
+
+    <p>
+        Thanks, {{ data.data0 }}! We'll review your suggestion, and if we like it,
+        you might see {{ data.data1 }} in our shop soon...
+    </p>
+{% endblock %}

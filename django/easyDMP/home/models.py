@@ -9,8 +9,6 @@ from django.conf import settings
 from django.shortcuts import render
 from django.db import connections
 
-
-
 class HomePage(Page):
     image = models.ForeignKey("wagtailimages.Image",
                               null=True,
@@ -39,6 +37,7 @@ class HomePage(Page):
     )
 
     body = RichTextField(blank=True)
+    
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel("image"),
@@ -49,9 +48,47 @@ class HomePage(Page):
         FieldPanel('body')
     ]
 
+class CustomFormData(models.Model):
+    data0 = models.CharField(max_length=255)
+    data1 = models.CharField(max_length=255)
+
+
+class CustomFormPage(Page):
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self, request):
+        from home.forms import CustomForm
+
+        if request.method == 'POST':
+            form = CustomForm(request.POST)
+            if form.is_valid():
+                data = form.save()
+                return render(request, 'home/thankyou.html', {
+                    'page': self,
+                    'data': data,
+                })
+        else:
+            form = CustomForm()
+
+        return render(request, 'home/suggest.html', {
+            'page': self,
+            'form': form,
+        })
+
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
-
 
 class FormPage(AbstractEmailForm):
     intro = RichTextField(blank=True)
@@ -113,3 +150,4 @@ class CustomFormSubmission(AbstractFormSubmission):
         })
 
         return form_data
+    
