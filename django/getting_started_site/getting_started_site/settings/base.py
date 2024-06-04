@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    #Allauth
+    # Include the external_db_app
+    "external_db_app",
+    # Allauth to manage accounts
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -89,6 +91,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "getting_started_site.wsgi.application"
 
+# DATABASE ROUTING: extremely important to manage two (or more) database, check db_routers.py
+DATABASE_ROUTERS = ["getting_started_site.db_routers.ExternalDbRouter"]
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -102,10 +106,10 @@ DATABASES = {
         'HOST': 'db',
         'PORT': '5432',
     },
-
-    "metadata_db": {
+# This is the second database. Create a "generic" db inside (psql -U <username> -c 'CREATE DATABASE generic') TODO: check this
+    "external_generic_db": {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'metadata',
+        'NAME': 'generic',
         'USER': 'wagtail',
         'PASSWORD': 'postgres',
         'HOST': 'db',

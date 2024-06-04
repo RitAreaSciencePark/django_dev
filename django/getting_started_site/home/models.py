@@ -51,9 +51,11 @@ class HomePage(Page):
     ]
 
 class CustomFormData(models.Model):
-    data0 = models.CharField(max_length=255)
-    data1 = models.CharField(max_length=255)
+    datavarchar = models.CharField(max_length=255)
+    dataint = models.IntegerField()
 
+    class Meta:
+        db_table='customformdata'
 
 class CustomFormPage(Page):
     intro = RichTextField(blank=True)
@@ -70,87 +72,37 @@ class CustomFormPage(Page):
         FieldPanel('thankyou_page_title'),
     ]
 
+    # Serve: method override to "serve" the CustomForm
     def serve(self, request):
         from home.forms import CustomForm
+        username = None
+        if request.user.is_authenticated:
+            username = request.user.username
 
         if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
             form = CustomForm(request.POST)
             if form.is_valid():
-                data = form.save()
-                return render(request, 'home/thankyou.html', {
+                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                # In our example the routing takes care of the external db save
+                data = form.save(commit=False)
+                data.datausername = username
+                data.save()
+    
+                return render(request, 'home/thank_you_page.html', {
                     'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
                     'data': data,
                 })
         else:
+            # If the method is not POST (so GET mostly), put the CustomForm in form and then...
             form = CustomForm()
 
-        return render(request, 'home/suggest.html', {
+        # return the form page, with the form as data.
+        return render(request, 'home/form_page.html', {
             'page': self,
             'form': form,
         })
 
-class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
-
-class FormPage(AbstractEmailForm):
-    intro = RichTextField(blank=True)
-    thank_you_text = RichTextField(blank=True)
-
-    content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro'),
-        InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text'),
-        MultiFieldPanel([
-            FieldRowPanel([
-                FieldPanel('from_address', classname="col6"),
-                FieldPanel('to_address', classname="col6"),
-            ]),
-            FieldPanel('subject'),
-        ], "Email"),
-    ]
-
-    def get_data_fields(self):
-        data_fields = [
-            ('username', 'Username'),
-        ]
-        data_fields += super().get_data_fields()
-
-        return data_fields
-
-    def get_submission_class(self):
-        return CustomFormSubmission
-
-    def process_form_submission(self, form):
-        print(form.user)
-        print(form.cleaned_data['this_is_the_first_item'])
-        with connections["formrepo"].cursor() as cursor:
-            cursor.execute("INSERT INTO easyDMPTestTable (username, data1) VALUES ('{}','{}')".format(form.user, form.cleaned_data['this_is_the_first_item'][0]))
-
-        return self.get_submission_class().objects.create(
-            form_data=form.cleaned_data,
-            page=self, user=form.user
-        )
-    def serve(self, request, *args, **kwargs):
-        with connections["formrepo"].cursor() as cursor:
-            cursor.execute("SELECT * FROM easyDMPTestTable WHERE username = '{}'".format(request.user))
-            if(cursor.rowcount>0):
-                print("Another user with the name: {} has submitted the form".format(request.user))
-                return render(request,
-                self.template,
-                self.get_context(request)
-            )
-
-        return super().serve(request, *args, **kwargs)
-
-class CustomFormSubmission(AbstractFormSubmission):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-    def get_data(self):
-        form_data = super().get_data()
-        form_data.update({
-            'username': self.user.username,
-        })
-
-        return form_data
     
-
