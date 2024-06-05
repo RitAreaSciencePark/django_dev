@@ -16,9 +16,12 @@ services:
     
   db:
     image: postgres
+    build:
+      context: .
+      dockerfile: ./postgres-multiple-db/Dockerfile
     environment:
+      POSTGRES_MULTIPLE_DATABASES: easyDMP, decos_metadata_db
       POSTGRES_USER: easyDMP
-      POSTGRES_DB: easyDMP
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
