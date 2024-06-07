@@ -15,9 +15,6 @@ When the container are up,
 run: 
 docker exec -it \[django_directory\]-webapp-1 python3 django/getting_started_site/manage.py migrate
 docker exec -it \[django_directory\]-webapp-1 python3 django/getting_started_site/manage.py createsuperuser
-To instantiate the second db:
-docker exec -it \[django_directory\]-db-1 psql -U wagtail -c 'CREATE DATABASE generic;'
-docker exec -it \[django_directory\]-webapp-1 python3 django/getting_started_site/manage.py migrate --database=external_generic_db
 (add -d if you need to migrate on the fly)
 
 and then:
