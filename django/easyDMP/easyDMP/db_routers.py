@@ -7,13 +7,13 @@ class ExternalDbRouter:
     def db_for_read(self, model, **hints):
         # Attempts to read models go to external_generic_db.
         if model._meta.app_label in self.route_app_labels:
-            return 'decos_metadata_db'
+            return 'prpmetadata-db'
         return None
 
     def db_for_write(self, model, **hints):
         # Attempts to write models go to external_generic_db.
         if model._meta.app_label in self.route_app_labels:
-            return 'decos_metadata_db'
+            return 'prpmetadata-db'
         return None
 
     def allow_relation(self, obj1, obj2, **hints):
@@ -33,7 +33,7 @@ class ExternalDbRouter:
         # Make sure the external_db_app creates only tables defined into the model (and django_migrations)
         # And viceversa, in the default db there are only webapp related tables
 
-        if db == 'decos_metadata_db':
+        if db == 'prpmetadata-db':
             if app_label in self.route_app_labels:
                 return True # Everything that is external_db_app will be included in external_generic_db
             else:

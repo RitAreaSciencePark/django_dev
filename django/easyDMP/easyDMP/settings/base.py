@@ -79,18 +79,32 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "easyDMP.wsgi.application"
-
+# DATABASE ROUTING: extremely important to manage two (or more) database, check db_routers.py
+DATABASE_ROUTERS = ["easyDMP.db_routers.ExternalDbRouter"]
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'easydmp_main',
+        'USER': 'easydmp',
+        'PASSWORD': 'postgres', # TODO: Change this
+        'HOST': 'db',
+        'PORT': '5432',
+    },
+# This is the second database. Create a "generic" db inside (psql -U <username> -c 'CREATE DATABASE generic') TODO: check this
+    "prpmetadata-db": {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'decos_metadata_db',
+        'USER': 'easydmp',
+        'PASSWORD': 'postgres', # TODO: Change this
+        'HOST': 'db',
+        'PORT': '5432',
     }
-}
 
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
