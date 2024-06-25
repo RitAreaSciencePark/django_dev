@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "wagtail.contrib.settings",
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+
+                # This is register the _settings_ context processor:
+                "wagtail.contrib.settings.context_processors.settings",
             ],
         },
     },
@@ -192,3 +196,5 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

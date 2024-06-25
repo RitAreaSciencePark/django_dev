@@ -23,6 +23,13 @@
         <base target="_blank">
         {% endif %}
 
+        {# Add supported color schemes: #}
+        <meta name="color-scheme" content="light ">
+
+        {# Add a favicon #}
+        <link rel="icon" type="image/svg" href="{% static 'media/prp_favicon.svg' %}"/>
+
+
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/easyDMP.css' %}">
 
@@ -32,9 +39,16 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
+        {# Remove  wagtailuserbar: #}
 
-        {% block content %}{% endblock %}
+        {% include "includes/header.html" %}
+        
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include "includes/footer.html" %}
+
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/easyDMP.js' %}"></script>
@@ -43,4 +57,5 @@
         {# Override this in templates to add extra javascript #}
         {% endblock %}
     </body>
+
 </html>

@@ -1,0 +1,21 @@
+{% load wagtailcore_tags %}
+{% load static %}
+
+<footer>
+    {% with twitter_url=settings.home.NavigationSettings.twitter_url github_url=settings.home.NavigationSettings.github_url %}
+
+        <p>
+            I AM THE FOOTER!
+            {% if twitter_url or github_url %}
+            {% if github_url %}
+                <a href="{{ github_url }}"><img type="image/svg" width="15px" height="15px" src="{% static 'media/prp_favicon.svg' %}"/></a>
+            {% endif %}
+            {% if twitter_url %}
+                <a href="{{ twitter_url }}">Twittah</a>
+            {% endif %}
+    {% endif %}
+        </p>
+
+
+{% endwith %}
+</footer>
