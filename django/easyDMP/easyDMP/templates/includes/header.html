@@ -1,13 +1,20 @@
-{# Load wagtailuserbar: #}
-{% load wagtailcore_tags wagtailuserbar %}
+{% load wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags%}
 
 <header>
+    {% get_site_root as site_root %}
+
+    <div class="header_logo_block">
+        {% image settings.home.HeaderSettings.prp_icon fill-250x100 %}
+    </div>
+    <div class="header_nav_block">
     <nav>
         <p>
-            I AM THE HEADER!
+        <a href="{% pageurl site_root %}">Home</a> |
+        {% for menuitem in site_root.get_children.live.in_menu %}
+            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+        {% endfor %}
         </p>
     </nav>
+</div>
 
-    {# Add wagtailuserbar: #}
-    {% wagtailuserbar "top-right" %}
 </header>
