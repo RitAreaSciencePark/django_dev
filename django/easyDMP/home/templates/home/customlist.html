@@ -1,8 +1,18 @@
     {% extends "base.html" %}
     {% block content %}
-
+        <table>
+        <tr>
+            <th>title</th>
+            <th>number</th>
+            <th>author</th>
+        </tr>
         {% for cdata in customdata %}
-        - {{ cdata.datavarchar }} | {{ cdata.dataint }} | Author: {{ cdata.datausername }}<br>
+        <tr>
+            <td align="center">{{ cdata.datavarchar }} </td>
+            <td align="center">{{ cdata.dataint }}</td>
+            <td align="center">{{ cdata.datausername }}</td>
+        </tr>
         {% endfor %}
+        </table>
     {% endblock %}
 
