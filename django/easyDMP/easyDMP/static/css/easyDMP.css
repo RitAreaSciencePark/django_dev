@@ -14,12 +14,6 @@ a {
   color: currentColor;
 }
 
-footer {
-  columns: 2;
-  text-align: center;
-  border-top: 2px dotted;
-}
-
 .header_logo_block {
   display: flex;
   position: left;
@@ -36,10 +30,25 @@ footer {
 header {
   columns: 2;
   border-bottom: 2px dotted;
+  height: fit-content;
 }
 
 .template-homepage main {
   text-align: center;
+}
+
+footer {
+  display: flex;
+  columns: 2;  
+  text-align: center;
+  border-top: 2px dotted;
+  height: fit-content;
+  min-height: 10px;
+  
+}
+
+.footer_block {
+  padding-right: 50px;
 }
 
 

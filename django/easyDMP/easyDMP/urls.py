@@ -5,6 +5,7 @@ from django.contrib import admin
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from PRP_CDM_app.views import listDMPView
 
 from search import views as search_views
 
@@ -25,6 +26,10 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = urlpatterns + [
+    # url(r'^accounts/', include('allauth.urls')), # Creates urls like yourwebsite.com/accounts/login/
+    path(r'', include('allauth.urls')), # Creates urls like yourwebsite.com/login/
+    path("listdmpview/", listDMPView, name="customdata"),
+
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
@@ -32,4 +37,7 @@ urlpatterns = urlpatterns + [
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),
+
+
 ]
+

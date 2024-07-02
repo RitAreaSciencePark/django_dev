@@ -2,6 +2,8 @@
 {% load static wagtailimages_tags %}
 
 <footer>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/easyDMP.css' %}">
+
     <div class=footer_block>
     {% with github_url=settings.home.FooterSettings.github_url %}
     {{ settings.home.FooterSettings.footer_text | richtext }}

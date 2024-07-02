@@ -1,0 +1,8 @@
+    {% extends "base.html" %}
+    {% block content %}
+
+        {% for cdata in customdata %}
+        - {{ cdata.datavarchar }} | {{ cdata.dataint }} | Author: {{ cdata.datausername }}<br>
+        {% endfor %}
+    {% endblock %}
+

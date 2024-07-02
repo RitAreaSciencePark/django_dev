@@ -46,6 +46,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "wagtail.contrib.settings",
+    "PRP_CDM_app",
+        # Allauth to manage accounts
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.openid_connect",
 ]
 
 MIDDLEWARE = [
@@ -57,6 +63,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    # Allauth
+    "allauth.account.middleware.AccountMiddleware",
+
 ]
 
 ROOT_URLCONF = "easyDMP.urls"
@@ -198,3 +207,31 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Allauth
+
+SITE_ID = 1
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/login/'
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "god"]
+ACCOUNT_USERNAME_MIN_LENGTH = 2
+
+SOCIALACCOUNT_PROVIDERS={ "openid_connect": 
+                         { "SERVERS": 
+                          [{ "id": "authentik",
+                             "name": "Authentik",
+                               "server_url": "https://authentik.company/application/o/tandoor/.well-known/openid-configuration",
+                               "token_auth_method": "client_secret_basic", "APP": { "client_id": "ClientIdFromProvider", "secret": "SecretFromProvider" } } ] } }
+
