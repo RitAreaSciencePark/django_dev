@@ -13,3 +13,10 @@ class CustomAppModel(models.Model):
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'customappmodel'.lower()
+
+class Laboratories(models.Model):
+    id_name = models.CharField(max_length=50, primary_key=True)
+    full_name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table= 'laboratories'.lower()
