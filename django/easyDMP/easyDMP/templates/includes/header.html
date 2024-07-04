@@ -29,6 +29,7 @@
         {% else %}
             <a href="{{ current_site.root_url }}/login">Login</a>
         {% endif %}
+        | {{ request.session.lab_selected }}
         | <a href="{{ current_site.root_url }}/switch-laboratory/">Switch Lab</a>
     </p>
     </div>

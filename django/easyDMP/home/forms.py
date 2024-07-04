@@ -1,10 +1,10 @@
 from django import forms
 # This import point to the external app schema!
-from PRP_CDM_app.models import CustomAppModel
+from PRP_CDM_app.models import *
 
 class LabSwitchForm(forms.Form):
     user_labs = []
-    picked = []
+    
 
     def _defineChoices(self):
         choices = []
@@ -14,15 +14,19 @@ class LabSwitchForm(forms.Form):
 
     def __init__(self, user_labs, *args, **kwargs):
         super(LabSwitchForm,self).__init__(*args, **kwargs)
-        self.user_labs = user_labs
-        self.fields['picked'] = forms.MultipleChoiceField(choices=self._defineChoices(), widget=forms.CheckboxSelectMultiple)
+        if user_labs is not None:
+            self.user_labs = user_labs
+            self.fields['lab_selected'] = forms.ChoiceField(choices=self._defineChoices())
 
 
 def form_orchestrator(user_lab, request):
     if user_lab is None:
         return form_factory(CustomAppModel, request=request)
+    elif user_lab == 'LAME':
+        return form_factory(CustomLAMEModel, request=request)
     else:
         return form_factory(CustomAppModel, request=request)
+
     
 def form_factory(form_model, request):
     class CustomForm(forms.ModelForm):

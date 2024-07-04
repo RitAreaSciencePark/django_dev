@@ -14,6 +14,17 @@ class CustomAppModel(models.Model):
     class Meta:
         db_table= 'customappmodel'.lower()
 
+class CustomLAMEModel(models.Model):
+    # If you don't put an explicit primary_key an autoincrement id will be used instead
+    # TODO: foreign keys
+    lameintro = models.CharField(max_length=255, primary_key=True)
+    datausername = models.CharField(max_length=255, blank=True)
+    lamefield = models.DateField()
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'customlamemodel'.lower()
+
 class Laboratories(models.Model):
     id_name = models.CharField(max_length=50, primary_key=True)
     full_name = models.CharField(max_length=255)

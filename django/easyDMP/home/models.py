@@ -95,7 +95,7 @@ class SampleEntryForm(Page):
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            form = form_orchestrator(user_lab=request.user.groups, request=request.POST)
+            form = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST)
             if form.is_valid():
                 # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
@@ -111,7 +111,7 @@ class SampleEntryForm(Page):
                 })
         else:
             # If the method is not POST (so GET mostly), put the CustomForm in form and then...
-            form = form_orchestrator(user_lab=request.user.groups, request=None)
+            form = form_orchestrator(user_lab=request.session['lab_selected'], request=None)
 
         # return the form page, with the form as data.
         return render(request, 'home/form_page.html', {
@@ -132,12 +132,13 @@ class SwitchLabPage(Page):
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            form = LabSwitchForm(request.POST, user_labs=request.users.groups.all())
+            form = LabSwitchForm(data=request.POST, user_labs=request.user.groups.all())
             if form.is_valid():
                 # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                 # In our example the routing takes care of the external db save
-                laboratory = form.cleaned_data.get('picked')
+                laboratory = form.cleaned_data.get('lab_selected')
+                request.session["lab_selected"] = laboratory
                 next = request.POST.get("next", "/")
                 return redirect(next)
 
