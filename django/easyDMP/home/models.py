@@ -18,6 +18,9 @@ from django.contrib.auth.models import User
 
 from .forms import form_orchestrator, LabSwitchForm
 
+from PRP_CDM_app.models import Administration
+from django.template.loader import render_to_string
+
 @register_setting
 class HeaderSettings(BaseGenericSetting):
     header_text = RichTextField(blank=True)
@@ -76,7 +79,6 @@ class SampleEntryForm(Page):
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
         max_length=255, help_text="Title text to use for the 'thank you' page")
-
     # Note that there's nothing here for specifying the actual form fields -
     # those are still defined in forms.py. There's no benefit to making these
     # editable within the Wagtail admin, since you'd need to make changes to
@@ -95,29 +97,36 @@ class SampleEntryForm(Page):
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            form = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST)
-            if form.is_valid():
-                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
-                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
-                # In our example the routing takes care of the external db save
-                data = form.save(commit=False)
-                data.datausername = username
-                data.save()
-    
-                return render(request, 'home/thank_you_page.html', {
-                    'page': self,
-                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                    'data': data,
-                })
+            forms = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST)
+            for form in forms:
+                if form.is_valid():
+                    # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                    # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                    # In our example the routing takes care of the external db save
+                    data = form.save(commit=False)
+                    data.datausername = username
+                    data.save()
+        
+            return render(request, 'home/thank_you_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'data': data,
+                    })
         else:
             # If the method is not POST (so GET mostly), put the CustomForm in form and then...
-            form = form_orchestrator(user_lab=request.session['lab_selected'], request=None)
+            forms = form_orchestrator(user_lab=request.session['lab_selected'], request=None)
+        
+        view = Administration.objects.all()
+        pageDict = {
+            'page': self,
+            'view': view,
+            }
+        
+        for form in forms:
+            pageDict[form.Meta.model.__name__]=form
 
         # return the form page, with the form as data.
-        return render(request, 'home/form_page.html', {
-            'page': self,
-            'form': form,
-        })
+        return render(request, 'home/form_page.html', pageDict)
 
 class SwitchLabPage(Page):
     intro = RichTextField(blank=True)
@@ -130,6 +139,7 @@ class SwitchLabPage(Page):
         if request.user.is_authenticated:
             username = request.user.username
 
+
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
             form = LabSwitchForm(data=request.POST, user_labs=request.user.groups.all())
@@ -140,7 +150,7 @@ class SwitchLabPage(Page):
                 laboratory = form.cleaned_data.get('lab_selected')
                 request.session["lab_selected"] = laboratory
                 next = request.POST.get("next", "/")
-                return redirect(next)
+                return redirect(next)  # TODO: Not working as intended
 
         else:
             form = LabSwitchForm(user_labs=request.user.groups.all())

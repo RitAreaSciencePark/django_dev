@@ -5,7 +5,6 @@ from PRP_CDM_app.models import *
 class LabSwitchForm(forms.Form):
     user_labs = []
     
-
     def _defineChoices(self):
         choices = []
         for user_lab in self.user_labs:
@@ -21,11 +20,12 @@ class LabSwitchForm(forms.Form):
 
 def form_orchestrator(user_lab, request):
     if user_lab is None:
-        return form_factory(CustomAppModel, request=request)
-    elif user_lab == 'LAME':
-        return form_factory(CustomLAMEModel, request=request)
+        return None
+    elif user_lab == 'LAGE':
+        listQ = [form_factory(form_model,request=request) for form_model in LageForm]
+        return [form_factory(form_model,request=request) for form_model in LageForm]
     else:
-        return form_factory(CustomAppModel, request=request)
+        return [form_factory(CustomAppModel, request=request)]
 
     
 def form_factory(form_model, request):
@@ -38,3 +38,9 @@ def form_factory(form_model, request):
             # fields = ['datavarchar', 'dataint']
             exclude = ['datausername']
     return CustomForm(request)
+
+
+LageForm = [
+        Administration,
+        lageSample,
+    ]

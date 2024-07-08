@@ -6,4 +6,4 @@ def listDMPView(request):
     context = {"customdata": data}
     return render(request, "home/customlist.html", context)
 
-# Create your views here.
+

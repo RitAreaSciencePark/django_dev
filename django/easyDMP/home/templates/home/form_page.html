@@ -12,9 +12,28 @@
 
     <form action="." method="POST">
         {% csrf_token %}
-
         {{ form.as_p }}
+        {{ Administration.as_p }}
+        {{ lageSample.as_p }}
         
         <p><input type="submit" value="Insert data into external database"></p>
     </form>
+
+    <table>
+        <tr>
+            <th>title</th>
+            <th>number</th>
+            <th>author</th>
+        </tr>
+        {% for cdata in view %}
+        <tr>
+            <td align="center">{{ cdata.datavarchar }} </td>
+            <td align="center">{{ cdata.dataint }}</td>
+            <td align="center">{{ cdata.datausername }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+
+
 {% endblock %}
+
