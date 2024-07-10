@@ -17,7 +17,6 @@ class LabSwitchForm(forms.Form):
             self.user_labs = user_labs
             self.fields['lab_selected'] = forms.ChoiceField(choices=self._defineChoices())
 
-
 # TODO: dynamic this
 def form_orchestrator(user_lab, request):
     # lablist = [labform for labform in dir(FORMS()) if not labform.startswith("__")]

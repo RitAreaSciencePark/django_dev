@@ -127,7 +127,15 @@ class SampleEntryForm(Page):
                     })
         else:
             # If the method is not POST (so GET mostly), put the CustomForm in form and then...
-            forms = form_orchestrator(user_lab=request.session['lab_selected'], request=None)
+            try:
+                if(request.session['lab_selected'] is None):
+                    next = request.POST.get("next", "/switch-laboratory")
+                    return redirect(next)
+                else:
+                    forms = form_orchestrator(user_lab=request.session['lab_selected'], request=None)
+            except KeyError:
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
         
         pageDict = {
             'page': self,
