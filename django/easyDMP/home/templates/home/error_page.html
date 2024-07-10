@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body_class %}template-error{% endblock %}
+
+{% block content %}
+    <h1>{{ page.error_page_title }}</h1>
+
+    <p>
+        Error: 
+        {% for error in errors %}
+            {{ error | safe}}
+        {% endfor %}
+    </p>
+{% endblock %}

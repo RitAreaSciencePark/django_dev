@@ -5,14 +5,14 @@
 
         <table>
         <tr>
-            <th>title</th>
-            <th>number</th>
+            <th>uuid</th>
+            <th>email</th>
             <th>author</th>
         </tr>
         {% for cdata in customdata %}
         <tr>
-            <td align="center">{{ cdata.datavarchar }} </td>
-            <td align="center">{{ cdata.dataint }}</td>
+            <td align="center">{{ cdata.uuid }} </td>
+            <td align="center">{{ cdata.email }}</td>
             <td align="center">{{ cdata.datausername }}</td>
         </tr>
         {% endfor %}

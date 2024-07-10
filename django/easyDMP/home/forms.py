@@ -1,6 +1,6 @@
 from django import forms
 # This import point to the external app schema!
-from PRP_CDM_app.models import *
+from PRP_CDM_app.forms import FormsDefinition
 
 class LabSwitchForm(forms.Form):
     user_labs = []
@@ -18,29 +18,25 @@ class LabSwitchForm(forms.Form):
             self.fields['lab_selected'] = forms.ChoiceField(choices=self._defineChoices())
 
 
+# TODO: dynamic this
 def form_orchestrator(user_lab, request):
+    # lablist = [labform for labform in dir(FORMS()) if not labform.startswith("__")]
     if user_lab is None:
-        return None
-    elif user_lab == 'LAGE':
-        listQ = [form_factory(form_model,request=request) for form_model in LageForm]
-        return [form_factory(form_model,request=request) for form_model in LageForm]
+        return None # TODO manage this
     else:
-        return [form_factory(CustomAppModel, request=request)]
+        formClass = getattr(FormsDefinition,user_lab.title() + "Form")
+        return [form_factory(form_model, request=request) for form_model in formClass.content]
+ 
 
-    
 def form_factory(form_model, request):
     class CustomForm(forms.ModelForm):
-
         # see https://docs.djangoproject.com/en/1.9/topics/forms/ for more complex example.
         # We are using a ModelForm, it is not mandatory
+
         class Meta:
             model = form_model
             # fields = ['datavarchar', 'dataint']
-            exclude = ['datausername']
+            exclude = ['uuid','datausername']
+
     return CustomForm(request)
 
-
-LageForm = [
-        Administration,
-        lageSample,
-    ]

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import django
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "wagtail.contrib.settings",
+    # DJANGO FORMS
+    "django.forms",
     "PRP_CDM_app",
         # Allauth to manage accounts
     "allauth",
@@ -70,11 +73,21 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "easyDMP.urls"
 
+from django.forms.renderers import TemplatesSetting
+
+class CustomFormRenderer(TemplatesSetting):
+    form_template_name= "easydmp/forms/div.html"
+    field_template_name = "easydmp/forms/field.html"
+
+FORM_RENDERER = "easyDMP.settings.base.CustomFormRenderer"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(PROJECT_DIR, "templates"),
+            # django.__path__[0] + "/forms/templates",
+            os.path.join("/app/django/django","forms/templates")
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -88,8 +101,11 @@ TEMPLATES = [
                 "wagtail.contrib.settings.context_processors.settings",
             ],
         },
+        
     },
 ]
+
+
 
 WSGI_APPLICATION = "easyDMP.wsgi.application"
 # DATABASE ROUTING: extremely important to manage two (or more) database, check db_routers.py

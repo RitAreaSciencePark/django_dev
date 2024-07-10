@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+
+    <h1>{{ lab }} FORM</h1>
+
+    {{ page.intro | richtext }}
+
+    <form action="." method="POST">
+        
+        {% csrf_token %}
+        ORID:<br> {{ Administration.orid }} <br>
+        eMAILs: {{ Administration.email }} <br>
+        Device: {{ lameSample.device }}
+        {{ lameSample }}
+
+
+        
+        <p><input type="submit" value="Insert data into external database"></p>
+    </form>
+
+
+
+{% endblock %}

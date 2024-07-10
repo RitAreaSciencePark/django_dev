@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+
+    <h1>{{ lab }} FORM</h1>
+
+    {{ page.intro | richtext }}
+
+    <form action="." method="POST">
+        {% csrf_token %}
+        {% for form in forms %}
+            {{ form.as_p }}
+        {% endfor %}
+        
+        <p><input type="submit" value="Insert data into external database"></p>
+    </form>
+
+
+
+{% endblock %}
+

@@ -21,6 +21,11 @@ from .forms import form_orchestrator, LabSwitchForm
 from PRP_CDM_app.models import Administration
 from django.template.loader import render_to_string
 
+from os import listdir
+from os.path import isfile,join,dirname
+
+from uuid import uuid4
+
 @register_setting
 class HeaderSettings(BaseGenericSetting):
     header_text = RichTextField(blank=True)
@@ -99,11 +104,19 @@ class SampleEntryForm(Page):
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
             forms = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST)
             for form in forms:
-                if form.is_valid():
+                if not form.is_valid():
                     # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
                     # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                     # In our example the routing takes care of the external db save
+                    return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values,
+                    })
+
+            for form in forms:
                     data = form.save(commit=False)
+                    data.uuid = uuid4()
                     data.datausername = username
                     data.save()
         
@@ -116,17 +129,29 @@ class SampleEntryForm(Page):
             # If the method is not POST (so GET mostly), put the CustomForm in form and then...
             forms = form_orchestrator(user_lab=request.session['lab_selected'], request=None)
         
-        view = Administration.objects.all()
         pageDict = {
             'page': self,
-            'view': view,
+            'lab': request.session['lab_selected'],
             }
         
         for form in forms:
             pageDict[form.Meta.model.__name__]=form
-
+            
+        pageDict['forms'] = forms
+        formlist =[]
         # return the form page, with the form as data.
-        return render(request, 'home/form_page.html', pageDict)
+        # TODO: while settings is correct, find another softcoded path!!
+        try:
+            home_path = settings.PROJECT_DIR[:len(settings.PROJECT_DIR)-7]
+            abs_path = join(home_path,"home/templates/home/forms/")
+            formlist = [f for f in listdir(abs_path)]
+        except Exception as e:
+            e # TODO: properly catch this
+
+        for formTemplate in formlist:
+            if pageDict['lab'].lower() in formTemplate:
+                return render(request, 'home/forms/' + formTemplate, pageDict)
+        return render(request, 'home/generic_form_page.html', pageDict)
 
 class SwitchLabPage(Page):
     intro = RichTextField(blank=True)
