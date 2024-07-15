@@ -8,18 +8,3 @@ class FormsDefinition:
             Administration,
             lageSample,
         ]
-
-    class LameForm:
-        lab = 'LAME'
-        content = [
-            Administration,
-            lameSample,
-        ]
-
-    class LadeForm:
-        lab = 'LADE'
-        content = [
-            Administration,
-            ladeSample,
-            lageSample,
-        ]

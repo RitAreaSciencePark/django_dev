@@ -78,6 +78,7 @@ from django.forms.renderers import TemplatesSetting
 class CustomFormRenderer(TemplatesSetting):
     form_template_name= "easydmp/forms/div.html"
     field_template_name = "easydmp/forms/field.html"
+    multiwidget_template_name = "easydmp/forms/multiwidget.html"
 
 FORM_RENDERER = "easyDMP.settings.base.CustomFormRenderer"
 

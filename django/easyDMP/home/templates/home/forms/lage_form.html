@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+
+    <h1>{{ lab }} FORM</h1>
+
+    {{ page.intro | richtext }}
+
+    <form action="." method="POST">
+        
+        {% csrf_token %}
+        ORID:<br> {{ Administration.orid }} <br>
+        eMAILs: {{ Administration.email }} <br>
+        Sample Description: <br>
+        {{ lageSample.sample_description }}
+        <br>
+        type of sample: {{ lageSample.type_of_sample.subwidgets.0 }}
+        <br>
+        if "other" is selected, explain what it is: 
+        <br>{{ lageSample.type_of_sample.subwidgets.1 }}
+
+
+
+
+        
+        <p><input type="submit" value="Insert data into external database"></p>
+    </form>
+
+
+
+{% endblock %}

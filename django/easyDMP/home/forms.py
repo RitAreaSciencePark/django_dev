@@ -23,19 +23,33 @@ def form_orchestrator(user_lab, request):
     if user_lab is None:
         return None # TODO manage this
     else:
+        # this block checks the class names into FormsDefinition to create the forms
         formClass = getattr(FormsDefinition,user_lab.title() + "Form")
-        return [form_factory(form_model, request=request) for form_model in formClass.content]
+        form_list = []
+        # this block checks if there are some special field names to override the widgets
+        widgets_list = {}
+        for form_model in formClass.content:
+            if hasattr(form_model, "widgets") and form_model.widgets is not None:
+                widgets_list = form_model.widgets
+            form_list.append(form_factory(form_model, widgets_list, request=request))
+        return form_list
  
 
-def form_factory(form_model, request):
+def form_factory(form_model, widgets_list, request):
     class CustomForm(forms.ModelForm):
+
         # see https://docs.djangoproject.com/en/1.9/topics/forms/ for more complex example.
         # We are using a ModelForm, it is not mandatory
-
+        
         class Meta:
             model = form_model
             # fields = ['datavarchar', 'dataint']
+            debug = widgets_list
+            widgets = widgets_list
             exclude = ['uuid','datausername']
 
+        def __init__(self, *args, **kwargs):
+            super(CustomForm, self).__init__(*args, **kwargs)
+    debug = CustomForm(request)
     return CustomForm(request)
 
