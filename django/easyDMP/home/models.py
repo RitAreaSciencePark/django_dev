@@ -113,10 +113,12 @@ class SampleEntryForm(Page):
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
                         'errors': form.errors.values,
                     })
+                
+            uuidDmp = uuid4()
 
             for form in forms:
                     data = form.save(commit=False)
-                    data.uuid = uuid4()
+                    data.uuid = uuidDmp
                     data.datausername = username
                     data.save()
         

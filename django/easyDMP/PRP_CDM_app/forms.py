@@ -8,3 +8,9 @@ class FormsDefinition:
             Administration,
             lageSample,
         ]
+
+    class LameForm:
+        lab = 'LAME'
+        content = [
+            Administration,
+        ]

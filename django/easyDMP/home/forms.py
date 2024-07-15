@@ -50,6 +50,5 @@ def form_factory(form_model, widgets_list, request):
 
         def __init__(self, *args, **kwargs):
             super(CustomForm, self).__init__(*args, **kwargs)
-    debug = CustomForm(request)
     return CustomForm(request)
 

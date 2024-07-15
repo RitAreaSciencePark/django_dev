@@ -46,6 +46,7 @@ class lageSample(models.Model):
     uuid = models.CharField(max_length=37, primary_key=True, default=uuid4())
     datausername = models.CharField(max_length=50)
     sample_description = models.TextField(max_length=500)
+    
     type_of_sample_choices = (
         ("DNA","DNA"),
         ("RNA","RNA"),
@@ -67,7 +68,7 @@ class lageSample(models.Model):
     is_buffer_used = models.CharField(blank=True)
     widgets["is_buffer_used"] = MultiChoicheAndOtherWidget(choices=is_buffer_used_choices)
 
-    expected_date_of_delivery = models.DateField(blank=False)
+    expected_date_of_delivery = models.DateField(blank=True)
 
     is_quality_choices = (
         ("Yes","Yes"),
