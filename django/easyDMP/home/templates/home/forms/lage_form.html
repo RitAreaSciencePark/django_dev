@@ -4,7 +4,7 @@
 {% block body_class %}template-form{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms/lage_form.css' %}">
 
     <h1>{{ lab }} FORM</h1>
 
@@ -12,14 +12,33 @@
     {{ page.intro | richtext }}
 
     <form action="." method="POST">
-        
-        {% csrf_token %}
-        <i>email: </i>: {{ Administration.email }} <br>
-
-        Sample Description: <br>
-        {{ lageSample.sample_description }}
         <br>
-        {{ lageSample.type_of_sample }}
+        {% csrf_token %}
+        <h4><b> ADMINISTRATIVE INFORMATION </b></h4>
+        <br>
+        <div class="section_div">
+        </p>
+            <i>DMP Title*</i>: <br> {{ Administration.dmptitle }} <br> 
+            <i>Contact E-mail*</i>: <br> {{ Administration.email }} <br>
+            <i>What is your affiliation?</i>: <br> {{ Administration.affiliation }} <br>
+            <i>Please describe in a few words the experiment (max 500 characters)</i>: <br> {{ Administration.experimentabstract }} <br>
+        </p>
+        <br>
+        </div>
+        <h4><b> SAMPLE INFORMATION </b></h4>
+        <br>
+        <div class="section_div">
+            <p>
+            <i>Please give a general description of the samples you are providing to the laboratory (max 500 words) </i>:<br> {{ lageSample.sample_description }} <br> 
+            <i>Type of sample</i>: <br> {{ lageSample.type_of_sample }} <br>
+            <i>In the list of samples, have you included the volume expressed in µl? (if not, specify why)</i>: <br> {{ lageSample.is_volume_in_uL }} <br>
+            <i>In the list of samples, have you included the Buffer used? (if not, specify why)</i>: <br> {{ lageSample.is_buffer_used }} <br>
+            <i>Expected date of delivery ("YYYY-MM-DD")</i>: <br> {{ lageSample.expected_date_of_delivery }} <br>
+            <i>[Not Mandatory] In the list of samples, have you specified the quality (if available RIN in case of RNA, DIN in case of DNA,  and/or 260/280nm ratio)?</i>: <br> {{ lageSample.is_quality }} <br>
+            <i>only for scientific collaborations: do you want the rest of the sample back?</i>: {{ lageSample.sample_back }} <br>
+            </p>
+        </div>       
+                <br>
         
         <p><input type="submit" value="Insert data into external database"></p>
     </form>

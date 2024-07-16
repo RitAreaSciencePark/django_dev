@@ -165,7 +165,6 @@ class SampleEntryForm(Page):
 
 class SwitchLabPage(Page):
     intro = RichTextField(blank=True)
-
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
@@ -184,10 +183,13 @@ class SwitchLabPage(Page):
                 # In our example the routing takes care of the external db save
                 laboratory = form.cleaned_data.get('lab_selected')
                 request.session["lab_selected"] = laboratory
-                next = request.POST.get("next", "/")
-                return redirect(next)  # TODO: Not working as intended
+                try:
+                    return redirect(request.session["return_page"])  # TODO: Not working as intended
+                except:
+                    return redirect('/')
 
         else:
+            request.session["return_page"] = request.META['HTTP_REFERER']
             form = LabSwitchForm(user_labs=request.user.groups.all())
             
         renderPage = render(request, 'switch_lab.html', {

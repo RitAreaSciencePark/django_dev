@@ -31,6 +31,7 @@
         {% if request.user.is_authenticated %}
             {{ request.user.username }} | <a href="{{ current_site.root_url }}/logout">Logout</a>
             | {{ request.session.lab_selected }}
+            <input type="hidden" name="next" value="{{ request.path }}">
             | <a href="{{ current_site.root_url }}/switch-laboratory/">Switch Lab</a>
         {% else %}
             <a href="{{ current_site.root_url }}/login">Login</a>
