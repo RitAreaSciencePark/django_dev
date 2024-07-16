@@ -78,7 +78,6 @@ from django.forms.renderers import TemplatesSetting
 class CustomFormRenderer(TemplatesSetting):
     form_template_name= "easydmp/forms/div.html"
     field_template_name = "easydmp/forms/field.html"
-    multiwidget_template_name = "easydmp/forms/multiwidget.html"
 
 FORM_RENDERER = "easyDMP.settings.base.CustomFormRenderer"
 
@@ -87,8 +86,10 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(PROJECT_DIR, "templates"),
+            os.path.join(PROJECT_DIR, "templates/widgets"),
             # django.__path__[0] + "/forms/templates",
-            os.path.join("/app/django/django","forms/templates")
+            os.path.join("/app/django/django","forms/templates"),
+
         ],
         "APP_DIRS": True,
         "OPTIONS": {

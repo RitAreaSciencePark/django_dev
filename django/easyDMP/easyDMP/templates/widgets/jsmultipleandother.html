@@ -1,0 +1,23 @@
+{% for widget in widget.subwidgets %}
+{% include widget.template_name %}
+{% endfor %}
+
+<script>
+    function othervisible() {
+    var selection = document.getElementById("id_{{ widget.subwidgets.0.name }}");
+    var textbox = document.getElementById("id_{{ widget.subwidgets.1.name }}");
+    textbox.style.visibility = "hidden";
+
+    selection.addEventListener("change", function() {
+        if(selection.value == "Other")
+    {
+        textbox.style.visibility = "visible";
+    }   
+        else
+        {
+            textbox.style.visibility = "hidden";
+        }
+    });
+    };
+    othervisible();
+</script>

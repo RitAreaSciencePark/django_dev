@@ -8,6 +8,7 @@
 
     <h1>{{ lab }} FORM</h1>
 
+
     {{ page.intro | richtext }}
 
     <form action="." method="POST">
@@ -18,10 +19,7 @@
         Sample Description: <br>
         {{ lageSample.sample_description }}
         <br>
-        type of sample: {{ lageSample.type_of_sample.subwidgets.0 }}
-        <br>
-        if "other" is selected, explain what it is: 
-        <br>{{ lageSample.type_of_sample.subwidgets.1 }}
+        {{ lageSample.type_of_sample }}
         
         <p><input type="submit" value="Insert data into external database"></p>
     </form>

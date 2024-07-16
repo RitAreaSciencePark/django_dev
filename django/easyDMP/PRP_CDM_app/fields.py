@@ -1,7 +1,16 @@
 from django.db import models
 from django import forms
 
+# Not used for now
+class SelectWithOther(forms.widgets.Select):
+    template_name = "select.html"
+
+# Not used for now
+class JSText(forms.TextInput):
+    template_name = "jstext.html"
+
 class MultiChoicheAndOtherWidget(forms.MultiWidget):
+    template_name = "jsmultipleandother.html"   # TODO: check if this is vulnerable to injection (I think not), easydmp/widgets/...
 
     def __init__(self, choices):
         choices = choices+(('Other','Other'),)
