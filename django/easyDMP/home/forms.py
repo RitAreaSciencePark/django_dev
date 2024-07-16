@@ -18,7 +18,7 @@ class LabSwitchForm(forms.Form):
             self.fields['lab_selected'] = forms.ChoiceField(choices=self._defineChoices())
 
 # TODO: dynamic this
-def form_orchestrator(user_lab, request):
+def form_orchestrator(user_lab, request, filerequest):
     # lablist = [labform for labform in dir(FORMS()) if not labform.startswith("__")]
     if user_lab is None:
         return None # TODO manage this
@@ -31,11 +31,11 @@ def form_orchestrator(user_lab, request):
         for form_model in formClass.content:
             if hasattr(form_model, "widgets") and form_model.widgets is not None:
                 widgets_list = form_model.widgets
-            form_list.append(form_factory(form_model, widgets_list, request=request))
+            form_list.append(form_factory(form_model, widgets_list, request=request, filerequest=filerequest))
         return form_list
  
 
-def form_factory(form_model, widgets_list, request):
+def form_factory(form_model, widgets_list, request, filerequest):
     class CustomForm(forms.ModelForm):
 
         # see https://docs.djangoproject.com/en/1.9/topics/forms/ for more complex example.
@@ -50,5 +50,5 @@ def form_factory(form_model, widgets_list, request):
 
         def __init__(self, *args, **kwargs):
             super(CustomForm, self).__init__(*args, **kwargs)
-    return CustomForm(request)
+    return CustomForm(request,filerequest)
 

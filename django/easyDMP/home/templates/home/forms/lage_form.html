@@ -11,7 +11,7 @@
 
     {{ page.intro | richtext }}
 
-    <form action="." method="POST">
+    <form action="." method="POST" enctype="multipart/form-data">
         <br>
         {% csrf_token %}
         <h4><b> ADMINISTRATIVE INFORMATION </b></h4>
@@ -36,6 +36,9 @@
             <i>Expected date of delivery ("YYYY-MM-DD")</i>: <br> {{ lageSample.expected_date_of_delivery }} <br>
             <i>[Not Mandatory] In the list of samples, have you specified the quality (if available RIN in case of RNA, DIN in case of DNA,  and/or 260/280nm ratio)?</i>: <br> {{ lageSample.is_quality }} <br>
             <i>only for scientific collaborations: do you want the rest of the sample back?</i>: {{ lageSample.sample_back }} <br>
+           <br>
+           {{ lageSample.file_in }} 
+        
             </p>
         </div>       
                 <br>

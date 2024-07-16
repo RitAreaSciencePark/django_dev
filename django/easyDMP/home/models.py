@@ -102,7 +102,7 @@ class SampleEntryForm(Page):
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            forms = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST)
+            forms = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST, filerequest=request.FILES)
             for form in forms:
                 if not form.is_valid():
                     # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
@@ -117,6 +117,8 @@ class SampleEntryForm(Page):
             uuidDmp = uuid4()
 
             for form in forms:
+                    debug = request.FILES
+
                     data = form.save(commit=False)
                     data.uuid = uuidDmp
                     data.datausername = username
@@ -134,7 +136,7 @@ class SampleEntryForm(Page):
                     next = request.POST.get("next", "/switch-laboratory")
                     return redirect(next)
                 else:
-                    forms = form_orchestrator(user_lab=request.session['lab_selected'], request=None)
+                    forms = form_orchestrator(user_lab=request.session['lab_selected'], request=None, filerequest=None)
             except KeyError:
                 next = request.POST.get("next", "/switch-laboratory")
                 return redirect(next)

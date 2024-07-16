@@ -40,6 +40,8 @@ class Administration(models.Model):
     class Meta:
         db_table= 'administration'.lower()
 
+
+
 class lageSample(models.Model):
     widgets = {}
 
@@ -77,8 +79,9 @@ class lageSample(models.Model):
     is_quality = models.CharField(blank=True)
     widgets["is_quality"] = MultiChoicheAndOtherWidget(choices=is_quality_choices)
 
-    sample_back = models.BooleanField()
+    sample_back = models.BooleanField(blank=True)
 
+    file_in = models.FileField(blank=True, upload_to="uploads/")
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
