@@ -1,6 +1,8 @@
 from django import forms
 # This import point to the external app schema!
 from PRP_CDM_app.forms import FormsDefinition
+from PRP_CDM_app.models import labDMP
+from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
 
 class LabSwitchForm(forms.Form):
     user_labs = []
@@ -52,3 +54,17 @@ def form_factory(form_model, widgets_list, request, filerequest):
             super(CustomForm, self).__init__(*args, **kwargs)
     return CustomForm(request,filerequest)
 
+class DMPform(forms.ModelForm):
+
+        # see https://docs.djangoproject.com/en/1.9/topics/forms/ for more complex example.
+        # We are using a ModelForm, it is not mandatory
+        
+        class Meta:
+            model = labDMP
+            # fields = ['datavarchar', 'dataint']
+            widgets = {'instrument_metadata_collection': BooleanIfWhat(yes_or_no=True),
+                       'additional_enotebook_open_collection': BooleanIfWhat(yes_or_no=True),
+                       'sample_standard': BooleanIfWhat(yes_or_no=True),
+                       'metadata_schema_defined': BooleanIfWhat(yes_or_no=True),
+                       }
+            exclude = ['labname', 'datausername']

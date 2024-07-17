@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+
+    <h1>{{ lab }} DMP</h1>
+
+    {{ page.intro | richtext }}
+
+    <form action="." method="POST">
+        {% csrf_token %}
+        {{ data.as_p }}
+        
+        <p><input type="submit" value="Insert data into external database"></p>
+    </form>
+
+
+
+{% endblock %}
+

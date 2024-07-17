@@ -16,9 +16,9 @@ from django.db import connections
 
 from django.contrib.auth.models import User
 
-from .forms import form_orchestrator, LabSwitchForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform
 
-from PRP_CDM_app.models import Administration
+from PRP_CDM_app.models import labDMP
 from django.template.loader import render_to_string
 
 from os import listdir
@@ -111,13 +111,12 @@ class SampleEntryForm(Page):
                     return render(request, 'home/error_page.html', {
                         'page': self,
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values,
+                        'errors': form.errors.values, # TODO: improve this
                     })
                 
             uuidDmp = uuid4()
 
             for form in forms:
-                    debug = request.FILES                    
                     data = form.save(commit=False)
                     data.uuid = uuidDmp
                     data.datausername = username
@@ -200,3 +199,64 @@ class SwitchLabPage(Page):
             })
         return renderPage
 
+class DMPPage(Page):
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        
+        try:
+            if(request.session['lab_selected'] is None):
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+        except KeyError:
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = DMPform(data=request.POST)
+            if form.is_valid():
+                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                # In our example the routing takes care of the external db save
+                data = form.save(commit=False)
+                data.labname = request.session["lab_selected"]
+                data.datausername = username
+                data.save()
+                return render(request, 'home/labdmp_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': form,
+                    'lab': request.session['lab_selected'],
+                })
+        else:
+            try:
+                debug = labDMP.objects.all()
+                if labDMP.objects.get(pk=request.session["lab_selected"]) is not None:
+                    form = DMPform(instance=labDMP.objects.get(pk=request.session["lab_selected"]))
+                else:
+                    form = DMPform()
+            except:
+                form = DMPform()
+
+
+            
+        return render(request, 'home/labdmp_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+                'lab': request.session['lab_selected'],
+            })

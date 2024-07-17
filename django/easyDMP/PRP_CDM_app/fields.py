@@ -36,3 +36,41 @@ class MultiChoicheAndOtherWidget(forms.MultiWidget):
         context = self.get_context(name, value, attrs)
         return context['widget']['subwidgets']
     
+class BooleanIfWhat(forms.MultiWidget):
+    template_name = "jsbooleanifwhat.html"   # TODO: check if this is vulnerable to injection (I think not), easydmp/widgets/...
+    yes_or_no = False
+
+    def __init__(self, yes_or_no):
+        widgets = [
+            forms.CheckboxInput(),
+            forms.TextInput(attrs={'placeholder':'...'}),
+        ]
+        self.yes_or_no = yes_or_no
+        super(BooleanIfWhat, self).__init__(widgets)
+
+    def decompress(self, value):
+        if not value:
+            return [None, None]
+        return value
+
+    def value_from_datadict(self, data, files, name):
+        value1, value2 = super().value_from_datadict(data, files, name)
+        if(value1 == self.yes_or_no):
+            if(self.yes_or_no):
+                return 'Yes: {}'.format(value2)
+            else:
+                return 'No: {}'.format(value2)
+        else:
+            if(not self.yes_or_no):
+                return 'No'
+            else:
+                return 'Yes'
+    
+    def subwidgets(self, name, value, attrs=None):
+        context = self.get_context(name, value, attrs)
+        return context['widget']['subwidgets']
+    
+    def get_context(self, name, value, attrs):
+        attrs['yes_or_no'] = self.yes_or_no
+        context = super().get_context(name, value, attrs)
+        return context
