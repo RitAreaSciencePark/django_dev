@@ -17,6 +17,8 @@ from .fields import MultiChoicheAndOtherWidget
 #     test = models.CharField(choices=test_choices)
 
 
+
+
 class CustomAppModel(models.Model):
     # If you don't put an explicit primary_key an autoincrement id will be used instead
     # TODO: foreign keys
@@ -81,7 +83,17 @@ class lageSample(models.Model):
 
     sample_back = models.BooleanField(blank=True)
 
-    file_in = models.FileField(blank=True, upload_to="uploads/")
+    def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+        return 'uploads/{0}/{1}/{2}'.format(instance.datausername, instance.uuid, filename)
+
+    samplesheet_file = models.FileField(blank=True, upload_to=user_directory_path)
+
+    additional_files = models.FileField(blank=True, upload_to=user_directory_path)
+
+
+
+
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:

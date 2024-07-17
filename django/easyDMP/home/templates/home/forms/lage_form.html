@@ -37,10 +37,17 @@
             <i>[Not Mandatory] In the list of samples, have you specified the quality (if available RIN in case of RNA, DIN in case of DNA,  and/or 260/280nm ratio)?</i>: <br> {{ lageSample.is_quality }} <br>
             <i>only for scientific collaborations: do you want the rest of the sample back?</i>: {{ lageSample.sample_back }} <br>
            <br>
-           {{ lageSample.file_in }} 
         
             </p>
-        </div>       
+        </div> 
+        <h4><b> FILES </b></h4>
+        <div class="section_div">
+            <p>
+                <i>Include the sample sheet if present</i>:   {{ lageSample.samplesheet_file }} <br>
+                <i>Include additional file: <br> (FOR THIS VERSION OF EASYDMP: if more than one compress the files in a single zip or tar format)</i>   {{ lageSample.additional_files }} 
+
+            </p>
+        </div>     
                 <br>
         
         <p><input type="submit" value="Insert data into external database"></p>

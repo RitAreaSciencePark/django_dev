@@ -117,8 +117,7 @@ class SampleEntryForm(Page):
             uuidDmp = uuid4()
 
             for form in forms:
-                    debug = request.FILES
-
+                    debug = request.FILES                    
                     data = form.save(commit=False)
                     data.uuid = uuidDmp
                     data.datausername = username
