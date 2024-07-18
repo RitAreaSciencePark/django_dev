@@ -2,26 +2,35 @@
 {% include widget.template_name %}
 {% endfor %}
 <script>
-    function othervisible() {
-    var selection = document.getElementById("id_{{ widget.subwidgets.0.name }}");
-    var textbox = document.getElementById("id_{{ widget.subwidgets.1.name }}");
-    var yes_or_no = "{{ widget.attrs.yes_or_no }}"
-    if(yes_or_no == "True")
-        textbox.style.visibility = "hidden";
-    else
-        textbox.style.visibility = "visible";
-
-
-    selection.addEventListener("change", function() {
-        if((selection.checked && yes_or_no == "True")||(!selection.checked && yes_or_no == "False"))
-    {
-        textbox.style.visibility = "visible";
-    }   
+    function makevisible(sel,textb, yn) {
+        if((sel.checked && yn == "True")||(!sel.checked && yn == "False"))
+        {
+            textb.style.visibility = "visible";
+        }   
         else
         {
-            textbox.style.visibility = "hidden";
+            textb.style.visibility = "hidden";
         }
-    });
-    };
+        
+    }
+
+    function othervisible() {
+        var selection = document.getElementById("id_{{ widget.subwidgets.0.name }}");
+        var textbox = document.getElementById("id_{{ widget.subwidgets.1.name }}");
+        var yes_or_no = "{{ widget.attrs.yes_or_no }}"
+        if(yes_or_no == "True")
+            textbox.style.visibility = "hidden";
+        else
+            textbox.style.visibility = "visible";
+        
+        makevisible(selection,textbox,yes_or_no);
+
+
+        selection.addEventListener("change", function() {
+            makevisible(selection,textbox,yes_or_no);
+            });
+        };
+
+    
     othervisible();
 </script>

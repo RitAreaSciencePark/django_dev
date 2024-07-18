@@ -85,15 +85,15 @@ class lageSample(models.Model):
 
 
 class labDMP(models.Model):
-    labname = models.CharField(max_length=50, primary_key=True)
+    labname = models.CharField(max_length=128, primary_key=True)
     datausername = models.CharField(max_length=50)
     # 'A) Do you collect all the metadata produced by your instruments?',3)
-    instrument_metadata_collection =  models.CharField(blank=True)
+    instrument_metadata_collection =  models.CharField(max_length=128,blank=True)
 
     # 'B) Do you collect additional metadata by an open source laboratory notebook?',3)
-    additional_enotebook_open_collection = models.CharField(blank=True)
+    additional_enotebook_open_collection = models.CharField(max_length=128,blank=True)
     # 'C) Do you use a well defined standard to name your samples?',3)
-    sample_standard = models.CharField(blank=True)
+    sample_standard = models.CharField(max_length=128,blank=True)
     # 'D) Do you use a well defined metadata schema and format?',3)
     metadata_schema_defined = models.CharField(blank=True) # TODO: IF YES WICH ONE (do the widget)
     # 'III Publication phase',1)

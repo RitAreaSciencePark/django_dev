@@ -251,8 +251,9 @@ class DMPPage(Page):
 
         else:
             try:
-                debug = labDMP.objects.all()
+                debug = labDMP.objects.get(pk=request.session["lab_selected"])
                 if labDMP.objects.get(pk=request.session["lab_selected"]) is not None:
+                    debug = DMPform(instance=labDMP.objects.get(pk=request.session["lab_selected"]))
                     form = DMPform(instance=labDMP.objects.get(pk=request.session["lab_selected"]))
                 else:
                     form = DMPform()

@@ -51,7 +51,10 @@ class BooleanIfWhat(forms.MultiWidget):
     def decompress(self, value):
         if not value:
             return [None, None]
-        return value
+        if value[:3] == 'Yes':
+            return [True,value[5:]]
+        else:
+            return [False,value[5:]]
 
     def value_from_datadict(self, data, files, name):
         value1, value2 = super().value_from_datadict(data, files, name)
@@ -61,7 +64,7 @@ class BooleanIfWhat(forms.MultiWidget):
             else:
                 return 'No: {}'.format(value2)
         else:
-            if(not self.yes_or_no):
+            if(self.yes_or_no):
                 return 'No'
             else:
                 return 'Yes'
