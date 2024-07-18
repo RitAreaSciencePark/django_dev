@@ -242,6 +242,13 @@ class DMPPage(Page):
                     'data': form,
                     'lab': request.session['lab_selected'],
                 })
+            else:
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
         else:
             try:
                 debug = labDMP.objects.all()
@@ -249,7 +256,8 @@ class DMPPage(Page):
                     form = DMPform(instance=labDMP.objects.get(pk=request.session["lab_selected"]))
                 else:
                     form = DMPform()
-            except:
+            except Exception as e:
+                debug = e
                 form = DMPform()
 
 

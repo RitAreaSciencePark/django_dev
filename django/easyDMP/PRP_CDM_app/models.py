@@ -58,26 +58,16 @@ class lageSample(models.Model):
     type_of_sample = models.CharField(blank=True)
     widgets["type_of_sample"] = MultiChoicheAndOtherWidget(choices=type_of_sample_choices)
 
-    is_volume_in_uL_choices = (
-        ("Yes","Yes"),
-    )
     is_volume_in_uL = models.CharField(blank=True)
-    widgets["is_volume_in_uL"] = MultiChoicheAndOtherWidget(choices=is_volume_in_uL_choices)
+    widgets["is_volume_in_uL"] = BooleanIfWhat(yes_or_no=False)
 
-    is_buffer_used_choices = (
-        ("Yes","Yes"),
-    )
     is_buffer_used = models.CharField(blank=True)
-    widgets["is_buffer_used"] = MultiChoicheAndOtherWidget(choices=is_buffer_used_choices)
+    widgets["is_buffer_used"] = BooleanIfWhat(yes_or_no=False)
 
     expected_date_of_delivery = models.DateField(blank=True)
-
-    is_quality_choices = (
-        ("Yes","Yes"),
-    )
     
     is_quality = models.CharField(blank=True)
-    widgets["is_quality"] = MultiChoicheAndOtherWidget(choices=is_quality_choices)
+    widgets["is_quality"] = BooleanIfWhat(yes_or_no=False)
 
     sample_back = models.BooleanField(blank=True)
 
@@ -97,52 +87,51 @@ class lageSample(models.Model):
 class labDMP(models.Model):
     labname = models.CharField(max_length=50, primary_key=True)
     datausername = models.CharField(max_length=50)
-    datageneric = models.CharField(max_length=128)
     # 'A) Do you collect all the metadata produced by your instruments?',3)
-    instrument_metadata_collection =  models.CharField()
+    instrument_metadata_collection =  models.CharField(blank=True)
 
     # 'B) Do you collect additional metadata by an open source laboratory notebook?',3)
-    additional_enotebook_open_collection = models.CharField()
+    additional_enotebook_open_collection = models.CharField(blank=True)
     # 'C) Do you use a well defined standard to name your samples?',3)
-    sample_standard = models.CharField()
+    sample_standard = models.CharField(blank=True)
     # 'D) Do you use a well defined metadata schema and format?',3)
-    metadata_schema_defined = models.CharField() # TODO: IF YES WICH ONE (do the widget)
+    metadata_schema_defined = models.CharField(blank=True) # TODO: IF YES WICH ONE (do the widget)
     # 'III Publication phase',1)
     # 'All the answers below have to be understood in the PRP project context, that is the implementations required by the project are developing the scenario described below.')
     # '1. Data and metadata publication',2)
     # 'A) Will data and related metadata be published on an open and trusted repository with a d.o.i.?',3)
-    open_trusted_repo_published_data = models.CharField()
+    open_trusted_repo_published_data = models.BooleanField(blank=True)
     # 'B) Will published processed data and related metadata be licensed?',3)
-    open_data_licence = models.CharField()
+    open_data_licence = models.CharField(blank=True)
 
     # '2. Scientific publications',2)
     # 'A) Will any scientific publication arising from data and related metadata be published on an open access peer review journal or uploaded on an open access repository?',3)
-    open_access_journal_publication = models.CharField()
+    open_access_journal_publication = models.BooleanField(blank=True)
 
     # B) Will any scientific publication have a clear data provenance?',3)
-    clear_data_provenance = models.CharField()
+    clear_data_provenance = models.BooleanField(blank=True)
 
     # 'C) Will any scientific output related to data such as presentation or posters be open access registered with a d.o.i.?',3)
-    related_data_open = models.CharField()
+    related_data_open = models.BooleanField(blank=True)
 
     # 'D) Will scientific publication or any other scientific document (presentation, poster, etc.) be licensed?',3)
-    licence_scientific_documents = models.CharField()
+    licence_scientific_documents = models.BooleanField(blank=True)
 
     # 'IV Data and Metadata storage and preservation',1)
     # '1. Storage',2)
     # 'A) Where will raw data  be stored ?',3)
-    raw_data_storage_location = models.CharField()
+    raw_data_storage_location = models.CharField(blank=True)
 
     # 'B) How long will raw data be preserved ?',3)
-    raw_data_storage_time_retention = models.CharField()
+    raw_data_storage_time_retention = models.CharField(blank=True)
 
 
     # '2. Backups',2)
     # 'A) Which backup policy will be applied to published data or raw data related to published data?',3)
-    backup_policy_published_data = models.CharField()
+    backup_policy_published_data = models.CharField(blank=True)
 
     # 'B) Which backup policy will be applied to not published data or raw data not related to published data?',3)
-    backup_policy_unplublished_data = models.CharField()
+    backup_policy_unplublished_data = models.CharField(blank=True)
 
     class Meta:
         db_table= 'labdmp'.lower()

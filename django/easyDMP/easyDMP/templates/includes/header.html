@@ -10,34 +10,33 @@
         {% image settings.home.HeaderSettings.prp_icon fill-250x100 %}
     </div>
     <div class="header_nav_block">
-    <nav>
-        <p>
-        <a href="{% pageurl site_root %}">Home</a>
-        {% for menuitem in site_root.get_children.live.in_menu.public %}
-            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+        <nav class="header_nav">
+            <p>
+            <a href="{% pageurl site_root %}">Home</a>
+            {% for menuitem in site_root.get_children.live.in_menu.public %}
+                <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
 
-        {% endfor %}
-        {% if request.user.is_authenticated %}
-        {% for menuitem in site_root.get_children.live.in_menu.private %}
-            |
-            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+            {% endfor %}
+            {% if request.user.is_authenticated %}
+            {% for menuitem in site_root.get_children.live.in_menu.private %}
+                |
+                <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
 
-        {% endfor %}
-        {% endif %}
-        </p>
-    </nav>
-    <div class="header_login">
-        <p> 
-        {% if request.user.is_authenticated %}
-            {{ request.user.username }} | <a href="{{ current_site.root_url }}/logout">Logout</a>
-            | {{ request.session.lab_selected }}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            | <a href="{{ current_site.root_url }}/switch-laboratory/">Switch Lab</a>
-        {% else %}
-            <a href="{{ current_site.root_url }}/login">Login</a>
-        {% endif %}
-
-    </p>
+            {% endfor %}
+            {% endif %}
+            </p>
+        </nav>
+        <div class="header_login">
+            <p> 
+            {% if request.user.is_authenticated %}
+                {{ request.user.username }} | <a href="{{ current_site.root_url }}/logout">Logout</a>
+                | {{ request.session.lab_selected }}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                | <a href="{{ current_site.root_url }}/switch-laboratory/">Switch Lab</a>
+            {% else %}
+                <a href="{{ current_site.root_url }}/login">Login</a>
+            {% endif %}
+            </p>
     </div>
 </div>
 

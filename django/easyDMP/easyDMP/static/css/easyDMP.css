@@ -14,16 +14,17 @@ a {
   color: currentColor;
 }
 
-.header_logo_block {
-  display: flex;
-  position: left;
-}
 
 .header_nav_block {
+  display: block;
   text-align: right;
-  padding-right: 100px;
-  padding-top: 50px;
-  width: 400px;
+  padding-top: 30px;
+  max-width: 550px;
+}
+
+.header_logo_block {
+  display: block;
+  width: 250px;
 }
 
 
@@ -31,6 +32,7 @@ header {
   columns: 2;
   border-bottom: 2px dotted;
   height: fit-content;
+  width: 800px;
 }
 
 .template-homepage main {

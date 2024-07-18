@@ -66,5 +66,6 @@ class DMPform(forms.ModelForm):
                        'additional_enotebook_open_collection': BooleanIfWhat(yes_or_no=True),
                        'sample_standard': BooleanIfWhat(yes_or_no=True),
                        'metadata_schema_defined': BooleanIfWhat(yes_or_no=True),
+                       'open_data_licence':BooleanIfWhat(yes_or_no=True),
                        }
             exclude = ['labname', 'datausername']
