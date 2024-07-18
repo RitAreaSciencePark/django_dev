@@ -18,13 +18,15 @@ from django.contrib.auth.models import User
 
 from .forms import form_orchestrator, LabSwitchForm, DMPform
 
-from PRP_CDM_app.models import labDMP
+from PRP_CDM_app.models import labDMP, Administration
 from django.template.loader import render_to_string
 
 from os import listdir
 from os.path import isfile,join,dirname
 
 from uuid import uuid4
+
+    
 
 @register_setting
 class HeaderSettings(BaseGenericSetting):
@@ -173,7 +175,6 @@ class SwitchLabPage(Page):
         if request.user.is_authenticated:
             username = request.user.username
 
-
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
             form = LabSwitchForm(data=request.POST, user_labs=request.user.groups.all())
@@ -187,7 +188,6 @@ class SwitchLabPage(Page):
                     return redirect(request.session["return_page"])  # TODO: Not working as intended
                 except:
                     return redirect('/')
-
         else:
             request.session["return_page"] = request.META['HTTP_REFERER']
             form = LabSwitchForm(user_labs=request.user.groups.all())
@@ -219,9 +219,11 @@ class DMPPage(Page):
         
         try:
             if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
                 next = request.POST.get("next", "/switch-laboratory")
                 return redirect(next)
         except KeyError:
+            request.session["return_page"] = request.META['HTTP_REFERER']
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
 
@@ -251,14 +253,11 @@ class DMPPage(Page):
 
         else:
             try:
-                debug = labDMP.objects.get(pk=request.session["lab_selected"])
                 if labDMP.objects.get(pk=request.session["lab_selected"]) is not None:
-                    debug = DMPform(instance=labDMP.objects.get(pk=request.session["lab_selected"]))
                     form = DMPform(instance=labDMP.objects.get(pk=request.session["lab_selected"]))
                 else:
                     form = DMPform()
-            except Exception as e:
-                debug = e
+            except Exception as e: # TODO Properly catch this
                 form = DMPform()
 
 
@@ -269,3 +268,66 @@ class DMPPage(Page):
                 'data': form,
                 'lab': request.session['lab_selected'],
             })
+
+class DMPSearchPage(Page):
+    intro = RichTextField(blank=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        
+        try: # TODO: optimize this
+            if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+        except KeyError:
+            request.session["return_page"] = request.META['HTTP_REFERER']
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
+        
+        data = Administration.objects.filter(labname=request.session['lab_selected'])
+        return render(request, 'home/dmp_search.html', {
+            'page': self,
+            'data': data,
+        })
+
+class DMPViewPage(Page):
+    intro = RichTextField(blank=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        
+        try: # TODO: optimize this
+            if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+        except KeyError: # TODO: Fix the HTTP_REFERER Not present! 
+            request.session["return_page"] = request.META['HTTP_REFERER']
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
+        
+        if request.method == 'POST':
+            data = Administration.objects.get(pk=request.POST.get('uuid'))
+            request.session["uuid_selected"] = request.POST.get('uuid')
+            return render(request, 'home/dmp_view.html', {
+                'page': self,
+                'data': data,
+            })
+        else:
+            try:
+                data = Administration.objects.get(pk=request.session["uuid_selected"])
+                return render(request, 'home/dmp_view.html', {
+                    'page': self,
+                    'data': data,
+                })
+            except:
+                return redirect('/')

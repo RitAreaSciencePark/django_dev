@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags%}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+{% for cdata in data.get_fields %}
+    {{ cdata }}
+{% endfor %}
+
+
+{{ data.datausername }} <br>
+{{ data.email }} <br>
+{{ data.uuid }} <br>
+{{ data.lab }} <br>
+{% endblock %}
+

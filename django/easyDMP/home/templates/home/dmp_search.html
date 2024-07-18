@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags%}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+
+
+    <table>
+    <tr>
+        <th align="left">uuid</th>
+        <th align="left">email</th>
+        <th align="left">abstract</th>
+    </tr>
+    {% for cdata in data %}
+    <tr>
+        <td align="left">{{ cdata.email }}</td>
+        <td align="left">{{ cdata.datausername }}</td>
+        <td align="left">{{ cdata.experimentabstract }}</td>
+        <td align="left"><form action="/dmp-view/" method="post">
+            {% csrf_token %}
+            <button type="submit" name="uuid" value="{{ cdata.uuid }}" class="button-link">view</button>
+        </form></td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+

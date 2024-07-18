@@ -48,7 +48,7 @@ def form_factory(form_model, widgets_list, request, filerequest):
             # fields = ['datavarchar', 'dataint']
             debug = widgets_list
             widgets = widgets_list
-            exclude = ['uuid','datausername']
+            exclude = ['uuid','datausername','labname']
 
         def __init__(self, *args, **kwargs):
             super(CustomForm, self).__init__(*args, **kwargs)

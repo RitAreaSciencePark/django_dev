@@ -32,6 +32,7 @@ class CustomAppModel(models.Model):
 
 class Administration(models.Model):
     uuid = models.CharField(max_length=37, primary_key=True, default=uuid4())
+    labname = models.CharField(max_length=50)
     dmptitle = models.CharField(max_length=128, blank=True)
     datausername = models.CharField(max_length=50)
     email = models.CharField(max_length=128, blank=True)
