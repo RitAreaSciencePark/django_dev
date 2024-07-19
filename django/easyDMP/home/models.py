@@ -25,6 +25,9 @@ from os import listdir
 from os.path import isfile,join,dirname
 
 from uuid import uuid4
+from PRP_CDM_app.reports import ReportDefinition
+from django.forms.models import model_to_dict
+
 
     
 
@@ -152,7 +155,7 @@ class SampleEntryForm(Page):
         pageDict['forms'] = forms
         formlist =[]
         # return the form page, with the form as data.
-        # TODO: while settings is correct, find another softcoded path!!
+        # TODO: while using settings is correct, create/find another softcoded var!!
         try:
             home_path = settings.PROJECT_DIR[:len(settings.PROJECT_DIR)-7]
             abs_path = join(home_path,"home/templates/home/forms/")
@@ -315,19 +318,53 @@ class DMPViewPage(Page):
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
         
+        def pkSelection(modelTable, pk):
+            return modelTable.objects.get(pk=pk)
+        
+        def reportOrchestrator(user_lab):
+        # lablist = [labform for labform in dir(FORMS()) if not labform.startswith("__")]
+            if user_lab is None:
+                return None # TODO manage this
+            else:
+                # this block checks the class names into FormsDefinition to create the forms
+                reportClass = getattr(ReportDefinition,user_lab.title() + "Report")
+                return reportClass.content
+        
+        reportList = []
         if request.method == 'POST':
-            data = Administration.objects.get(pk=request.POST.get('uuid'))
-            request.session["uuid_selected"] = request.POST.get('uuid')
-            return render(request, 'home/dmp_view.html', {
-                'page': self,
-                'data': data,
-            })
+            for report in reportOrchestrator(user_lab=request.session['lab_selected']):
+                reportList.append(pkSelection(modelTable=report, pk=request.POST.get('uuid')))
         else:
             try:
-                data = Administration.objects.get(pk=request.session["uuid_selected"])
-                return render(request, 'home/dmp_view.html', {
-                    'page': self,
-                    'data': data,
-                })
+                for report in reportOrchestrator(user_lab=request.session['lab_selected']):
+                    reportList.append(pkSelection(modelTable=report, pk=request.session["uuid_selected"]))
             except:
                 return redirect('/')
+
+
+
+        pageDict = {
+            'page': self,
+            'lab': request.session['lab_selected'],
+            }
+
+        reports = {}
+        for fields in reportList:
+            pageDict[type(fields).__name__] = (model_to_dict(fields))
+            reports[type(fields).__name__] = (model_to_dict(fields))
+        
+        pageDict['reports'] = reports
+
+        # return the form page, with the form as data.
+        # TODO: while using settings is correct, create/find another softcoded var!!
+        try:
+            home_path = settings.PROJECT_DIR[:len(settings.PROJECT_DIR)-7]
+            abs_path = join(home_path,"home/templates/home/reports/")
+            reportlist = [f for f in listdir(abs_path)]
+        except Exception as e:
+            e # TODO: properly catch this
+
+        for reportTemplate in reportlist:
+            if pageDict['lab'].lower() in reportTemplate:
+                return render(request, 'home/reports/' + reportTemplate, pageDict)
+        return render(request, 'home/generic_dmp_view.html', pageDict)
