@@ -12,5 +12,8 @@ input[type="text"] {
 
 input[type="submit"] {
     float: right;
-    
+}
+
+textarea {
+    width: 400px;
 }

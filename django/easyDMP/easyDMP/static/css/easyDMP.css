@@ -16,7 +16,7 @@ a {
 
 
 .header_nav_block {
-  display: block;
+  display: flexbox;
   text-align: right;
   padding-top: 30px;
   max-width: 550px;
@@ -27,12 +27,17 @@ a {
   width: 250px;
 }
 
+.header_nav {
+  display: block;
+  width: fit-content;
+}
+
 
 header {
-  columns: 2;
+  display: flex;
   border-bottom: 2px dotted;
   height: fit-content;
-  width: 800px;
+  width: auto;
 }
 
 .template-homepage main {
