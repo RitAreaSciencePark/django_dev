@@ -16,8 +16,10 @@ a {
 
 
 .header_nav_block {
-  display: flexbox;
+  display: block;
   text-align: right;
+  float: right;
+  margin-left: auto;
   padding-top: 30px;
   max-width: 550px;
 }
@@ -37,7 +39,7 @@ header {
   display: flex;
   border-bottom: 2px dotted;
   height: fit-content;
-  width: auto;
+  width: 800px;
 }
 
 .template-homepage main {
