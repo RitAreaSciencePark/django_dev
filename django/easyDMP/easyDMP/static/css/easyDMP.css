@@ -3,15 +3,22 @@ html {
 }
 
 body {
+  border-style: outset;
+  border-width: 5px;
   min-height: 100vh;
   max-width: 800px;
   margin: 0 auto;
   padding: 10px;
   display: grid;
+  background-color: rgb(218, 248, 242);
+  overflow: auto;
 }
 
 a {
-  color: currentColor;
+  color: blue;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold
 }
 
 
@@ -20,7 +27,9 @@ a {
   text-align: right;
   float: right;
   margin-left: auto;
+  margin-right: 10px;
   padding-top: 30px;
+  padding-bottom: 10px;
   max-width: 550px;
 }
 
@@ -40,10 +49,13 @@ header p{
 }
 
 header {
+  border-style: outset;
+  border-width: 5px;
+  margin: 0 auto;
   display: flex;
-  border-bottom: 2px dotted;
+  <!-- border-bottom: 4px dotted; -->
   height: fit-content;
-  width: 800px;
+  width: fit-content;
 }
 
 .template-homepage main {
@@ -54,14 +66,14 @@ footer {
   display: flex;
   columns: 2;  
   text-align: center;
-  border-top: 2px dotted;
   height: fit-content;
-  min-height: 10px;
+  min-height: 20px;
+  overflow: auto;
   
 }
 
 .footer_block {
-  padding-right: 50px;
+  padding-right: 80px;
 }
 
 
