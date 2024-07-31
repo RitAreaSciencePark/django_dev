@@ -1,24 +1,30 @@
 html {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif, Apple Color Emoji, "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-image: url(background_prp.jpg) ;
+  background-size: cover;
 }
 
+
 body {
-  border-style: outset;
+  border-style: solid;
+  border-color: rgb(247, 245, 245);
   border-width: 5px;
   min-height: 100vh;
   max-width: 800px;
   margin: 0 auto;
   padding: 10px;
   display: grid;
-  background-color: rgb(218, 248, 242);
+  background-color: rgb(196, 234, 248);
   overflow: auto;
+  
 }
 
 a {
   color: blue;
   font-family: sans-serif;
   font-size: 20px;
-  font-weight: bold
+  font-weight: bold;
+  text-decoration: none;
 }
 
 
@@ -26,7 +32,7 @@ a {
   display: block;
   text-align: right;
   float: right;
-  margin-left: auto;
+  margin-left: 10px;
   margin-right: 10px;
   padding-top: 30px;
   padding-bottom: 10px;
@@ -49,17 +55,23 @@ header p{
 }
 
 header {
-  border-style: outset;
-  border-width: 5px;
-  margin: 0 auto;
+  border-style: double;
+  border-width: 1px;
+  border-color: rgb(7, 67, 120);
+  margin:  0 auto;
   display: flex;
   <!-- border-bottom: 4px dotted; -->
   height: fit-content;
   width: fit-content;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: sans-serif;
+  background-color: rgb(218, 248, 242);
 }
 
 .template-homepage main {
   text-align: center;
+  background-color: rgb(218, 248, 242);
 }
 
 footer {
@@ -74,6 +86,13 @@ footer {
 
 .footer_block {
   padding-right: 80px;
+}
+
+
+h1 {
+  color: black;
+  font-size: 5 px;
+  padding: 10px 15px;
 }
 
 
