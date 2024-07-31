@@ -1,5 +1,5 @@
 html {
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 *,
@@ -24,12 +24,11 @@ body {
 
 a {
     background-color: transparent;
-    color: #308282;
-    text-decoration: underline;
+    color: #823030d3;
 }
 
 a:hover {
-    color: #ea1b10;
+    color: #04031c;
 }
 
 h1,
