@@ -30,17 +30,24 @@ def form_orchestrator(user_lab, request, filerequest):
     else:
         # this block checks the class names into FormsDefinition to create the forms
         formClass = getattr(FormsDefinition,user_lab.title() + "Form")
+        if hasattr(formClass, "exclude") and formClass.exclude is not None:
+            for formdef, values in formClass.exclude.items():
+                pass
+
         form_list = []
         # this block checks if there are some special field names to override the widgets
         widgets_list = {}
         for form_model in formClass.content:
+            debug = form_model.__name__
+            if hasattr(formClass, "exclude") and formClass.exclude is not None:
+                exclude = formClass.exclude[form_model.__name__]
             if hasattr(form_model, "widgets") and form_model.widgets is not None:
                 widgets_list = form_model.widgets
-            form_list.append(form_factory(form_model, widgets_list, request=request, filerequest=filerequest))
+            form_list.append(form_factory(form_model, widgets_list, request=request, filerequest=filerequest, exclude_list=exclude))
         return form_list
  
 
-def form_factory(form_model, widgets_list, request, filerequest):
+def form_factory(form_model, widgets_list, request, filerequest, exclude_list):
     class CustomForm(forms.ModelForm):
 
         # see https://docs.djangoproject.com/en/1.9/topics/forms/ for more complex example.
@@ -51,7 +58,7 @@ def form_factory(form_model, widgets_list, request, filerequest):
             # fields = ['datavarchar', 'dataint']
             debug = widgets_list
             widgets = widgets_list
-            exclude = ['uuid','datausername','labname']
+            exclude = exclude_list
 
         def __init__(self, *args, **kwargs):
             super(CustomForm, self).__init__(*args, **kwargs)

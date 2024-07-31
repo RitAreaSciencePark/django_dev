@@ -16,9 +16,10 @@
         <td align="left">{{ cdata.email }}</td>
         <td align="left">{{ cdata.datausername }}</td>
         <td align="left">{{ cdata.experimentabstract }}</td>
+        <td align="left">{{ cdata.sr_id }}</td>
         <td align="left"><form action="/dmp-view/" method="post">
             {% csrf_token %}
-            <button type="submit" name="uuid" value="{{ cdata.uuid }}" class="button-link">view</button>
+            <button type="submit" name="sr_id" value="{{ cdata.sr_id }}" class="button-link">view</button>
         </form></td>
     </tr>
     {% endfor %}

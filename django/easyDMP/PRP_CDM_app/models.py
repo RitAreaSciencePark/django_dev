@@ -59,7 +59,7 @@ class Users(models.Model):
 
 class ServiceRequests(models.Model):
     widgets = {}
-    sr_id = models.CharField(max_length=37, primary_key=True)
+    sr_id = models.CharField(max_length=37, primary_key=True) # FK
     user_id = models.CharField(max_length=37) # FK table users
     lab_id = models.CharField(max_length=37) # FK table laboratories
     sr_status = models.CharField(default='draft')
@@ -205,14 +205,11 @@ class Questions(models.Model):
     class Meta:
         db_table= 'questions'.lower()
 
-
-
-
 class Administration(models.Model):
-    uuid = models.CharField(max_length=37, primary_key=True, default=uuid4())
-    labname = models.CharField(max_length=50)
+    sr_id = models.CharField(max_length=37, primary_key=True, default=uuid4())
+    lab_id = models.CharField(max_length=50)
     dmptitle = models.CharField(max_length=128, blank=True)
-    datausername = models.CharField(max_length=50)
+    user_id = models.CharField(max_length=50)
     email = models.CharField(max_length=128, blank=True)
     affiliation = models.CharField(max_length=128, blank=True)
     experimentabstract = models.TextField(max_length=500, blank=True)
@@ -224,8 +221,8 @@ class Administration(models.Model):
 class lageSample(models.Model):
     widgets = {}
 
-    uuid = models.CharField(max_length=37, primary_key=True, default=uuid4())
-    datausername = models.CharField(max_length=50)
+    sr_id = models.CharField(max_length=37, primary_key=True, default=uuid4())
+    user_id = models.CharField(max_length=50)
     sample_description = models.TextField(max_length=500)
     
     type_of_sample_choices = (
@@ -236,6 +233,8 @@ class lageSample(models.Model):
     )
     type_of_sample = models.CharField(blank=True)
     widgets["type_of_sample"] = MultiChoicheAndOtherWidget(choices=type_of_sample_choices)
+    
+    instrument = models.ForeignKey(Instruments, blank=True, on_delete=models.CASCADE, null=True)
 
     is_volume_in_uL = models.CharField(blank=True)
     widgets["is_volume_in_uL"] = BooleanIfWhat(yes_or_no=False)
@@ -264,8 +263,8 @@ class lageSample(models.Model):
 
 
 class labDMP(models.Model):
-    labname = models.CharField(max_length=128, primary_key=True)
-    datausername = models.CharField(max_length=50)
+    lab_id = models.CharField(max_length=128, primary_key=True)
+    user_id = models.CharField(max_length=50)
     # 'A) Do you collect all the metadata produced by your instruments?',3)
     instrument_metadata_collection =  models.CharField(max_length=128,blank=True)
 
