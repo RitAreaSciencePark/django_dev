@@ -18,6 +18,10 @@ body {
     line-height: 1.25;
 }
 
+.intro {
+    height: 100px;
+}
+
 a {
     background-color: transparent;
     color: #308282;
