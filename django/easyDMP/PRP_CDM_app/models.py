@@ -15,20 +15,198 @@ from .fields import MultiChoicheAndOtherWidget, BooleanIfWhat
 #    widgets = {"test": MultiChoicheAndOtherWidget(choices=test_choices),}
 # NOTE: If multiple choices without free text field, use:
 #     test = models.CharField(choices=test_choices)
+ 
 
-
-
-
-class CustomAppModel(models.Model):
-    # If you don't put an explicit primary_key an autoincrement id will be used instead
-    # TODO: foreign keys
-    datavarchar = models.CharField(max_length=255, primary_key=True, default=uuid4())
-    datausername = models.CharField(max_length=255, blank=True)
-    dataint = models.IntegerField()
+class Users(models.Model):
+    widgets = {}
+    user_id = models.CharField(max_length=37, primary_key=True)
+    name_surname = models.CharField(max_length=50)
+    email = models.CharField(max_length=128)
+    affiliation = models.CharField(max_length=128)
+    gender_choices = (
+        ("male","male"),
+        ("female","female"),
+        ("other","other"),
+    )
+    gender = models.CharField(blank=True)
+    widgets["gender"] = MultiChoicheAndOtherWidget(choices=gender_choices)
+    legal_status_choices = (
+        ("OTH","male"),
+        ("PRV","female"),
+        ("RES","other"),
+        ("SME","other"),
+        ("UNI","other"),
+    )
+    legal_status = models.CharField(blank=True)
+    widgets["legal_status"] = MultiChoicheAndOtherWidget(choices=legal_status_choices)
+    research_role_choices = (("senior scientist","senior scientist"),
+        ("phd student","phd student"),
+        ("professor / scientific coordinator","professor / scientific coordinator"),
+        ("scientist","scientist"),
+        ("manager","manager"),
+        ("degree student","degree student"),
+        ("post-doc","post-doc"),
+        ("technician","technician"),
+        ("other","other"),
+    )
+    research_role = models.CharField(blank=True)
+    widgets["research_role"] = MultiChoicheAndOtherWidget(choices=research_role_choices)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
-        db_table= 'customappmodel'.lower()
+        db_table= 'users'.lower()
+
+
+class ServiceRequests(models.Model):
+    widgets = {}
+    sr_id = models.CharField(max_length=37, primary_key=True)
+    user_id = models.CharField(max_length=37) # FK table users
+    lab_id = models.CharField(max_length=37) # FK table laboratories
+    sr_status = models.CharField(default='draft')
+    sr_feasibility_choices = (("feasible","feasible"),
+        ("not feasible","not feasible"),
+        ("feasible with reservations","feasible with reservations"),
+    )
+    sr_feasibility = models.CharField(blank=True)
+    widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sr_feasibility_choices)
+    exp_description = models.TextField(max_length=500, blank=True)
+    output_delivery_date = models.DateField(blank=True)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'service_requests'.lower()
+
+
+class Laboratories(models.Model):
+    lab_id = models.CharField(max_length=37, primary_key=True)
+    description = models.CharField(max_length=50)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'laboratories'.lower()
+
+
+class Samples(models.Model):
+    widgets = {}
+    sample_id = models.CharField(max_length=37, primary_key=True)
+    sr_id = models.CharField(max_length=37) # FK table service_requests
+    type_choices = (
+        ("DNA","DNA"),
+        ("RNA","RNA"),
+        ("pellet","pellet"),
+        ("biopsy","biopsy"),
+    )
+    type = models.CharField(blank=True)
+    widgets["type"] = MultiChoicheAndOtherWidget(choices=type_choices)
+    sample_description = models.TextField(max_length=500, blank=True)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'samples'.lower()
+
+class LageSamples(models.Model):
+    widgets = {}
+    sample_id = models.CharField(max_length=37, primary_key=True) # also FK table samples
+    is_volume_in_ul = models.CharField(blank=True)
+    widgets["is_volume_in_ul"] = BooleanIfWhat(yes_or_no=False)
+    is_buffer_used = models.CharField(blank=True)
+    widgets["is_buffer_used"] = BooleanIfWhat(yes_or_no=False)
+    is_quality = models.CharField(blank=True)
+    widgets["is_quality"] = BooleanIfWhat(yes_or_no=False)
+    sample_date_of_delivery = models.DateField()
+    sample_back = models.BooleanField()
+    reagents_provided_by_client = models.BooleanField()
+    reagents_date_of_delivery = models.DateField(blank=True)
+    
+    def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+        return 'uploads/{0}/{1}/{2}'.format(instance.datausername, instance.uuid, filename)
+
+    sample_sheet_filename = models.FileField(blank=True, upload_to=user_directory_path)
+
+    additional_filename = models.FileField(blank=True, upload_to=user_directory_path)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'lage_samples'.lower()
+
+
+class Instruments(models.Model):
+    instrument_id = models.CharField(max_length=37, primary_key=True)
+    vendor = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
+    description = models.CharField(max_length=50, blank=True)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'instruments'.lower()
+
+
+class Techniques(models.Model):
+    technique_id = models.CharField(max_length=37, primary_key=True)
+    technique_name = models.CharField(max_length=50)
+    description = models.CharField(max_length=50, blank=True)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'techniques'.lower()
+
+
+class InstrumentXTechnique(models.Model):
+    x_id = models.CharField(max_length=37, primary_key=True)
+    instrument_id = models.CharField(max_length=37) # FK table instruments
+    technique_id = models.CharField(max_length=37) # FK table techniques
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'instrument_x_technique'.lower()
+
+class LabXInstrument(models.Model):
+    x_id = models.CharField(max_length=37, primary_key=True)
+    lab_id = models.CharField(max_length=37) # FK table laboratories
+    instrument_id = models.CharField(max_length=37) # FK table instruments
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'lab_x_instrument'.lower()
+
+class Steps(models.Model):
+    widgets = {}
+    step_id = models.CharField(max_length=37, primary_key=True)
+    sr_id = models.CharField(max_length=37) # FK table service_requests
+    instrument_id = models.CharField(max_length=37) # FK table instruments
+    technique_id = models.CharField(max_length=37) # FK table techniques
+    assigned_uoa = models.IntegerField()
+    performed_uoa = models.IntegerField(default = 0)
+    eff_sample_date_of_delivery = models.DateField()
+    eff_reagents_date_of_delivery = models.DateField()
+    sample_quality_choices = (
+        ("good","good"),
+        ("not good","not good"),
+        ("partially good","partially good"),
+    )
+    sample_quality = models.CharField(blank=True)
+    widgets["sample_quality"] = MultiChoicheAndOtherWidget(choices=sample_quality_choices)
+    sample_quality_description = models.TextField(max_length=500, blank=True)
+    sample_quality_extra_budjet = models.BooleanField(blank=True)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'steps'.lower()
+
+
+class Questions(models.Model):
+    question_id = models.CharField(max_length=37, primary_key=True)
+    sr_id = models.CharField(max_length=37) # FK table service_requests
+    question = models.TextField(max_length=500, blank=True)
+    answer = models.TextField(max_length=500, blank=True)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'questions'.lower()
+
+
+
 
 class Administration(models.Model):
     uuid = models.CharField(max_length=37, primary_key=True, default=uuid4())

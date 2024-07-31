@@ -13,4 +13,4 @@ class FormsDefinition:
         lab = 'LAME'
         content = [
             Administration,
-        ]
+        ] 
