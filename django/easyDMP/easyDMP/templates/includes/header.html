@@ -12,32 +12,50 @@
     <div class="header_nav_block">
         <nav class="header_nav">
             <p>
-            <a href="{% pageurl site_root %}">Home</a>
-            {% for menuitem in site_root.get_children.live.in_menu.public %}
-                <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+            <div id="staticpagemenu">
+                <div id="navdiv">
+                    <a href="{% pageurl site_root %}">Home</a>
+                </div>
+                {% for menuitem in site_root.get_children.live.in_menu.public %}
+                <div id="navdiv">
+                    <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                </div>
+                {% endfor %}
+            </div>
 
-            {% endfor %}
             {% if request.user.is_authenticated %}
-            {% for menuitem in site_root.get_children.live.in_menu.private %}
-                |
-                <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+            <div id="dynamicpagemenu">
+                {% for menuitem in site_root.get_children.live.in_menu.private %}
+                <div id="navdiv">
+                    <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                </div>
+                {% endfor %}
+            </div>
 
-            {% endfor %}
             {% endif %}
             </p>
         </nav>
         <div class="header_login">
-            <p> 
-            {% if request.user.is_authenticated %}
-                {{ request.user.username }} | <a href="{{ current_site.root_url }}/logout">Logout</a>
-                | {{ request.session.lab_selected }}
+
+                {% if request.user.is_authenticated %}
+                {{ request.user.username }} 
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                        {{ request.session.lab_selected }}                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                - <a href="{{ current_site.root_url }}/switch-laboratory/">Switch Lab</a> -
+                <a href="{{ current_site.root_url }}/logout">Logout</a>
                 <input type="hidden" name="next" value="{{ request.path }}">
-                | <a href="{{ current_site.root_url }}/switch-laboratory/">Switch Lab</a>
-            {% else %}
+                {% else %}
                 <a href="{{ current_site.root_url }}/login">Login</a>
-            {% endif %}
+                {% endif %}
             </p>
+        </div>
     </div>
-</div>
 
 </header>

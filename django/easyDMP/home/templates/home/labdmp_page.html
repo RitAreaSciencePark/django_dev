@@ -13,12 +13,10 @@
     {{ page.intro | richtext }}
 
     <form action="." method="POST">
-
-        <br>
         {% csrf_token %}
-        <h4><b> GENERAL METADATA COLLECTION </b></h4>
         <div class="section_div">
-            </p>
+            <h4><b> GENERAL METADATA COLLECTION </b></h4>
+            <p>
                 <i>Do you collect all the metadata produced by your instruments?</i>
                 <br><i>If yes, what instruments?</i> {{ data.instrument_metadata_collection }} <br>
                 <i>Do you collect additional metadata by an open source laboratory notebook?</i>
@@ -29,8 +27,10 @@
                 <br><i>If yes, it is a public available schema?</i> {{ data.metadata_schema_defined }} <br>
             </p>
         </div>
-        <h4><b> GENERAL PUBBLICATION PHASE </b></h4>
         <div class="section_div">
+            <h4><b> GENERAL PUBBLICATION PHASE </b></h4>
+            <br>
+
             <p>
                 <i>Will data and related metadata be published on an open and trusted repository with a d.o.i.?</i>
                 <br><i>Yes</i> {{ data.open_trusted_repo_published_data }} <br>
@@ -47,8 +47,10 @@
             </p>
         </div>
 
-        <h4><b> GENERAL DATA AND METADATA STORAGE AND PRESERVATION </b></h4>
         <div class="section_div">
+            <h4><b> GENERAL DATA AND METADATA STORAGE AND PRESERVATION </b></h4>
+            <br>
+
             <p>
                 <i>Where will raw data  be stored?</i>
                 <br>{{ data.raw_data_storage_location }} <br>
@@ -60,8 +62,8 @@
                 <br>{{ data.backup_policy_unplublished_data }} <br>
             </p>
         </div>
-
-        <p><input type="submit" value="Insert data into external database"></p>
+        <br>
+        <p><input type="submit" value="Update Core Data Management Plan" class="btn btn-primary"></p>
     </form>
 
 

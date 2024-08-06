@@ -17,90 +17,6 @@
   }
 },
 {
-  "model": "wagtailimages.rendition",
-  "pk": 1,
-  "fields": {
-    "filter_spec": "max-800x600",
-    "file": "images/AFM.max-800x600.png",
-    "width": 462,
-    "height": 400,
-    "focal_point_key": "",
-    "image": 1
-  }
-},
-{
-  "model": "wagtailimages.rendition",
-  "pk": 2,
-  "fields": {
-    "filter_spec": "width-800",
-    "file": "images/AFM.width-800.png",
-    "width": 462,
-    "height": 400,
-    "focal_point_key": "",
-    "image": 1
-  }
-},
-{
-  "model": "wagtailimages.rendition",
-  "pk": 3,
-  "fields": {
-    "filter_spec": "max-165x165",
-    "file": "images/AFM.max-165x165.png",
-    "width": 165,
-    "height": 142,
-    "focal_point_key": "",
-    "image": 1
-  }
-},
-{
-  "model": "wagtailimages.rendition",
-  "pk": 4,
-  "fields": {
-    "filter_spec": "max-165x165",
-    "file": "images/PRPLogo_lowRes_inv.max-165x165.png",
-    "width": 165,
-    "height": 71,
-    "focal_point_key": "",
-    "image": 2
-  }
-},
-{
-  "model": "wagtailimages.rendition",
-  "pk": 5,
-  "fields": {
-    "filter_spec": "fill-250x100",
-    "file": "images/PRPLogo_lowRes_inv.2e16d0ba.fill-250x100.png",
-    "width": 250,
-    "height": 100,
-    "focal_point_key": "2e16d0ba",
-    "image": 2
-  }
-},
-{
-  "model": "wagtailimages.rendition",
-  "pk": 6,
-  "fields": {
-    "filter_spec": "max-165x165",
-    "file": "images/github-142-svgrepo-com.max-165x165.max-165x165.png",
-    "width": 165,
-    "height": 165,
-    "focal_point_key": "",
-    "image": 3
-  }
-},
-{
-  "model": "wagtailimages.rendition",
-  "pk": 7,
-  "fields": {
-    "filter_spec": "fill-14x14",
-    "file": "images/github-142-svgrepo-com.max-165x165.2e16d0ba.fill-14x14.png",
-    "width": 14,
-    "height": 14,
-    "focal_point_key": "2e16d0ba",
-    "image": 3
-  }
-},
-{
   "model": "wagtailsearch.indexentry",
   "pk": 1,
   "fields": {
@@ -109,7 +25,7 @@
       "page"
     ],
     "object_id": "1",
-    "title_norm": 1.3333333333333333,
+    "title_norm": 2.4545454545454546,
     "autocomplete": "'root':1",
     "title": "'root':1B",
     "body": ""
@@ -124,7 +40,7 @@
       "image"
     ],
     "object_id": "1",
-    "title_norm": 1.3333333333333333,
+    "title_norm": 2.4545454545454546,
     "autocomplete": "'afm':1",
     "title": "'afm':1A",
     "body": ""
@@ -139,7 +55,7 @@
       "homepage"
     ],
     "object_id": "3",
-    "title_norm": 0.6666666666666666,
+    "title_norm": 1.1428571428571428,
     "autocomplete": "'home':1 'page':2",
     "title": "'home':1B 'page':2B",
     "body": ""
@@ -154,7 +70,7 @@
       "image"
     ],
     "object_id": "2",
-    "title_norm": 0.5833333333333334,
+    "title_norm": 0.8181818181818182,
     "autocomplete": "'inv':3 'lowres':2 'prplogo':1",
     "title": "'inv':3A 'lowr':2A 'prplogo':1A",
     "body": ""
@@ -169,9 +85,9 @@
       "switchlabpage"
     ],
     "object_id": "4",
-    "title_norm": 0.9166666666666666,
-    "autocomplete": "'laboratory':2 'switch':1",
-    "title": "'laboratori':2B 'switch':1B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
     "body": ""
   }
 },
@@ -184,7 +100,7 @@
       "sampleentryform"
     ],
     "object_id": "5",
-    "title_norm": 0.9166666666666666,
+    "title_norm": 1.1428571428571428,
     "autocomplete": "'entry':2 'sample':1",
     "title": "'entri':2B 'sampl':1B",
     "body": ""
@@ -199,9 +115,9 @@
       "homepage"
     ],
     "object_id": "6",
-    "title_norm": 0.5357142857142857,
-    "autocomplete": "'di':3 'pagina':1 'pubblica':2 'test':4",
-    "title": "'di':3B 'pagina':1B 'pubblica':2B 'test':4B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
     "body": ""
   }
 },
@@ -214,7 +130,7 @@
       "image"
     ],
     "object_id": "3",
-    "title_norm": 0.75,
+    "title_norm": 0.8181818181818182,
     "autocomplete": "'-165':2 'github-142-svgrepo-com.max':1 'x165':3",
     "title": "'-165':2A 'github-142-svgrepo-com.max':1A 'x165':3A",
     "body": ""
@@ -229,9 +145,9 @@
       "dmppage"
     ],
     "object_id": "7",
-    "title_norm": 0.5111111111111112,
-    "autocomplete": "'core':2 'data':3 'laboratory':1 'management':4 'plan':5",
-    "title": "'core':2B 'data':3B 'laboratori':1B 'manag':4B 'plan':5B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
     "body": ""
   }
 },
@@ -244,9 +160,9 @@
       "dmpsearchpage"
     ],
     "object_id": "8",
-    "title_norm": 1.25,
-    "autocomplete": "'page':2 'search':1",
-    "title": "'page':2B 'search':1B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
     "body": ""
   }
 },
@@ -259,9 +175,39 @@
       "dmpviewpage"
     ],
     "object_id": "9",
-    "title_norm": 1.2272727272727273,
-    "autocomplete": "'dmp':1 'view':2",
-    "title": "'dmp':1B 'view':2B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 55,
+  "fields": {
+    "content_type": [
+      "wagtailimages",
+      "image"
+    ],
+    "object_id": "4",
+    "title_norm": 0.5714285714285714,
+    "autocomplete": "'logo':1 'pathogen':3 'prp':2 'ri':4",
+    "title": "'logo':1A 'pathogen':3A 'prp':2A 'ri':4A",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 57,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "object_id": "10",
+    "title_norm": 1.125,
+    "autocomplete": "'new':1 'page':2",
+    "title": "'new':1B 'page':2B",
     "body": ""
   }
 },
@@ -274,8 +220,9 @@
 },
 {
   "model": "wagtailcore.site",
+  "pk": 1,
   "fields": {
-    "hostname": "localhost",
+    "hostname": "10.128.8.14",
     "port": 8080,
     "site_name": "easydmp",
     "root_page": 3,
@@ -385,6 +332,75 @@
   }
 },
 {
+  "model": "wagtailcore.referenceindex",
+  "pk": 5,
+  "fields": {
+    "content_type": [
+      "wagtailimages",
+      "image"
+    ],
+    "base_content_type": [
+      "wagtailimages",
+      "image"
+    ],
+    "object_id": "4",
+    "to_content_type": [
+      "wagtailcore",
+      "collection"
+    ],
+    "to_object_id": "1",
+    "model_path": "collection",
+    "content_path": "collection",
+    "content_path_hash": "b40b1263-e929-57f2-a7f8-9dbce56b887b"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 6,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "10",
+    "to_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "to_object_id": "3",
+    "model_path": "body.",
+    "content_path": "body.",
+    "content_path_hash": "4d332296-be98-5f77-a5ad-cbe1e1aacda5"
+  }
+},
+{
+  "model": "wagtailcore.referenceindex",
+  "pk": 7,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "10",
+    "to_content_type": [
+      "wagtailimages",
+      "image"
+    ],
+    "to_object_id": "4",
+    "model_path": "body.",
+    "content_path": "body.",
+    "content_path_hash": "4d332296-be98-5f77-a5ad-cbe1e1aacda5"
+  }
+},
+{
   "model": "wagtailcore.workflowpage",
   "pk": 1,
   "fields": {
@@ -422,6 +438,7 @@
 },
 {
   "model": "auth.group",
+  "pk": 1,
   "fields": {
     "name": "Moderators",
     "permissions": [
@@ -470,6 +487,7 @@
 },
 {
   "model": "auth.group",
+  "pk": 2,
   "fields": {
     "name": "Editors",
     "permissions": [
@@ -518,6 +536,7 @@
 },
 {
   "model": "auth.group",
+  "pk": 3,
   "fields": {
     "name": "LAGE",
     "permissions": []
@@ -525,16 +544,26 @@
 },
 {
   "model": "auth.group",
+  "pk": 4,
   "fields": {
     "name": "LAME",
     "permissions": []
   }
 },
 {
-  "model": "auth.user",
+  "model": "auth.group",
+  "pk": 5,
   "fields": {
-    "password": "pbkdf2_sha256$720000$0zyuYNirGKTvtfmjQfhYIO$P96qZbzzvOcXELWp/4uvswqjSThY8026NArrOuJbYJw=",
-    "last_login": "2024-07-18T14:56:28.820Z",
+    "name": "LADE",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$2ijEVFWA39fdbdPogyTbAY$M4J9Q4xTqGGNdQ3vBPyzrLL+QiiIe4a9ozCg2BLlNdg=",
+    "last_login": "2024-07-29T11:47:43.830Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "Admin",
@@ -556,6 +585,7 @@
 },
 {
   "model": "auth.user",
+  "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$720000$YbQ8uRYsJ5yiYOYRSCIWUG$+NTj4b/GqLY+xLFso85zQqWQD8nSv+7/Pzu+f93mbOM=",
     "last_login": "2024-07-18T14:26:17.273Z",
@@ -576,11 +606,37 @@
   }
 },
 {
-  "model": "sessions.session",
-  "pk": "isgq2su6ngtc7j58py51i07xrtxn9xux",
+  "model": "auth.user",
+  "pk": 3,
   "fields": {
-    "session_data": ".eJxVj0FuwyAQRe_COtgY4xq8a6Uom_YM1gBD7JaABVhqVPXuxVIW6XL-f_NG80Nm2Msy7xnTvFoykY6cnjMN5gvDUdhPCNfYmBhKWnVzIM2jzc1HtOjfHuw_wQJ5qdvKOeAjcM6FQCGldL0ybGSm7-HFDUoaVL1mQvU9V91guIGOWyGV1oxZ1Ic0Y85rDDN-b2u6k4mdSMKypzBvcMV6ZCllm9rWRwN-iblMkknWetAxQYnpTi0UoDcIFb9hKHTzENqqrki1ezQFj1ffXy_nmu77ap9j7awWQ4d0lIOjQjtO6zzSkSs1MnRCMkd-_wBeT26f:1sUmyP:nc49G5CVPNvfvqpEQyEum99FS2Y3KlQdw2w1pUffK60",
-    "expire_date": "2024-08-02T12:44:33.987Z"
+    "password": "pbkdf2_sha256$720000$MJS9iEAoNgBXN9LZbN0ej8$zAGF6Xd/T2mdrN1nkFCmD8X31mbaWWTqjrxGsyGzKJ0=",
+    "last_login": "2024-07-25T12:49:02.457Z",
+    "is_superuser": false,
+    "username": "vpiompon",
+    "first_name": "Valerio",
+    "last_name": "Piomponi",
+    "email": "valerio.piomponi@areasciencepark.it",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-07-22T12:05:54.344Z",
+    "groups": [
+      [
+        "LADE"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "vpiompon"
+    ],
+    "email": "valerio.piomponi@areasciencepark.it",
+    "verified": false,
+    "primary": true
   }
 },
 {
@@ -657,6 +713,17 @@
       "admin"
     ],
     "page": 9,
+    "comment_notifications": true
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 9,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": 10,
     "comment_notifications": true
   }
 },
@@ -1823,10 +1890,234 @@
   }
 },
 {
+  "model": "wagtailcore.pagelogentry",
+  "pk": 52,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "Home Page",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-25T12:37:56.122Z",
+    "uuid": "76659cb6-f9fa-43d7-9ed5-e0f9d9fe7f8b",
+    "user": [
+      "admin"
+    ],
+    "revision": 20,
+    "content_changed": true,
+    "deleted": false,
+    "page": 3
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 53,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "Home Page",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-07-25T12:37:56.243Z",
+    "uuid": "76659cb6-f9fa-43d7-9ed5-e0f9d9fe7f8b",
+    "user": [
+      "admin"
+    ],
+    "revision": 20,
+    "content_changed": true,
+    "deleted": false,
+    "page": 3
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 54,
+  "fields": {
+    "content_type": [
+      "home",
+      "sampleentryform"
+    ],
+    "label": "Sample Entry",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-25T12:40:53.860Z",
+    "uuid": "08080c6c-95a0-4ca4-ae79-3a632299856d",
+    "user": [
+      "admin"
+    ],
+    "revision": 21,
+    "content_changed": true,
+    "deleted": false,
+    "page": 5
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 55,
+  "fields": {
+    "content_type": [
+      "home",
+      "sampleentryform"
+    ],
+    "label": "Sample Entry",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-07-25T12:40:53.973Z",
+    "uuid": "08080c6c-95a0-4ca4-ae79-3a632299856d",
+    "user": [
+      "admin"
+    ],
+    "revision": 21,
+    "content_changed": false,
+    "deleted": false,
+    "page": 5
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 56,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "New page",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2024-07-25T12:44:43.328Z",
+    "uuid": "a374d7cd-1a48-4416-a5b1-6f5121afd0e5",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": 10
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 57,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "New page",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-25T12:44:43.393Z",
+    "uuid": "a374d7cd-1a48-4416-a5b1-6f5121afd0e5",
+    "user": [
+      "admin"
+    ],
+    "revision": 22,
+    "content_changed": true,
+    "deleted": false,
+    "page": 10
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 58,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "New page",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-07-25T12:44:43.496Z",
+    "uuid": "a374d7cd-1a48-4416-a5b1-6f5121afd0e5",
+    "user": [
+      "admin"
+    ],
+    "revision": 22,
+    "content_changed": true,
+    "deleted": false,
+    "page": 10
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 59,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "New page",
+    "action": "wagtail.view_restriction.create",
+    "data": {
+      "restriction": {
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2024-07-25T12:45:22.431Z",
+    "uuid": "0538f424-fac4-422f-9fda-ed7f3141b36a",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": false,
+    "deleted": false,
+    "page": 10
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 60,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "New page",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-25T12:45:27.491Z",
+    "uuid": "46d302f2-2338-4491-9c48-23d33bc77bc2",
+    "user": [
+      "admin"
+    ],
+    "revision": 23,
+    "content_changed": true,
+    "deleted": false,
+    "page": 10
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 61,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "label": "New page",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-07-25T12:45:27.604Z",
+    "uuid": "46d302f2-2338-4491-9c48-23d33bc77bc2",
+    "user": [
+      "admin"
+    ],
+    "revision": 23,
+    "content_changed": false,
+    "deleted": false,
+    "page": 10
+  }
+},
+{
   "model": "wagtailcore.groupapprovaltask",
   "pk": 1,
   "fields": {
-    "task_ptr": 1,
     "groups": [
       [
         "Moderators"
@@ -1875,108 +2166,13 @@
   }
 },
 {
-  "model": "wagtailcore.grouppagepermission",
-  "pk": 1,
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "page": 1,
-    "permission": [
-      "add_page",
-      "wagtailcore",
-      "page"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.grouppagepermission",
-  "pk": 2,
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "page": 1,
-    "permission": [
-      "change_page",
-      "wagtailcore",
-      "page"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.grouppagepermission",
-  "pk": 3,
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "page": 1,
-    "permission": [
-      "publish_page",
-      "wagtailcore",
-      "page"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.grouppagepermission",
-  "pk": 4,
-  "fields": {
-    "group": [
-      "Editors"
-    ],
-    "page": 1,
-    "permission": [
-      "add_page",
-      "wagtailcore",
-      "page"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.grouppagepermission",
+  "model": "wagtailcore.pageviewrestriction",
   "pk": 5,
   "fields": {
-    "group": [
-      "Editors"
-    ],
-    "page": 1,
-    "permission": [
-      "change_page",
-      "wagtailcore",
-      "page"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.grouppagepermission",
-  "pk": 6,
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "page": 1,
-    "permission": [
-      "lock_page",
-      "wagtailcore",
-      "page"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.grouppagepermission",
-  "pk": 7,
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "page": 1,
-    "permission": [
-      "unlock_page",
-      "wagtailcore",
-      "page"
-    ]
+    "restriction_type": "login",
+    "password": "",
+    "page": 10,
+    "groups": []
   }
 },
 {
@@ -3017,6 +3213,226 @@
   }
 },
 {
+  "model": "wagtailcore.revision",
+  "pk": 20,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "3",
+    "created_at": "2024-07-25T12:37:56.065Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Home Page",
+    "content": {
+      "pk": 3,
+      "body": "<p data-block-key=\"h26tv\"></p><embed embedtype=\"image\" format=\"fullwidth\" id=\"1\" alt=\"AFM\"/><p data-block-key=\"93uh3\">Ciao sono il sito principale</p>",
+      "live": true,
+      "path": "00010001",
+      "slug": "easydmp-home",
+      "depth": 2,
+      "intro": "easyDMP - Home Page",
+      "owner": 1,
+      "title": "Home Page",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 6,
+      "url_path": "/easydmp-home/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "Home Page",
+      "content_type": 3,
+      "live_revision": 3,
+      "show_in_menus": false,
+      "latest_revision": 3,
+      "translation_key": "92cb4c9f-5884-4d44-849e-529631c84406",
+      "last_published_at": "2024-07-15T13:05:48.909Z",
+      "first_published_at": "2024-07-15T13:05:14.903Z",
+      "search_description": "",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": "2024-07-15T13:05:48.874Z"
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 21,
+  "fields": {
+    "content_type": [
+      "home",
+      "sampleentryform"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "5",
+    "created_at": "2024-07-25T12:40:53.826Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Sample Entry",
+    "content": {
+      "pk": 5,
+      "live": true,
+      "path": "000100010002",
+      "slug": "sample-entry",
+      "depth": 3,
+      "intro": "",
+      "owner": 1,
+      "title": "Sample Entry",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/sample-entry/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "Sample Entry",
+      "content_type": 4,
+      "live_revision": 10,
+      "show_in_menus": true,
+      "latest_revision": 10,
+      "translation_key": "5cf1ac1f-f640-457e-9f4d-f03c92547b29",
+      "last_published_at": "2024-07-15T13:14:04.752Z",
+      "first_published_at": "2024-07-15T13:08:58.115Z",
+      "search_description": "",
+      "thankyou_page_title": "Thank you!",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": "2024-07-15T13:14:04.709Z"
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 22,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "10",
+    "created_at": "2024-07-25T12:44:43.361Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "New page",
+    "content": {
+      "pk": 10,
+      "body": "<h2 data-block-key=\"50jd2\">CiAO</h2><p data-block-key=\"57rpf\"><a linktype=\"page\" id=\"3\">Home Page</a></p><embed embedtype=\"image\" format=\"left\" id=\"4\" alt=\"logo_prp_pathogen_ri\"/><p data-block-key=\"99crj\"></p>",
+      "live": true,
+      "path": "000100010007",
+      "slug": "new-page",
+      "depth": 3,
+      "intro": "This is a new page",
+      "owner": 1,
+      "title": "New page",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/new-page/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "New page",
+      "content_type": 3,
+      "live_revision": null,
+      "show_in_menus": true,
+      "latest_revision": null,
+      "translation_key": "2f708e4a-6f25-4f2e-ac06-f8dd384118cf",
+      "last_published_at": null,
+      "first_published_at": null,
+      "search_description": "",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": null
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 23,
+  "fields": {
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "10",
+    "created_at": "2024-07-25T12:45:27.456Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "New page",
+    "content": {
+      "pk": 10,
+      "body": "<h2 data-block-key=\"50jd2\">CiAO</h2><p data-block-key=\"57rpf\"><a linktype=\"page\" id=\"3\">Home Page</a></p><embed embedtype=\"image\" format=\"left\" id=\"4\" alt=\"logo_prp_pathogen_ri\"/><p data-block-key=\"99crj\"></p>",
+      "live": true,
+      "path": "000100010007",
+      "slug": "new-page",
+      "depth": 3,
+      "intro": "This is a new page",
+      "owner": 1,
+      "title": "New page",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/new-page/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "New page",
+      "content_type": 3,
+      "live_revision": 22,
+      "show_in_menus": true,
+      "latest_revision": 22,
+      "translation_key": "2f708e4a-6f25-4f2e-ac06-f8dd384118cf",
+      "last_published_at": "2024-07-25T12:44:43.420Z",
+      "first_published_at": "2024-07-25T12:44:43.420Z",
+      "search_description": "",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": "2024-07-25T12:44:43.361Z"
+    },
+    "approved_go_live_at": null
+  }
+},
+{
   "model": "wagtailcore.page",
   "pk": 1,
   "fields": {
@@ -3059,15 +3475,15 @@
   "fields": {
     "path": "00010001",
     "depth": 2,
-    "numchild": 6,
+    "numchild": 7,
     "translation_key": "92cb4c9f-5884-4d44-849e-529631c84406",
     "locale": 1,
-    "latest_revision": 3,
+    "latest_revision": 20,
     "live": true,
     "has_unpublished_changes": false,
     "first_published_at": "2024-07-15T13:05:14.903Z",
-    "last_published_at": "2024-07-15T13:05:48.909Z",
-    "live_revision": 3,
+    "last_published_at": "2024-07-25T12:37:56.160Z",
+    "live_revision": 20,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
@@ -3088,7 +3504,7 @@
     "seo_title": "",
     "show_in_menus": false,
     "search_description": "",
-    "latest_revision_created_at": "2024-07-15T13:05:48.874Z",
+    "latest_revision_created_at": "2024-07-25T12:37:56.065Z",
     "alias_of": null
   }
 },
@@ -3140,12 +3556,12 @@
     "numchild": 0,
     "translation_key": "5cf1ac1f-f640-457e-9f4d-f03c92547b29",
     "locale": 1,
-    "latest_revision": 10,
+    "latest_revision": 21,
     "live": true,
     "has_unpublished_changes": false,
     "first_published_at": "2024-07-15T13:08:58.115Z",
-    "last_published_at": "2024-07-15T13:14:04.752Z",
-    "live_revision": 10,
+    "last_published_at": "2024-07-25T12:40:53.894Z",
+    "live_revision": 21,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
@@ -3166,7 +3582,7 @@
     "seo_title": "",
     "show_in_menus": true,
     "search_description": "",
-    "latest_revision_created_at": "2024-07-15T13:14:04.709Z",
+    "latest_revision_created_at": "2024-07-25T12:40:53.826Z",
     "alias_of": null
   }
 },
@@ -3327,143 +3743,42 @@
   }
 },
 {
-  "model": "wagtailcore.groupcollectionpermission",
+  "model": "wagtailcore.page",
+  "pk": 10,
   "fields": {
-    "group": [
-      "Moderators"
+    "path": "000100010007",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "2f708e4a-6f25-4f2e-ac06-f8dd384118cf",
+    "locale": 1,
+    "latest_revision": 23,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2024-07-25T12:44:43.420Z",
+    "last_published_at": "2024-07-25T12:45:27.524Z",
+    "live_revision": 23,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "New page",
+    "draft_title": "New page",
+    "slug": "new-page",
+    "content_type": [
+      "home",
+      "homepage"
     ],
-    "collection": 1,
-    "permission": [
-      "add_image",
-      "wagtailimages",
-      "image"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Editors"
+    "url_path": "/easydmp-home/new-page/",
+    "owner": [
+      "admin"
     ],
-    "collection": 1,
-    "permission": [
-      "add_image",
-      "wagtailimages",
-      "image"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "collection": 1,
-    "permission": [
-      "change_image",
-      "wagtailimages",
-      "image"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Editors"
-    ],
-    "collection": 1,
-    "permission": [
-      "change_image",
-      "wagtailimages",
-      "image"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "collection": 1,
-    "permission": [
-      "add_document",
-      "wagtaildocs",
-      "document"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Editors"
-    ],
-    "collection": 1,
-    "permission": [
-      "add_document",
-      "wagtaildocs",
-      "document"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "collection": 1,
-    "permission": [
-      "change_document",
-      "wagtaildocs",
-      "document"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Editors"
-    ],
-    "collection": 1,
-    "permission": [
-      "change_document",
-      "wagtaildocs",
-      "document"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Moderators"
-    ],
-    "collection": 1,
-    "permission": [
-      "choose_document",
-      "wagtaildocs",
-      "document"
-    ]
-  }
-},
-{
-  "model": "wagtailcore.groupcollectionpermission",
-  "fields": {
-    "group": [
-      "Editors"
-    ],
-    "collection": 1,
-    "permission": [
-      "choose_document",
-      "wagtaildocs",
-      "document"
-    ]
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "latest_revision_created_at": "2024-07-25T12:45:27.456Z",
+    "alias_of": null
   }
 },
 {
@@ -3665,6 +3980,116 @@
   }
 },
 {
+  "model": "wagtailcore.modellogentry",
+  "pk": 10,
+  "fields": {
+    "content_type": [
+      "wagtailcore",
+      "site"
+    ],
+    "label": "easydmp [default]",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-22T08:01:20.445Z",
+    "uuid": "fca10a38-58c5-42e6-9e01-e3bd0f4e2492",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "1"
+  }
+},
+{
+  "model": "wagtailcore.modellogentry",
+  "pk": 11,
+  "fields": {
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "label": "admin",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-23T06:59:12.595Z",
+    "uuid": "8431c8d0-2bd7-4320-9a5c-d3eb6b296270",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "1"
+  }
+},
+{
+  "model": "wagtailcore.modellogentry",
+  "pk": 12,
+  "fields": {
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "label": "LADE",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2024-07-25T12:47:27.471Z",
+    "uuid": "45c53a33-33a2-447e-8884-4f9f5bcda7df",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "5"
+  }
+},
+{
+  "model": "wagtailcore.modellogentry",
+  "pk": 13,
+  "fields": {
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "label": "vpiompon",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-25T12:48:00.717Z",
+    "uuid": "42aac615-e315-4ab7-b66e-8deb2c577426",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "3"
+  }
+},
+{
+  "model": "wagtailcore.modellogentry",
+  "pk": 14,
+  "fields": {
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "label": "vpiompon",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-07-25T12:48:32.738Z",
+    "uuid": "f21276be-e7b2-4e2c-ab76-46cae0e15b1e",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "3"
+  }
+},
+{
   "model": "wagtailimages.image",
   "pk": 1,
   "fields": {
@@ -3728,12 +4153,33 @@
   }
 },
 {
+  "model": "wagtailimages.image",
+  "pk": 4,
+  "fields": {
+    "collection": 1,
+    "title": "logo_prp_pathogen_ri",
+    "file": "original_images/logo_prp_pathogen_ri_NPcDywq.png",
+    "width": 201,
+    "height": 70,
+    "created_at": "2024-07-25T12:43:26.465Z",
+    "uploaded_by_user": [
+      "admin"
+    ],
+    "focal_point_x": null,
+    "focal_point_y": null,
+    "focal_point_width": null,
+    "focal_point_height": null,
+    "file_size": 7905,
+    "file_hash": "fcd6b3e3c4dbb0e1cf29c1dda30040975c16b4cb"
+  }
+},
+{
   "model": "wagtailredirects.redirect",
   "pk": 1,
   "fields": {
     "old_path": "/switch-lab",
     "site": [
-      "localhost",
+      "10.128.8.14",
       8080
     ],
     "is_permanent": true,
@@ -3748,7 +4194,6 @@
   "model": "home.dmpviewpage",
   "pk": 9,
   "fields": {
-    "page_ptr": 9,
     "intro": "<p data-block-key=\"ww4w1\">text intro</p>"
   }
 },
@@ -3756,7 +4201,6 @@
   "model": "home.dmpsearchpage",
   "pk": 8,
   "fields": {
-    "page_ptr": 8,
     "intro": "<p data-block-key=\"p7g3e\">Intro Text sample</p>"
   }
 },
@@ -3764,7 +4208,6 @@
   "model": "home.dmppage",
   "pk": 7,
   "fields": {
-    "page_ptr": 7,
     "intro": "<p data-block-key=\"oqhxx\">This page is the fixed data management plan of your laboratory</p>",
     "thankyou_page_title": "Thank you!"
   }
@@ -3773,7 +4216,6 @@
   "model": "home.switchlabpage",
   "pk": 4,
   "fields": {
-    "page_ptr": 4,
     "intro": ""
   }
 },
@@ -3781,7 +4223,6 @@
   "model": "home.sampleentryform",
   "pk": 5,
   "fields": {
-    "page_ptr": 5,
     "intro": "",
     "thankyou_page_title": "Thank you!"
   }
@@ -3790,18 +4231,24 @@
   "model": "home.homepage",
   "pk": 3,
   "fields": {
-    "page_ptr": 3,
     "intro": "easyDMP - Home Page",
-    "body": "<p data-block-key=\"h26tv\"></p><embed embedtype=\"image\" format=\"fullwidth\" id=\"1\" alt=\"AFM\"/><p data-block-key=\"93uh3\"></p>"
+    "body": "<p data-block-key=\"h26tv\"></p><embed embedtype=\"image\" format=\"fullwidth\" id=\"1\" alt=\"AFM\"/><p data-block-key=\"93uh3\">Ciao sono il sito principale</p>"
   }
 },
 {
   "model": "home.homepage",
   "pk": 6,
   "fields": {
-    "page_ptr": 6,
     "intro": "test",
     "body": "<h2 data-block-key=\"uuo13\">TEST</h2>"
+  }
+},
+{
+  "model": "home.homepage",
+  "pk": 10,
+  "fields": {
+    "intro": "This is a new page",
+    "body": "<h2 data-block-key=\"50jd2\">CiAO</h2><p data-block-key=\"57rpf\"><a linktype=\"page\" id=\"3\">Home Page</a></p><embed embedtype=\"image\" format=\"left\" id=\"4\" alt=\"logo_prp_pathogen_ri\"/><p data-block-key=\"99crj\"></p>"
   }
 }
 ]

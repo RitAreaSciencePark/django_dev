@@ -3,9 +3,6 @@ from django import forms
 from PRP_CDM_app.forms import FormsDefinition
 from PRP_CDM_app.models import labDMP
 from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
-# Crispy!
-from crispy_forms.helper import FormHelper
-
 
 class LabSwitchForm(forms.Form):
     user_labs = []
@@ -55,7 +52,6 @@ def form_factory(form_model, widgets_list, request, filerequest):
 
         def __init__(self, *args, **kwargs):
             super(CustomForm, self).__init__(*args, **kwargs)
-            self.helper = FormHelper()
 
     return CustomForm(request,filerequest)
 
