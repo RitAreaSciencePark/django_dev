@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms/labdmp_page.css' %}">
+
+<h1>User Registration</h1>
+
+<form method="post" action="">
+    {% csrf_token %}
+    {{ data }}
+
+    <button type="submit">Register</button>
+</form>
+
+{% endblock %}
