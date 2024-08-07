@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "header_text": "",
-    "prp_icon": 2
+    "prp_icon": 4
   }
 },
 {
@@ -17,6 +17,138 @@
   }
 },
 {
+  "model": "wagtailimages.rendition",
+  "pk": 1,
+  "fields": {
+    "filter_spec": "max-250x100",
+    "file": "images/PRPLogo_lowRes_inv.max-250x100_vhMmjlm.png",
+    "width": 230,
+    "height": 100,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 2,
+  "fields": {
+    "filter_spec": "width-800",
+    "file": "images/AFM.width-800_aqRfVjF.png",
+    "width": 462,
+    "height": 400,
+    "focal_point_key": "",
+    "image": 1
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 3,
+  "fields": {
+    "filter_spec": "fill-14x14",
+    "file": "images/github-142-svgrepo-com.max-165x165.2e16d0ba.fill-14x14_VrkdtWa.png",
+    "width": 14,
+    "height": 14,
+    "focal_point_key": "2e16d0ba",
+    "image": 3
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 4,
+  "fields": {
+    "filter_spec": "width-500",
+    "file": "images/logo_prp_pathogen_ri_NPcDywq.width-500_pUabD5V.png",
+    "width": 201,
+    "height": 70,
+    "focal_point_key": "",
+    "image": 4
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 5,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/logo_prp_pathogen_ri_NPcDywq.max-165x165_0N9bJsj.png",
+    "width": 165,
+    "height": 57,
+    "focal_point_key": "",
+    "image": 4
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 6,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/github-142-svgrepo-com.max-165x165.max-165x165_yqJve5a.png",
+    "width": 165,
+    "height": 165,
+    "focal_point_key": "",
+    "image": 3
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 7,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/PRPLogo_lowRes_inv.max-165x165_zzkROrw.png",
+    "width": 165,
+    "height": 71,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 8,
+  "fields": {
+    "filter_spec": "max-165x165",
+    "file": "images/AFM.max-165x165_AuA9fa4.png",
+    "width": 165,
+    "height": 142,
+    "focal_point_key": "",
+    "image": 1
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 9,
+  "fields": {
+    "filter_spec": "original",
+    "file": "images/PRPLogo_lowRes_inv.original.png",
+    "width": 718,
+    "height": 312,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 10,
+  "fields": {
+    "filter_spec": "max-800x600",
+    "file": "images/PRPLogo_lowRes_inv.max-800x600.png",
+    "width": 718,
+    "height": 312,
+    "focal_point_key": "",
+    "image": 2
+  }
+},
+{
+  "model": "wagtailimages.rendition",
+  "pk": 11,
+  "fields": {
+    "filter_spec": "max-250x100",
+    "file": "images/logo_prp_pathogen_ri_NPcDywq.max-250x100.png",
+    "width": 201,
+    "height": 70,
+    "focal_point_key": "",
+    "image": 4
+  }
+},
+{
   "model": "wagtailsearch.indexentry",
   "pk": 1,
   "fields": {
@@ -25,7 +157,7 @@
       "page"
     ],
     "object_id": "1",
-    "title_norm": 2.4545454545454546,
+    "title_norm": 2.25,
     "autocomplete": "'root':1",
     "title": "'root':1B",
     "body": ""
@@ -40,7 +172,7 @@
       "image"
     ],
     "object_id": "1",
-    "title_norm": 2.4545454545454546,
+    "title_norm": 2.25,
     "autocomplete": "'afm':1",
     "title": "'afm':1A",
     "body": ""
@@ -55,9 +187,9 @@
       "homepage"
     ],
     "object_id": "3",
-    "title_norm": 1.1428571428571428,
-    "autocomplete": "'home':1 'page':2",
-    "title": "'home':1B 'page':2B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
     "body": ""
   }
 },
@@ -70,7 +202,7 @@
       "image"
     ],
     "object_id": "2",
-    "title_norm": 0.8181818181818182,
+    "title_norm": 0.75,
     "autocomplete": "'inv':3 'lowres':2 'prplogo':1",
     "title": "'inv':3A 'lowr':2A 'prplogo':1A",
     "body": ""
@@ -100,9 +232,9 @@
       "sampleentryform"
     ],
     "object_id": "5",
-    "title_norm": 1.1428571428571428,
-    "autocomplete": "'entry':2 'sample':1",
-    "title": "'entri':2B 'sampl':1B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
     "body": ""
   }
 },
@@ -130,7 +262,7 @@
       "image"
     ],
     "object_id": "3",
-    "title_norm": 0.8181818181818182,
+    "title_norm": 0.75,
     "autocomplete": "'-165':2 'github-142-svgrepo-com.max':1 'x165':3",
     "title": "'-165':2A 'github-142-svgrepo-com.max':1A 'x165':3A",
     "body": ""
@@ -190,7 +322,7 @@
       "image"
     ],
     "object_id": "4",
-    "title_norm": 0.5714285714285714,
+    "title_norm": 0.5625,
     "autocomplete": "'logo':1 'pathogen':3 'prp':2 'ri':4",
     "title": "'logo':1A 'pathogen':3A 'prp':2A 'ri':4A",
     "body": ""
@@ -205,9 +337,24 @@
       "homepage"
     ],
     "object_id": "10",
-    "title_norm": 1.125,
-    "autocomplete": "'new':1 'page':2",
-    "title": "'new':1B 'page':2B",
+    "title_norm": 1.0,
+    "autocomplete": "",
+    "title": "",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 58,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "object_id": "11",
+    "title_norm": 1.1666666666666667,
+    "autocomplete": "'registration':2 'user':1",
+    "title": "'registr':2B 'user':1B",
     "body": ""
   }
 },
@@ -220,9 +367,8 @@
 },
 {
   "model": "wagtailcore.site",
-  "pk": 1,
   "fields": {
-    "hostname": "10.128.8.14",
+    "hostname": "easydmp.localhost",
     "port": 8080,
     "site_name": "easydmp",
     "root_page": 3,
@@ -438,7 +584,6 @@
 },
 {
   "model": "auth.group",
-  "pk": 1,
   "fields": {
     "name": "Moderators",
     "permissions": [
@@ -487,7 +632,6 @@
 },
 {
   "model": "auth.group",
-  "pk": 2,
   "fields": {
     "name": "Editors",
     "permissions": [
@@ -536,7 +680,6 @@
 },
 {
   "model": "auth.group",
-  "pk": 3,
   "fields": {
     "name": "LAGE",
     "permissions": []
@@ -544,7 +687,6 @@
 },
 {
   "model": "auth.group",
-  "pk": 4,
   "fields": {
     "name": "LAME",
     "permissions": []
@@ -552,7 +694,6 @@
 },
 {
   "model": "auth.group",
-  "pk": 5,
   "fields": {
     "name": "LADE",
     "permissions": []
@@ -560,10 +701,9 @@
 },
 {
   "model": "auth.user",
-  "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$720000$2ijEVFWA39fdbdPogyTbAY$M4J9Q4xTqGGNdQ3vBPyzrLL+QiiIe4a9ozCg2BLlNdg=",
-    "last_login": "2024-07-29T11:47:43.830Z",
+    "last_login": "2024-08-06T14:47:45.274Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "Admin",
@@ -585,7 +725,6 @@
 },
 {
   "model": "auth.user",
-  "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$720000$YbQ8uRYsJ5yiYOYRSCIWUG$+NTj4b/GqLY+xLFso85zQqWQD8nSv+7/Pzu+f93mbOM=",
     "last_login": "2024-07-18T14:26:17.273Z",
@@ -607,7 +746,6 @@
 },
 {
   "model": "auth.user",
-  "pk": 3,
   "fields": {
     "password": "pbkdf2_sha256$720000$MJS9iEAoNgBXN9LZbN0ej8$zAGF6Xd/T2mdrN1nkFCmD8X31mbaWWTqjrxGsyGzKJ0=",
     "last_login": "2024-07-25T12:49:02.457Z",
@@ -628,6 +766,31 @@
   }
 },
 {
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$fzUYHJ9sWUI9X9CPqlIEow$6tS4G7cFky1JrHEmyj6/UrQvq4HRsmIuzqgU/HjNB4Y=",
+    "last_login": "2024-08-07T07:36:05.763Z",
+    "is_superuser": false,
+    "username": "mprenassi",
+    "first_name": "",
+    "last_name": "",
+    "email": "koleslive@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-08-07T07:36:05.523Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7o07inq1w35vi2d9xj0fivedq7njfdfi",
+  "fields": {
+    "session_data": ".eJxVj8FuwyAQRP-Fc2oTkxjqWypVvTTfgJZlHUgQWIDVRlH_vVjKoT2tdmfmjfbBNKzV6bVQ1t6yie3Z7u_NAN4oboK9QrykDlOs2Ztus3RPtXTnZCm8Pb3_AA6Ka2myM9GrQKmQy_GojKCjQBxRjULOh5kGK22bA0hrJTd84FbsDwhgQIlh3KCFSvEpavpefL6zie9YprrmqBe4UCtxtS5T34eEEFwqdVJc8b58-YruJYBJGWrK977B2tZ4gbDS9tzn6eOd_fwCy3Fa8A:1sbJHs:5QfnTtHqOcAN4xuh7w9A3Hiyxr7pJGtNoOSTsQiV1Ho",
+    "expire_date": "2024-08-20T12:27:36.224Z"
+  }
+},
+{
   "model": "account.emailaddress",
   "pk": 1,
   "fields": {
@@ -635,6 +798,18 @@
       "vpiompon"
     ],
     "email": "valerio.piomponi@areasciencepark.it",
+    "verified": false,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "mprenassi"
+    ],
+    "email": "koleslive@gmail.com",
     "verified": false,
     "primary": true
   }
@@ -724,6 +899,17 @@
       "admin"
     ],
     "page": 10,
+    "comment_notifications": true
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 10,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": 11,
     "comment_notifications": true
   }
 },
@@ -2115,9 +2301,120 @@
   }
 },
 {
+  "model": "wagtailcore.pagelogentry",
+  "pk": 62,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "label": "User registration",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2024-08-07T07:31:30.477Z",
+    "uuid": "65efb791-b9e6-4b8e-9cf0-d612acd6787a",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": 11
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 63,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "label": "User registration",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-07T07:31:30.507Z",
+    "uuid": "65efb791-b9e6-4b8e-9cf0-d612acd6787a",
+    "user": [
+      "admin"
+    ],
+    "revision": 24,
+    "content_changed": true,
+    "deleted": false,
+    "page": 11
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 64,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "label": "User registration",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-08-07T07:31:30.551Z",
+    "uuid": "65efb791-b9e6-4b8e-9cf0-d612acd6787a",
+    "user": [
+      "admin"
+    ],
+    "revision": 24,
+    "content_changed": true,
+    "deleted": false,
+    "page": 11
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 65,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "label": "User registration",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-07T07:31:45.029Z",
+    "uuid": "479f31cc-1926-4725-b761-859ca6195458",
+    "user": [
+      "admin"
+    ],
+    "revision": 25,
+    "content_changed": true,
+    "deleted": false,
+    "page": 11
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 66,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "label": "User registration",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-08-07T07:31:45.077Z",
+    "uuid": "479f31cc-1926-4725-b761-859ca6195458",
+    "user": [
+      "admin"
+    ],
+    "revision": 25,
+    "content_changed": true,
+    "deleted": false,
+    "page": 11
+  }
+},
+{
   "model": "wagtailcore.groupapprovaltask",
   "pk": 1,
   "fields": {
+    "task_ptr": 1,
     "groups": [
       [
         "Moderators"
@@ -2173,6 +2470,111 @@
     "password": "",
     "page": 10,
     "groups": []
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 1,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": 1,
+    "permission": [
+      "add_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 2,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": 1,
+    "permission": [
+      "change_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 3,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": 1,
+    "permission": [
+      "publish_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 4,
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "page": 1,
+    "permission": [
+      "add_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 5,
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "page": 1,
+    "permission": [
+      "change_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 6,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": 1,
+    "permission": [
+      "lock_page",
+      "wagtailcore",
+      "page"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.grouppagepermission",
+  "pk": 7,
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "page": 1,
+    "permission": [
+      "unlock_page",
+      "wagtailcore",
+      "page"
+    ]
   }
 },
 {
@@ -3433,6 +3835,116 @@
   }
 },
 {
+  "model": "wagtailcore.revision",
+  "pk": 24,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "11",
+    "created_at": "2024-08-07T07:31:30.493Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "User registration",
+    "content": {
+      "pk": 11,
+      "live": true,
+      "path": "000100010008",
+      "slug": "user-registration",
+      "depth": 3,
+      "intro": "",
+      "owner": 1,
+      "title": "User registration",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/user-registration/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "User registration",
+      "content_type": 71,
+      "live_revision": null,
+      "show_in_menus": false,
+      "latest_revision": null,
+      "translation_key": "4711b4a8-5961-4c0f-8c15-b45d4a30cef0",
+      "last_published_at": null,
+      "first_published_at": null,
+      "search_description": "",
+      "thankyou_page_title": "Thank you!",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": null
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 25,
+  "fields": {
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "11",
+    "created_at": "2024-08-07T07:31:45.010Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "User registration",
+    "content": {
+      "pk": 11,
+      "live": true,
+      "path": "000100010008",
+      "slug": "user-registration",
+      "depth": 3,
+      "intro": "",
+      "owner": 1,
+      "title": "User registration",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/user-registration/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "User registration",
+      "content_type": 71,
+      "live_revision": 24,
+      "show_in_menus": true,
+      "latest_revision": 24,
+      "translation_key": "4711b4a8-5961-4c0f-8c15-b45d4a30cef0",
+      "last_published_at": "2024-08-07T07:31:30.520Z",
+      "first_published_at": "2024-08-07T07:31:30.520Z",
+      "search_description": "",
+      "thankyou_page_title": "Thank you!",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": "2024-08-07T07:31:30.493Z"
+    },
+    "approved_go_live_at": null
+  }
+},
+{
   "model": "wagtailcore.page",
   "pk": 1,
   "fields": {
@@ -3475,7 +3987,7 @@
   "fields": {
     "path": "00010001",
     "depth": 2,
-    "numchild": 7,
+    "numchild": 8,
     "translation_key": "92cb4c9f-5884-4d44-849e-529631c84406",
     "locale": 1,
     "latest_revision": 20,
@@ -3779,6 +4291,185 @@
     "search_description": "",
     "latest_revision_created_at": "2024-07-25T12:45:27.456Z",
     "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 11,
+  "fields": {
+    "path": "000100010008",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "4711b4a8-5961-4c0f-8c15-b45d4a30cef0",
+    "locale": 1,
+    "latest_revision": 25,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2024-08-07T07:31:30.520Z",
+    "last_published_at": "2024-08-07T07:31:45.047Z",
+    "live_revision": 25,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "User registration",
+    "draft_title": "User registration",
+    "slug": "user-registration",
+    "content_type": [
+      "home",
+      "userregistrationpage"
+    ],
+    "url_path": "/easydmp-home/user-registration/",
+    "owner": [
+      "admin"
+    ],
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "latest_revision_created_at": "2024-08-07T07:31:45.010Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": 1,
+    "permission": [
+      "add_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": 1,
+    "permission": [
+      "add_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": 1,
+    "permission": [
+      "change_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": 1,
+    "permission": [
+      "change_image",
+      "wagtailimages",
+      "image"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": 1,
+    "permission": [
+      "add_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": 1,
+    "permission": [
+      "add_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": 1,
+    "permission": [
+      "change_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": 1,
+    "permission": [
+      "change_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Moderators"
+    ],
+    "collection": 1,
+    "permission": [
+      "choose_document",
+      "wagtaildocs",
+      "document"
+    ]
+  }
+},
+{
+  "model": "wagtailcore.groupcollectionpermission",
+  "fields": {
+    "group": [
+      "Editors"
+    ],
+    "collection": 1,
+    "permission": [
+      "choose_document",
+      "wagtaildocs",
+      "document"
+    ]
   }
 },
 {
@@ -4090,6 +4781,72 @@
   }
 },
 {
+  "model": "wagtailcore.modellogentry",
+  "pk": 15,
+  "fields": {
+    "content_type": [
+      "wagtailcore",
+      "site"
+    ],
+    "label": "easydmp [default]",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-05T12:03:08.962Z",
+    "uuid": "1b41f1f6-9de4-4dc3-808b-db8f0ef33dfc",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "1"
+  }
+},
+{
+  "model": "wagtailcore.modellogentry",
+  "pk": 16,
+  "fields": {
+    "content_type": [
+      "wagtailcore",
+      "site"
+    ],
+    "label": "easydmp [default]",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-05T12:03:13.795Z",
+    "uuid": "191ea097-c042-4f1a-87a8-4f80a548ff1f",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": false,
+    "deleted": false,
+    "object_id": "1"
+  }
+},
+{
+  "model": "wagtailcore.modellogentry",
+  "pk": 17,
+  "fields": {
+    "content_type": [
+      "home",
+      "headersettings"
+    ],
+    "label": "header settings",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-05T12:54:16.550Z",
+    "uuid": "8293b535-e2b3-46dd-8c88-c2d6ddc8b5e0",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "1"
+  }
+},
+{
   "model": "wagtailimages.image",
   "pk": 1,
   "fields": {
@@ -4179,7 +4936,7 @@
   "fields": {
     "old_path": "/switch-lab",
     "site": [
-      "10.128.8.14",
+      "easydmp.localhost",
       8080
     ],
     "is_permanent": true,
@@ -4191,9 +4948,19 @@
   }
 },
 {
+  "model": "home.userregistrationpage",
+  "pk": 11,
+  "fields": {
+    "page_ptr": 11,
+    "intro": "",
+    "thankyou_page_title": "Thank you!"
+  }
+},
+{
   "model": "home.dmpviewpage",
   "pk": 9,
   "fields": {
+    "page_ptr": 9,
     "intro": "<p data-block-key=\"ww4w1\">text intro</p>"
   }
 },
@@ -4201,6 +4968,7 @@
   "model": "home.dmpsearchpage",
   "pk": 8,
   "fields": {
+    "page_ptr": 8,
     "intro": "<p data-block-key=\"p7g3e\">Intro Text sample</p>"
   }
 },
@@ -4208,6 +4976,7 @@
   "model": "home.dmppage",
   "pk": 7,
   "fields": {
+    "page_ptr": 7,
     "intro": "<p data-block-key=\"oqhxx\">This page is the fixed data management plan of your laboratory</p>",
     "thankyou_page_title": "Thank you!"
   }
@@ -4216,6 +4985,7 @@
   "model": "home.switchlabpage",
   "pk": 4,
   "fields": {
+    "page_ptr": 4,
     "intro": ""
   }
 },
@@ -4223,6 +4993,7 @@
   "model": "home.sampleentryform",
   "pk": 5,
   "fields": {
+    "page_ptr": 5,
     "intro": "",
     "thankyou_page_title": "Thank you!"
   }
@@ -4231,6 +5002,7 @@
   "model": "home.homepage",
   "pk": 3,
   "fields": {
+    "page_ptr": 3,
     "intro": "easyDMP - Home Page",
     "body": "<p data-block-key=\"h26tv\"></p><embed embedtype=\"image\" format=\"fullwidth\" id=\"1\" alt=\"AFM\"/><p data-block-key=\"93uh3\">Ciao sono il sito principale</p>"
   }
@@ -4239,6 +5011,7 @@
   "model": "home.homepage",
   "pk": 6,
   "fields": {
+    "page_ptr": 6,
     "intro": "test",
     "body": "<h2 data-block-key=\"uuo13\">TEST</h2>"
   }
@@ -4247,6 +5020,7 @@
   "model": "home.homepage",
   "pk": 10,
   "fields": {
+    "page_ptr": 10,
     "intro": "This is a new page",
     "body": "<h2 data-block-key=\"50jd2\">CiAO</h2><p data-block-key=\"57rpf\"><a linktype=\"page\" id=\"3\">Home Page</a></p><embed embedtype=\"image\" format=\"left\" id=\"4\" alt=\"logo_prp_pathogen_ri\"/><p data-block-key=\"99crj\"></p>"
   }
