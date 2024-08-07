@@ -16,7 +16,7 @@ from django.db import connections
 
 from django.contrib.auth.models import User
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserRegistrationForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm
 
 from PRP_CDM_app.models import labDMP, Administration, Users
 from django.template.loader import render_to_string
@@ -29,9 +29,6 @@ from PRP_CDM_app.reports import ReportDefinition
 from django.forms.models import model_to_dict
 
 from PRP_CDM_app.code_generation import sr_id_generation
-
-
-    
 
 @register_setting
 class HeaderSettings(BaseGenericSetting):
@@ -336,9 +333,7 @@ class DMPViewPage(Page):
         
         reportList = []
         if request.method == 'POST':
-            debug2 = reportOrchestrator(user_lab=request.session['lab_selected'])
             for report in reportOrchestrator(user_lab=request.session['lab_selected']):
-                debug = request.POST.get('sr_id')
                 reportList.append(pkSelection(modelTable=report, pk=request.POST.get('sr_id')))
                 pass
         else:
@@ -347,8 +342,6 @@ class DMPViewPage(Page):
                     reportList.append(pkSelection(modelTable=report, pk=request.session["sr_id"]))
             except:
                 return redirect('/')
-
-
 
         pageDict = {
             'page': self,
@@ -377,7 +370,7 @@ class DMPViewPage(Page):
         return render(request, 'home/generic_dmp_view.html', pageDict)
 
 
-class UserRegistrationPage(Page):
+class UserDataPage(Page): # USER DATA
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
         max_length=255, help_text="Title text to use for the 'thank you' page")
@@ -407,7 +400,7 @@ class UserRegistrationPage(Page):
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            form = UserRegistrationForm(data=request.POST)
+            form = UserDataForm(data=request.POST)
             if form.is_valid():
                 # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
@@ -416,11 +409,10 @@ class UserRegistrationPage(Page):
                 #data.lab_id = request.session["lab_selected"]
                 data.user_id = username
                 data.save()
-                return render(request, 'home/thank_you_page.html', {
+                return render(request, 'home/user_data_page.html', {
                     'page': self,
                     # We pass the data to the thank you page, data.datavarchar and data.dataint!
                     'data': form,
-                    'lab': request.session['lab_selected'],
                 })
             else:
                 debug = form.errors
@@ -434,14 +426,14 @@ class UserRegistrationPage(Page):
             #form = UserRegistrationForm()
             try:
                 if Users.objects.get(pk=username) is not None:
-                    form = UserRegistrationForm(instance=Users.objects.get(pk=username))
+                    form = UserDataForm(instance=Users.objects.get(pk=username))
                 else:
-                    form = UserRegistrationForm()
+                    form = UserDataForm()
             except Exception as e: # TODO Properly catch this
-                form = UserRegistrationForm()
+                form = UserDataForm()
 
             
-        return render(request, 'home/user_registration_page.html', {
+        return render(request, 'home/user_data_page.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,

@@ -80,7 +80,7 @@ class DMPform(forms.ModelForm):
             exclude = ['labname', 'datausername']
 
 
-class UserRegistrationForm(forms.ModelForm):
+class UserDataForm(forms.ModelForm):
     class Meta:
             model = Users
             # fields = ['datavarchar', 'dataint']

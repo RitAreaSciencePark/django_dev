@@ -75,6 +75,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "easyDMP.urls"
 
+ACCOUNT_FORMS = {
+    'signup': 'home.auth.UserRegistrationForm',
+    'login': 'home.auth.UserLoginForm',
+    }
+
+
 from django.forms.renderers import TemplatesSetting
 
 class CustomFormRenderer(TemplatesSetting):

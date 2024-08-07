@@ -37,23 +37,34 @@
         </nav>
         <div class="header_login">
 
-                {% if request.user.is_authenticated %}
-                {{ request.user.username }} 
+            {% if request.user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
-                        {{ request.session.lab_selected }}                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                        {{ request.user.username }}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" type="button" id="dropdown-button" href="/user-data">Modify user data</a>
+                      <a class="dropdown-item" type="button" id="dropdown-button" href="/logout">Logout</a>
                     </div>
                   </div>
-                - <a href="{{ current_site.root_url }}/switch-laboratory/">Switch Lab</a> -
-                <a href="{{ current_site.root_url }}/logout">Logout</a>
-                <input type="hidden" name="next" value="{{ request.path }}">
-                {% else %}
-                <a href="{{ current_site.root_url }}/login">Login</a>
+                  
+                {% if request.session.lab_selected == None %}
+                    <a class="btn btn-link" id="dropdownMenuButton" href="{{ current_site.root_url }}/switch-laboratory">Switch lab</a>
+                    </button>
+                    {% else %}
+                      <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                            {{ request.session.lab_selected }}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" type="button" id="dropdown-button" href="/switch-laboratory">Switch lab</a>
+                        </div>
+                      </div>
                 {% endif %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+            {% else %}
+                <a href="{{ current_site.root_url }}/login">Login</a>
+            {% endif %}
             </p>
         </div>
     </div>
