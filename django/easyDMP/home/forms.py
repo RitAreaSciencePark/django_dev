@@ -2,6 +2,7 @@ from django import forms
 # This import point to the external app schema!
 from PRP_CDM_app.forms import FormsDefinition
 from PRP_CDM_app.models import labDMP
+from PRP_CDM_app.models import Users
 from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
 
 class LabSwitchForm(forms.Form):
@@ -77,3 +78,14 @@ class DMPform(forms.ModelForm):
                        'open_data_licence':BooleanIfWhat(yes_or_no=True),
                        }
             exclude = ['labname', 'datausername']
+
+
+class UserRegistrationForm(forms.ModelForm):
+    class Meta:
+            model = Users
+            # fields = ['datavarchar', 'dataint']
+            '''widgets = {'gender': forms.SelectMultiple(),
+                       'legal_status': forms.SelectMultiple(),
+                       'research_role': forms.SelectMultiple(),
+                       }'''
+            exclude = ['user_id']

@@ -18,7 +18,6 @@ from .fields import MultiChoicheAndOtherWidget, BooleanIfWhat
  
 
 class Users(models.Model):
-    widgets = {}
     user_id = models.CharField(max_length=37, primary_key=True)
     name_surname = models.CharField(max_length=50)
     email = models.CharField(max_length=128)
@@ -28,17 +27,15 @@ class Users(models.Model):
         ("female","female"),
         ("other","other"),
     )
-    gender = models.CharField(blank=True)
-    widgets["gender"] = MultiChoicheAndOtherWidget(choices=gender_choices)
+    gender = models.CharField(choices=gender_choices)
     legal_status_choices = (
-        ("OTH","male"),
-        ("PRV","female"),
-        ("RES","other"),
-        ("SME","other"),
-        ("UNI","other"),
+        ("OTH","OTH"),
+        ("PRV","PRV"),
+        ("RES","RES"),
+        ("SME","SME"),
+        ("UNI","UNI"),
     )
-    legal_status = models.CharField(blank=True)
-    widgets["legal_status"] = MultiChoicheAndOtherWidget(choices=legal_status_choices)
+    legal_status = models.CharField(choices=legal_status_choices)
     research_role_choices = (("senior scientist","senior scientist"),
         ("phd student","phd student"),
         ("professor / scientific coordinator","professor / scientific coordinator"),
@@ -49,32 +46,35 @@ class Users(models.Model):
         ("technician","technician"),
         ("other","other"),
     )
-    research_role = models.CharField(blank=True)
-    widgets["research_role"] = MultiChoicheAndOtherWidget(choices=research_role_choices)
-
+    research_role = models.CharField(choices=research_role_choices)
+    
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'users'.lower()
 
 
-class ServiceRequests(models.Model):
+class Proposals(models.Model):
     widgets = {}
-    sr_id = models.CharField(max_length=37, primary_key=True) # FK
-    user_id = models.CharField(max_length=37) # FK table users
-    lab_id = models.CharField(max_length=37) # FK table laboratories
-    sr_status = models.CharField(default='draft')
-    sr_feasibility_choices = (("feasible","feasible"),
+    proposal_id = models.CharField(max_length=37, primary_key=True)
+    user_id = models.ForeignKey(Users, on_delete=models.PROTECT)
+    proposal_status = models.CharField(default='Submitted’')
+    proposal_feasibility_choices = (("feasible","feasible"),
         ("not feasible","not feasible"),
         ("feasible with reservations","feasible with reservations"),
     )
-    sr_feasibility = models.CharField(blank=True)
-    widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sr_feasibility_choices)
-    exp_description = models.TextField(max_length=500, blank=True)
-    output_delivery_date = models.DateField(blank=True)
+    proposal_feasibility = models.CharField(blank=True)
+    widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=proposal_feasibility_choices)
+
+    def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+        return 'uploads/{0}/{1}/{2}'.format(instance.datausername, instance.uuid, filename)
+
+    proposal_filename = models.FileField(blank=True, upload_to=user_directory_path)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
-        db_table= 'service_requests'.lower()
+        db_table= 'proposals'.lower()
+
 
 
 class Laboratories(models.Model):
@@ -86,10 +86,25 @@ class Laboratories(models.Model):
         db_table= 'laboratories'.lower()
 
 
+
+class ServiceRequests(models.Model):
+    sr_id = models.CharField(max_length=37, primary_key=True)
+    proposal_id = models.ForeignKey(Proposals, on_delete=models.PROTECT)
+    lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
+    sr_status = models.CharField(default='Submitted’')
+    exp_description = models.TextField(max_length=500, blank=True)
+    output_delivery_date = models.DateField(blank=True)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'service_requests'.lower()
+
+
+
 class Samples(models.Model):
     widgets = {}
     sample_id = models.CharField(max_length=37, primary_key=True)
-    sr_id = models.CharField(max_length=37) # FK table service_requests
+    sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT)
     type_choices = (
         ("DNA","DNA"),
         ("RNA","RNA"),
@@ -99,14 +114,21 @@ class Samples(models.Model):
     type = models.CharField(blank=True)
     widgets["type"] = MultiChoicheAndOtherWidget(choices=type_choices)
     sample_description = models.TextField(max_length=500, blank=True)
+    sample_feasibility_choices = (("feasible","feasible"),
+        ("not feasible","not feasible"),
+        ("feasible with reservations","feasible with reservations"),
+    )
+    sample_feasibility = models.CharField(blank=True)
+    widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sample_feasibility_choices)
+    sample_tatus = models.CharField(default='Submitted’')
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'samples'.lower()
 
-class LageSamples(models.Model):
+class LageSamples(Samples):
     widgets = {}
-    sample_id = models.CharField(max_length=37, primary_key=True) # also FK table samples
+    #sample_id = models.CharField(max_length=37, primary_key=True) # also FK table samples
     is_volume_in_ul = models.CharField(blank=True)
     widgets["is_volume_in_ul"] = BooleanIfWhat(yes_or_no=False)
     is_buffer_used = models.CharField(blank=True)
@@ -154,8 +176,8 @@ class Techniques(models.Model):
 
 class InstrumentXTechnique(models.Model):
     x_id = models.CharField(max_length=37, primary_key=True)
-    instrument_id = models.CharField(max_length=37) # FK table instruments
-    technique_id = models.CharField(max_length=37) # FK table techniques
+    instrument_id = models.ForeignKey(Instruments, on_delete=models.PROTECT)
+    technique_id = models.ForeignKey(Techniques, on_delete=models.PROTECT)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
@@ -163,8 +185,8 @@ class InstrumentXTechnique(models.Model):
 
 class LabXInstrument(models.Model):
     x_id = models.CharField(max_length=37, primary_key=True)
-    lab_id = models.CharField(max_length=37) # FK table laboratories
-    instrument_id = models.CharField(max_length=37) # FK table instruments
+    lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
+    instrument_id = models.ForeignKey(Instruments, on_delete=models.PROTECT)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
@@ -173,9 +195,9 @@ class LabXInstrument(models.Model):
 class Steps(models.Model):
     widgets = {}
     step_id = models.CharField(max_length=37, primary_key=True)
-    sr_id = models.CharField(max_length=37) # FK table service_requests
-    instrument_id = models.CharField(max_length=37) # FK table instruments
-    technique_id = models.CharField(max_length=37) # FK table techniques
+    sample_id = models.ForeignKey(Samples, on_delete=models.PROTECT)
+    instrument_id = models.ForeignKey(Instruments, on_delete=models.PROTECT)
+    technique_id = models.ForeignKey(Techniques, on_delete=models.PROTECT)
     assigned_uoa = models.IntegerField()
     performed_uoa = models.IntegerField(default = 0)
     eff_sample_date_of_delivery = models.DateField()
@@ -197,13 +219,14 @@ class Steps(models.Model):
 
 class Questions(models.Model):
     question_id = models.CharField(max_length=37, primary_key=True)
-    sr_id = models.CharField(max_length=37) # FK table service_requests
+    sample_id = models.ForeignKey(Samples, on_delete=models.PROTECT)
     question = models.TextField(max_length=500, blank=True)
     answer = models.TextField(max_length=500, blank=True)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'questions'.lower()
+
 
 class Administration(models.Model):
     sr_id = models.CharField(max_length=37, primary_key=True, default=uuid4())
@@ -265,6 +288,7 @@ class lageSample(models.Model):
 class labDMP(models.Model):
     lab_id = models.CharField(max_length=128, primary_key=True)
     user_id = models.CharField(max_length=50)
+    
     # 'A) Do you collect all the metadata produced by your instruments?',3)
     instrument_metadata_collection =  models.CharField(max_length=128,blank=True)
 

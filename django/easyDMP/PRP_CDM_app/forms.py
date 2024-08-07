@@ -1,7 +1,7 @@
 from PRP_CDM_app.models import *
 
 class FormsDefinition:
-
+    
     class LageForm:
         lab = 'LAGE'
         content = [
@@ -42,3 +42,8 @@ class FormsDefinition:
                    'is_volume_in_uL',
                    ],
                    }
+    
+
+
+
+
