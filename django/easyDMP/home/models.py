@@ -28,6 +28,8 @@ from uuid import uuid4
 from PRP_CDM_app.reports import ReportDefinition
 from django.forms.models import model_to_dict
 
+from PRP_CDM_app.code_generation import sr_id_generation
+
 
     
 
@@ -119,12 +121,14 @@ class SampleEntryForm(Page):
                         'errors': form.errors.values, # TODO: improve this
                     })
                 
-            uuidDmp = uuid4()
+            sr_id = sr_id_generation()
+            # sample_id = sample_id_generation()
 
             for form in forms:
                     data = form.save(commit=False)
-                    data.uuid = uuidDmp
-                    data.datausername = username
+                    data.sr_id = sr_id
+                    data.user_id = username
+                    data.lab_id = request.session["lab_selected"]
                     data.save()
         
             return render(request, 'home/thank_you_page.html', {
@@ -238,8 +242,8 @@ class DMPPage(Page):
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                 # In our example the routing takes care of the external db save
                 data = form.save(commit=False)
-                data.labname = request.session["lab_selected"]
-                data.datausername = username
+                data.lab_id = request.session["lab_selected"]
+                data.user_id = username
                 data.save()
                 return render(request, 'home/labdmp_page.html', {
                     'page': self,
@@ -292,7 +296,7 @@ class DMPSearchPage(Page):
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
         
-        data = Administration.objects.filter(labname=request.session['lab_selected'])
+        data = Administration.objects.filter(lab_id=request.session['lab_selected'])
         return render(request, 'home/dmp_search.html', {
             'page': self,
             'data': data,
@@ -332,12 +336,15 @@ class DMPViewPage(Page):
         
         reportList = []
         if request.method == 'POST':
+            debug2 = reportOrchestrator(user_lab=request.session['lab_selected'])
             for report in reportOrchestrator(user_lab=request.session['lab_selected']):
-                reportList.append(pkSelection(modelTable=report, pk=request.POST.get('uuid')))
+                debug = request.POST.get('sr_id')
+                reportList.append(pkSelection(modelTable=report, pk=request.POST.get('sr_id')))
+                pass
         else:
             try:
                 for report in reportOrchestrator(user_lab=request.session['lab_selected']):
-                    reportList.append(pkSelection(modelTable=report, pk=request.session["uuid_selected"]))
+                    reportList.append(pkSelection(modelTable=report, pk=request.session["sr_id"]))
             except:
                 return redirect('/')
 
