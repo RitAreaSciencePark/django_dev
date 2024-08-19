@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags%}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+
+
+<table>
+    <tr>
+        <th align="left">proposal_id</th>
+        <th align="left">proposal_status</th>
+        <th align="left">proposal_filename</th>
+    </tr>
+    {% for cdata in data %}
+    <tr>
+        <td align="left">{{ cdata.proposal_id }}</td>
+        <td align="left">{{ cdata.proposal_status }}</td>
+        <td align="left">{{ cdata.proposal_filename }}</td>
+        <td align="left">
+            <form action="/dmp-view/" method="post">
+                {% csrf_token %}
+                <button type="submit" name="proposal_id" value="{{ cdata.proposal_id }}"
+                    class="button-link">view</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

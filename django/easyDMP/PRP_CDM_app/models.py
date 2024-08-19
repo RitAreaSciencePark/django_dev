@@ -54,7 +54,6 @@ class Users(models.Model):
 
 
 class Proposals(models.Model):
-    widgets = {}
     proposal_id = models.CharField(max_length=37, primary_key=True)
     user_id = models.ForeignKey(Users, on_delete=models.PROTECT)
     proposal_status = models.CharField(default='Submitted’')
@@ -62,12 +61,11 @@ class Proposals(models.Model):
         ("not feasible","not feasible"),
         ("feasible with reservations","feasible with reservations"),
     )
-    proposal_feasibility = models.CharField(blank=True)
-    widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=proposal_feasibility_choices)
-
+    proposal_feasibility = models.CharField(choices=proposal_feasibility_choices,blank=True)
+    
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-        return 'uploads/{0}/{1}'.format(instance.user_id, filename)
+        return 'uploads/proposals/{0}/{1}'.format(instance.user_id, filename)
 
     proposal_filename = models.FileField(blank=True, upload_to=user_directory_path)
 
