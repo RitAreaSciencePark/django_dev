@@ -5,7 +5,7 @@ from PRP_CDM_app.models import labDMP
 from PRP_CDM_app.models import Users
 from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
 
-class LabSwitchForm(forms.Form):
+class LabSwitchForm(forms.Form): 
     user_labs = []
     
     def _defineChoices(self):
@@ -77,7 +77,7 @@ class DMPform(forms.ModelForm):
                        'metadata_schema_defined': BooleanIfWhat(yes_or_no=True),
                        'open_data_licence':BooleanIfWhat(yes_or_no=True),
                        }
-            exclude = ['labname', 'datausername']
+            exclude = ['labname', 'user_id'] 
 
 
 class UserDataForm(forms.ModelForm):

@@ -67,7 +67,7 @@ class Proposals(models.Model):
 
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-        return 'uploads/{0}/{1}/{2}'.format(instance.datausername, instance.uuid, filename)
+        return 'uploads/{0}/{1}'.format(instance.user_id, filename)
 
     proposal_filename = models.FileField(blank=True, upload_to=user_directory_path)
 
@@ -142,7 +142,7 @@ class LageSamples(Samples):
     
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-        return 'uploads/{0}/{1}/{2}'.format(instance.datausername, instance.uuid, filename)
+        return 'uploads/{0}/{1}'.format(instance.sample_id, filename)
 
     sample_sheet_filename = models.FileField(blank=True, upload_to=user_directory_path)
 
@@ -274,7 +274,7 @@ class lageSample(models.Model):
 
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-        return 'uploads/{0}/{1}/{2}'.format(instance.datausername, instance.uuid, filename)
+        return 'uploads/zz_old/{0}/{1}/{2}'.format(instance.user_id, instance.sr_id, filename)
 
     samplesheet_file = models.FileField(blank=True, upload_to=user_directory_path)
 
