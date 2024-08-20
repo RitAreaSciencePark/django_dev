@@ -78,6 +78,7 @@ class Proposals(models.Model):
 class Laboratories(models.Model):
     lab_id = models.CharField(max_length=37, primary_key=True)
     description = models.CharField(max_length=50)
+    #user_id_responsible = models.ForeignKey(Users, on_delete=models.PROTECT)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
@@ -89,6 +90,8 @@ class ServiceRequests(models.Model):
     sr_id = models.CharField(max_length=37, primary_key=True)
     proposal_id = models.ForeignKey(Proposals, on_delete=models.PROTECT)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
+    # team_name = forms.ModelChoiceField(label='Team', queryset=Team.objects.filter(sport=1), required=False)
+    # opp_name = forms.ModelChoiceField(label='Opponent', queryset=Team.objects.filter(sport=1), required=False)
     sr_status = models.CharField(default='Submitted’')
     exp_description = models.TextField(max_length=500, blank=True)
     output_delivery_date = models.DateField(blank=True)
