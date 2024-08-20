@@ -17,7 +17,7 @@ from django import forms
 
 from django.contrib.auth.models import User
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SamplesForm, LageSamplesForm, LameSamplesForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SRForSampleForm, LageSamplesForm, LameSamplesForm, SamplesForm
 
 from PRP_CDM_app.models import labDMP, Administration, Users, Proposals, ServiceRequests, Laboratories, Samples, LageSamples, LameSamples
 from django.template.loader import render_to_string
@@ -720,7 +720,7 @@ class DynamicFormRedirectPage(Page):
                     })
         
 
-
+'''
 class LageSamplesPage(Page): # USER DATA
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -844,6 +844,140 @@ class LameSamplesPage(Page): # USER DATA
                     form = LameSamplesForm()
             except Exception as e: # TODO Properly catch this
                 form = LameSamplesForm()
+
+
+        return render(request, 'home/lab_sample_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })'''
+
+
+
+class SRForSamplePage(Page):
+
+    def serve(self, request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        if request.method == 'POST':
+            form = SRForSampleForm(request.POST, user=username)
+            if form.is_valid():
+                data = form.save(commit=False)
+                sr = data.sr_id
+                return redirect(self.get_redirect_url(sr.sr_id))
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+            
+        else:
+            try:
+                if Samples.objects.get(pk=username) is not None:
+                    form = SRForSampleForm(instance=Samples.objects.get(pk=username), user=username)
+                else:
+                    form = SRForSampleForm(user=username)
+            except Exception as e: # TODO Properly catch this
+                form = SRForSampleForm(user=username)
+
+        return render(request, 'home/sample_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+
+    def get_redirect_url(self, sr_id):
+        # Questo restituisce l'URL della pagina di reindirizzamento dinamico con l'sr_id
+        dynamic_redirect_page = GeneralSamplePage.objects.live().first()
+        return f'{dynamic_redirect_page.url}?sr_id={sr_id}'
+
+
+
+class GeneralSamplePage(Page):
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+    max_length=255, help_text="Title text to use for the 'thank you' page")
+       
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+        ]
+    
+    def serve(self, request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        sr_id = request.GET.get('sr_id')
+        sr = ServiceRequests.objects.get(sr_id=sr_id)
+        lab = sr.lab_id
+
+        if request.method == 'POST':
+            if lab.lab_id == 'LAGE':
+                form = LageSamplesForm(data=request.POST, files=request.FILES)
+                #table = LageSamples.objects.get(pk=username)
+            elif lab.lab_id == 'LAME':
+                form = LameSamplesForm(data=request.POST, files=request.FILES)
+                #table = LameSamples.objects.get(pk=username)
+            else:
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
+            if form.is_valid():
+                data = form.save(commit=False)
+                data.sr_id = sr
+                data.sample_id = sample_id_generation()
+                data.sample_status = 'Submitted'
+                data.save()
+
+                return render(request, 'home/thank_you_sample_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': data,
+                })
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
+        else:
+            #form = UserRegistrationForm()
+            try:
+                if lab.lab_id == 'LAGE':
+                    if LageSamples.objects.get(pk=username) is not None:
+                        form = LageSamplesForm(instance=LageSamples.objects.get(pk=username))
+                    else:
+                        form = LageSamplesForm()
+                elif lab.lab_id == 'LAME':
+                    if LameSamples.objects.get(pk=username) is not None:
+                        form = LameSamplesForm(instance=LameSamples.objects.get(pk=username))
+                    else:
+                        form = LameSamplesForm()
+                else:
+                    return render(request, 'home/error_page.html', {
+                            'page': self,
+                            # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                            'errors': form.errors.values, # TODO: improve this
+                        })
+            except Exception as e: # TODO Properly catch this
+                if lab.lab_id == 'LAGE':
+                    form = LageSamplesForm()
+                elif lab.lab_id == 'LAME':
+                    form = LameSamplesForm()
+                else:
+                    return render(request, 'home/error_page.html', {
+                            'page': self,
+                            # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                            'errors': form.errors.values, # TODO: improve this
+                        })
 
 
         return render(request, 'home/lab_sample_page.html', {

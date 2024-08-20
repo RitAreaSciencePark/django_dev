@@ -140,6 +140,40 @@ class SamplesForm(forms.ModelForm):
             # Filtra i sr_id basati su questi proposal_id
             self.fields['sr_id'].queryset = ServiceRequests.objects.filter(proposal_id__in=user_proposals)
 
+'''
+class LageSamplesForm(forms.ModelForm):
+    class Meta:
+        model = LageSamples
+        exclude = ['sr_id',
+                   'sample_id',
+                   'sample_feasibility',
+                   'sample_tatus']
+
+
+
+class LameSamplesForm(forms.ModelForm):
+    class Meta:
+        model = LameSamples
+        exclude = ['sr_id',
+                   'sample_id',
+                   'sample_feasibility',
+                   'sample_tatus']'''
+
+
+class SRForSampleForm(forms.ModelForm):
+    class Meta:
+        model = Samples
+        fields =  ['sr_id']
+        
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(SRForSampleForm, self).__init__(*args, **kwargs)
+        if user is not None:
+            # Ottieni tutti i proposal_id associati all'utente loggato
+            user_proposals = Proposals.objects.filter(user_id=user)
+            # Filtra i sr_id basati su questi proposal_id
+            self.fields['sr_id'].queryset = ServiceRequests.objects.filter(proposal_id__in=user_proposals)
+
 
 class LageSamplesForm(forms.ModelForm):
     class Meta:
