@@ -2,7 +2,7 @@ from django import forms
 # This import point to the external app schema!
 from PRP_CDM_app.forms import FormsDefinition
 from PRP_CDM_app.models import labDMP
-from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories
+from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories, Samples, LageSamples, LameSamples
 from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
 
 class LabSwitchForm(forms.Form): 
@@ -109,8 +109,7 @@ class AddNewLabForm(forms.ModelForm):
             model = Laboratories
             fields = ['lab_id', 'description']
 
-            
-            
+    
 
 class SRSubmissionForm(forms.ModelForm):
     class Meta:
@@ -124,3 +123,38 @@ class SRSubmissionForm(forms.ModelForm):
         super(SRSubmissionForm, self).__init__(*args, **kwargs)
         if user is not None:
             self.fields['proposal_id'].queryset = Proposals.objects.filter(user_id=user)
+
+
+
+class SamplesForm(forms.ModelForm):
+    class Meta:
+        model = Samples
+        fields =  ['sr_id']
+        
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(SamplesForm, self).__init__(*args, **kwargs)
+        if user is not None:
+            # Ottieni tutti i proposal_id associati all'utente loggato
+            user_proposals = Proposals.objects.filter(user_id=user)
+            # Filtra i sr_id basati su questi proposal_id
+            self.fields['sr_id'].queryset = ServiceRequests.objects.filter(proposal_id__in=user_proposals)
+
+
+class LageSamplesForm(forms.ModelForm):
+    class Meta:
+        model = LageSamples
+        exclude = ['sr_id',
+                   'sample_id',
+                   'sample_feasibility',
+                   'sample_tatus']
+
+
+
+class LameSamplesForm(forms.ModelForm):
+    class Meta:
+        model = LameSamples
+        exclude = ['sr_id',
+                   'sample_id',
+                   'sample_feasibility',
+                   'sample_tatus']

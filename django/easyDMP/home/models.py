@@ -17,9 +17,9 @@ from django import forms
 
 from django.contrib.auth.models import User
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SamplesForm, LageSamplesForm, LameSamplesForm
 
-from PRP_CDM_app.models import labDMP, Administration, Users, Proposals, ServiceRequests, Laboratories
+from PRP_CDM_app.models import labDMP, Administration, Users, Proposals, ServiceRequests, Laboratories, Samples, LageSamples, LameSamples
 from django.template.loader import render_to_string
 
 from os import listdir
@@ -29,7 +29,7 @@ from uuid import uuid4
 from PRP_CDM_app.reports import ReportDefinition
 from django.forms.models import model_to_dict
 
-from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation
+from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation, sample_id_generation
 
 @register_setting
 class HeaderSettings(BaseGenericSetting):
@@ -647,6 +647,206 @@ class SRSubmissionPage(Page):
 
 
         return render(request, 'home/sr_submission_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+
+
+
+class SamplesPage(Page):
+
+    def serve(self, request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        if request.method == 'POST':
+            form = SamplesForm(request.POST, user=username)
+            if form.is_valid():
+                data = form.save(commit=False)
+                #data.sample_id = sample_id_generation()
+                #data.sample_status = 'Submitted'
+                #data.save()
+
+                sr = data.sr_id
+                return redirect(self.get_redirect_url(sr.sr_id))
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+            
+        else:
+            try:
+                if Samples.objects.get(pk=username) is not None:
+                    form = SamplesForm(instance=Samples.objects.get(pk=username), user=username)
+                else:
+                    form = SamplesForm(user=username)
+            except Exception as e: # TODO Properly catch this
+                form = SamplesForm(user=username)
+
+        return render(request, 'home/sample_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+
+    def get_redirect_url(self, sr_id):
+        # Questo restituisce l'URL della pagina di reindirizzamento dinamico con l'sr_id
+        dynamic_redirect_page = DynamicFormRedirectPage.objects.live().first()
+        return f'{dynamic_redirect_page.url}?sr_id={sr_id}'
+    
+
+
+class DynamicFormRedirectPage(Page):
+    def serve(self, request):
+        sr_id = request.GET.get('sr_id')
+        sr = ServiceRequests.objects.get(sr_id=sr_id)
+        lab = sr.lab_id
+
+        if lab.lab_id == 'LAGE':
+            debug = LageSamplesPage.objects.live().first()
+            return redirect(LageSamplesPage.objects.live().first().url + f'?sr_id={sr_id}')
+        elif lab.lab_id == 'LAME':
+            #return redirect(LageSamplesPage.objects.live().first().url + f'?sr_id={sr_id}')
+            return redirect(LameSamplesPage.objects.live().first().url + f'?sr_id={sr_id}')
+        else:
+            return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        #'errors': form.errors.values, # TODO: improve this
+                    })
+        
+
+
+class LageSamplesPage(Page): # USER DATA
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        sr_id = request.GET.get('sr_id')
+        sr = ServiceRequests.objects.get(sr_id=sr_id)
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = LageSamplesForm(data=request.POST, files=request.FILES)
+
+            if form.is_valid():
+                data = form.save(commit=False)
+                data.sr_id = sr
+                data.sample_id = sample_id_generation()
+                data.sample_status = 'Submitted'
+                data.save()
+
+                #sample_id = data.sample_id
+
+                return render(request, 'home/thank_you_sample_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': data,
+                })
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
+        else:
+            #form = UserRegistrationForm()
+            try:
+                if LageSamples.objects.get(pk=username) is not None:
+                    form = LageSamplesForm(instance=LageSamples.objects.get(pk=username))
+                else:
+                    form = LageSamplesForm()
+            except Exception as e: # TODO Properly catch this
+                form = LageSamplesForm()
+
+
+        return render(request, 'home/lab_sample_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+    
+
+
+
+class LameSamplesPage(Page): # USER DATA
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        sr_id = request.GET.get('sr_id')
+        sr = ServiceRequests.objects.get(sr_id=sr_id)
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = LameSamplesForm(data=request.POST, files=request.FILES)
+
+            if form.is_valid():
+                data = form.save(commit=False)
+                data.sr_id = sr
+                data.sample_id = sample_id_generation()
+                data.sample_status = 'Submitted'
+                data.save()
+
+                debug = data.sample_sheet_filename
+
+                return render(request, 'home/thank_you_sample_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': data,
+                })
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
+        else:
+            #form = UserRegistrationForm()
+            try:
+                if LameSamples.objects.get(pk=username) is not None:
+                    form = LameSamplesForm(instance=LameSamples.objects.get(pk=username))
+                else:
+                    form = LameSamplesForm()
+            except Exception as e: # TODO Properly catch this
+                form = LameSamplesForm()
+
+
+        return render(request, 'home/lab_sample_page.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body_class %}template-thankyou{% endblock %}
+
+{% block content %}
+<h1>{{ page.thankyou_page_title }}</h1>
+
+<p>
+    Thanks! <br>
+    The id of this Sample will be: {{ data.sample_id }}
+</p>
+{% endblock %}

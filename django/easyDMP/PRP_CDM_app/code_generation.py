@@ -6,3 +6,6 @@ def sr_id_generation():
 
 def proposal_id_generation():
     return uuid4()
+
+def sample_id_generation():
+    return uuid4()

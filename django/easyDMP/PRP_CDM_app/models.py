@@ -56,7 +56,7 @@ class Users(models.Model):
 class Proposals(models.Model):
     proposal_id = models.CharField(max_length=37, primary_key=True)
     user_id = models.ForeignKey(Users, on_delete=models.PROTECT)
-    proposal_status = models.CharField(default='Submitted’')
+    proposal_status = models.CharField(default='Submitted')
     proposal_feasibility_choices = (("feasible","feasible"),
         ("not feasible","not feasible"),
         ("feasible with reservations","feasible with reservations"),
@@ -90,9 +90,7 @@ class ServiceRequests(models.Model):
     sr_id = models.CharField(max_length=37, primary_key=True)
     proposal_id = models.ForeignKey(Proposals, on_delete=models.PROTECT)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
-    # team_name = forms.ModelChoiceField(label='Team', queryset=Team.objects.filter(sport=1), required=False)
-    # opp_name = forms.ModelChoiceField(label='Opponent', queryset=Team.objects.filter(sport=1), required=False)
-    sr_status = models.CharField(default='Submitted’')
+    sr_status = models.CharField(default='Submitted')
     exp_description = models.TextField(max_length=500, blank=True)
     output_delivery_date = models.DateField(blank=True)
 
@@ -103,7 +101,7 @@ class ServiceRequests(models.Model):
 
 
 class Samples(models.Model):
-    widgets = {}
+    #widgets = {}
     sample_id = models.CharField(max_length=37, primary_key=True)
     sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT)
     type_choices = (
@@ -112,16 +110,16 @@ class Samples(models.Model):
         ("pellet","pellet"),
         ("biopsy","biopsy"),
     )
-    type = models.CharField(blank=True)
-    widgets["type"] = MultiChoicheAndOtherWidget(choices=type_choices)
+    type = models.CharField(choices=type_choices, blank=True)
+    #widgets["type"] = MultiChoicheAndOtherWidget(choices=type_choices)
     sample_description = models.TextField(max_length=500, blank=True)
     sample_feasibility_choices = (("feasible","feasible"),
         ("not feasible","not feasible"),
         ("feasible with reservations","feasible with reservations"),
     )
-    sample_feasibility = models.CharField(blank=True)
-    widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sample_feasibility_choices)
-    sample_tatus = models.CharField(default='Submitted’')
+    sample_feasibility = models.CharField(choices=sample_feasibility_choices, blank=True)
+    #widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sample_feasibility_choices)
+    sample_tatus = models.CharField(default='Submitted')
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
@@ -143,7 +141,7 @@ class LageSamples(Samples):
     
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-        return 'uploads/{0}/{1}'.format(instance.sample_id, filename)
+        return 'uploads/{0}/{1}/{2}'.format(instance.sr_id, instance.sample_id, filename)
 
     sample_sheet_filename = models.FileField(blank=True, upload_to=user_directory_path)
 
@@ -152,6 +150,26 @@ class LageSamples(Samples):
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'lage_samples'.lower()
+
+
+
+class LameSamples(Samples):
+    chemical_formula = models.CharField(blank=True)
+    elements_list = models.CharField(blank=True)
+    sample_date_of_delivery = models.DateField()
+    sample_back = models.BooleanField()
+    
+    def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+        return 'uploads/{0}/{1}/{2}'.format(instance.sr_id, instance.sample_id, filename)
+
+    sample_sheet_filename = models.FileField(blank=True, upload_to=user_directory_path)
+
+    additional_filename = models.FileField(blank=True, upload_to=user_directory_path)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'lame_samples'.lower()
 
 
 class Instruments(models.Model):
