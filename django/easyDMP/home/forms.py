@@ -77,7 +77,7 @@ class DMPform(forms.ModelForm):
                        'metadata_schema_defined': BooleanIfWhat(yes_or_no=True),
                        'open_data_licence':BooleanIfWhat(yes_or_no=True),
                        }
-            exclude = ['labname', 'datausername']
+            exclude = ['lab_id', 'user_id']
 
 
 class UserDataForm(forms.ModelForm):

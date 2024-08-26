@@ -12,7 +12,7 @@ from wagtail.contrib.settings.models import (
 
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.db import connections
+from django.db import connections, IntegrityError
 
 from django.contrib.auth.models import User
 
@@ -107,6 +107,7 @@ class SampleEntryForm(Page):
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
             forms = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST, filerequest=request.FILES)
+            
             for form in forms:
                 if not form.is_valid():
                     # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
@@ -264,8 +265,6 @@ class DMPPage(Page):
             except Exception as e: # TODO Properly catch this
                 form = DMPform()
 
-
-            
         return render(request, 'home/labdmp_page.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!

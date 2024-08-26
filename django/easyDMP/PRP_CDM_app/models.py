@@ -135,7 +135,7 @@ class LageSamples(Samples):
     widgets["is_buffer_used"] = BooleanIfWhat(yes_or_no=False)
     is_quality = models.CharField(blank=True)
     widgets["is_quality"] = BooleanIfWhat(yes_or_no=False)
-    sample_date_of_delivery = models.DateField()
+    sample_date_of_delivery = models.DateField(blank=False)
     sample_back = models.BooleanField()
     reagents_provided_by_client = models.BooleanField()
     reagents_date_of_delivery = models.DateField(blank=True)
@@ -265,7 +265,7 @@ class lageSample(models.Model):
     is_buffer_used = models.CharField(blank=True)
     widgets["is_buffer_used"] = BooleanIfWhat(yes_or_no=False)
 
-    expected_date_of_delivery = models.DateField(blank=True)
+    expected_date_of_delivery = models.DateField(blank=False)
     
     is_quality = models.CharField(blank=True)
     widgets["is_quality"] = BooleanIfWhat(yes_or_no=False)
@@ -274,7 +274,7 @@ class lageSample(models.Model):
 
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-        return 'uploads/{0}/{1}/{2}'.format(instance.datausername, instance.uuid, filename)
+        return 'uploads/{0}/{1}/{2}'.format(instance.user_id, instance.sr_id, filename)
 
     samplesheet_file = models.FileField(blank=True, upload_to=user_directory_path)
 
