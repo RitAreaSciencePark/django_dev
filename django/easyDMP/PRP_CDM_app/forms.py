@@ -2,7 +2,7 @@ from PRP_CDM_app.models import *
 
 class FormsDefinition:
     
-    class LageForm:
+    '''class LageForm:
         lab = 'LAGE'
         content = [
             Administration,
@@ -41,6 +41,27 @@ class FormsDefinition:
                    'is_buffer_used',
                    'is_volume_in_uL',
                    ],
+                   }'''
+    
+    class LageForm:
+        lab = 'LAGE'
+        content = [LageSamples]
+
+        exclude = { 'LageSamples': ['sr_id',
+                                    'sample_id',
+                                    'sample_feasibility',
+                                    'sample_tatus']
+                   }
+        
+    
+    class LameForm:
+        lab = 'LAME'
+        content = [LameSamples]
+
+        exclude = { 'LameSamples': ['sr_id',
+                                    'sample_id',
+                                    'sample_feasibility',
+                                    'sample_tatus']
                    }
     
 

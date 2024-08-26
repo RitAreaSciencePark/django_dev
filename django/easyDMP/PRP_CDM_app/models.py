@@ -137,7 +137,7 @@ class LageSamples(Samples):
     sample_date_of_delivery = models.DateField()
     sample_back = models.BooleanField()
     reagents_provided_by_client = models.BooleanField()
-    reagents_date_of_delivery = models.DateField(blank=True)
+    reagents_date_of_delivery = models.DateField(blank=True, null=True)
     
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
