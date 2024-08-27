@@ -1,0 +1,14 @@
+[
+{
+  "model": "PRP_CDM_app.users",
+  "pk": "admin",
+  "fields": {
+    "name_surname": "Marco Prenassi",
+    "email": "m.prenassi@gmail.com",
+    "affiliation": "Area Science Park",
+    "gender": "male",
+    "legal_status": "PRV",
+    "research_role": "technician"
+  }
+}
+]

@@ -93,8 +93,11 @@ header a{
 
 }
 
+.dropdown{
+  display: block;
+}
 #dropdown-button {
-  display: flex;
+  display: inline-flex;
   text-align: left;
   margin-left: 5%;
   text-decoration: none;
