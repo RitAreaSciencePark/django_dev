@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body_class %}template-thankyou{% endblock %}
+
+{% block content %}
+<h1>{{ page.thankyou_page_title }}</h1>
+
+<p>
+    Thanks, {{data.user_id.pk }}! <br>
+    The id of this Proposal will be: {{ data.proposal_id }}
+</p>
+{% endblock %}

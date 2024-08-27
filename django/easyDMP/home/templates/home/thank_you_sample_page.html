@@ -1,14 +1,12 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block body_class %}template-thankyou{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/thank_you_page.css' %}">
-
-    <h1>{{ page.thankyou_page_title }}</h1>
+<h1>{{ page.thankyou_page_title }}</h1>
 
 <p>
     Thanks! <br>
+    The id of this Sample will be: {{ data.sample_id }}
 </p>
 {% endblock %}

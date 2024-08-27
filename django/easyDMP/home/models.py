@@ -12,13 +12,14 @@ from wagtail.contrib.settings.models import (
 
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.db import connections, IntegrityError
+from django.db import connections
+from django import forms
 
 from django.contrib.auth.models import User
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SRForSampleForm#, LageSamplesForm, LameSamplesForm
 
-from PRP_CDM_app.models import labDMP, Administration, Users
+from PRP_CDM_app.models import labDMP, Administration, Users, Proposals, ServiceRequests, Laboratories, Samples, LageSamples, LameSamples
 from django.template.loader import render_to_string
 
 from os import listdir
@@ -28,7 +29,7 @@ from uuid import uuid4
 from PRP_CDM_app.reports import ReportDefinition
 from django.forms.models import model_to_dict
 
-from PRP_CDM_app.code_generation import sr_id_generation
+from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation, sample_id_generation
 
 @register_setting
 class HeaderSettings(BaseGenericSetting):
@@ -386,16 +387,6 @@ class UserDataPage(Page): # USER DATA
     def serve(self,request):
         if request.user.is_authenticated:
             username = request.user.username
-        
-        ''' try:
-            if(request.session['lab_selected'] is None):
-                request.session["return_page"] = request.META['HTTP_REFERER']
-                next = request.POST.get("next", "/switch-laboratory")
-                return redirect(next)
-        except KeyError:
-            request.session["return_page"] = request.META['HTTP_REFERER']
-            next = request.POST.get("next", "/switch-laboratory")
-            return redirect(next)'''
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
@@ -437,3 +428,318 @@ class UserDataPage(Page): # USER DATA
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,
             })
+
+
+
+
+
+class ProposalSubmissionPage(Page): # USER DATA
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = ProposalSubmissionForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                # In our example the routing takes care of the external db save
+                data = form.save(commit=False)
+                data.proposal_id = proposal_id_generation()
+                data.proposal_status = 'Submitted'
+                if Users.objects.get(pk=username) is not None:
+                    data.user_id = Users.objects.get(pk=username)
+                
+                #debug = data.proposal_filename
+
+                data.save()
+                return render(request, 'home/thank_you_proposal_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': data,
+                })
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
+        else:
+            #form = UserRegistrationForm()
+            try:
+                if Proposals.objects.get(pk=username) is not None:
+                    form = ProposalSubmissionForm(instance=Proposals.objects.get(pk=username))
+                else:
+                    form = ProposalSubmissionForm()
+            except Exception as e: # TODO Properly catch this
+                form = ProposalSubmissionForm()
+
+
+        return render(request, 'home/proposal_submission_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+
+
+
+class ProposalListPage(Page):
+    intro = RichTextField(blank=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        data = Proposals.objects.filter(user_id_id=request.user.username)
+        return render(request, 'home/proposal_list.html', {
+            'page': self,
+            'data': data,
+        })
+    
+
+
+
+class AddNewLabPage(Page): # USER DATA
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = AddNewLabForm(data=request.POST)
+            if form.is_valid():
+                data = form.save()
+                return render(request, 'home/thank_you_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': data,
+                })
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
+        else:
+            #form = UserRegistrationForm()
+            try:
+                if Laboratories.objects.get() is not None:
+                    form = AddNewLabForm()
+                else:
+                    form = AddNewLabForm()
+            except Exception as e: # TODO Properly catch this
+                form = AddNewLabForm()
+
+
+        return render(request, 'home/add_new_lab_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+    
+
+
+
+class SRSubmissionPage(Page):
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    # drop down
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        #FieldPanel('Proposals', widget=forms.Select(choices=Proposals.objects.all().order_by('proposal_id'))),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = SRSubmissionForm(data=request.POST, user=username)
+            if form.is_valid():
+                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                # In our example the routing takes care of the external db save
+                data = form.save(commit=False)
+                data.sr_id = sr_id_generation()
+                data.sr_status = 'Submitted'
+                
+                #debug = data.proposal_filename
+
+                data.save()
+                return render(request, 'home/thank_you_sr_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': data,
+                })
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+
+        else:
+            #form = UserRegistrationForm()
+            try:
+                if ServiceRequests.objects.get(pk=username) is not None:
+                    form = SRSubmissionForm(instance=ServiceRequests.objects.get(pk=username), user=username)
+                else:
+                    form = SRSubmissionForm(user=username)
+            except Exception as e: # TODO Properly catch this
+                form = SRSubmissionForm(user=username)
+
+
+        return render(request, 'home/sr_submission_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+
+
+
+
+class SRForSamplePage(Page):
+
+    def serve(self, request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        if request.method == 'POST':
+            form = SRForSampleForm(request.POST, user=username)
+            if form.is_valid():
+                data = form.save(commit=False)
+                sr = data.sr_id
+                request.session['sr_id'] = sr.sr_id
+                dynamic_redirect_page = f'{GeneralSamplePage.objects.live().first().url}'
+                return redirect(dynamic_redirect_page)
+                
+            else:
+                #debug = form.errors
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+            
+        else:
+            try:
+                if Samples.objects.get(pk=username) is not None:
+                    form = SRForSampleForm(instance=Samples.objects.get(pk=username), user=username)
+                else:
+                    form = SRForSampleForm(user=username)
+            except Exception as e: # TODO Properly catch this
+                form = SRForSampleForm(user=username)
+
+        return render(request, 'home/sample_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+            })
+
+
+
+class GeneralSamplePage(Page):
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+    max_length=255, help_text="Title text to use for the 'thank you' page")
+       
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+        ]
+    
+    def serve(self, request):
+        sr_id = request.session.get('sr_id')
+        sr = ServiceRequests.objects.get(sr_id=sr_id)
+        lab = sr.lab_id
+
+        if request.method == 'POST':
+            
+            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
+
+            for form in forms:
+                if not form.is_valid():
+                    return render(request, 'home/error_page.html', {
+                        'page': self,
+                        'errors': form.errors.values, # TODO: improve this
+                    })
+                else:
+                    data = form.save(commit=False)
+                    data.sr_id = sr
+                    data.sample_id = sample_id_generation()
+                    data.sample_status = 'Submitted'
+                    data.save()
+
+            return render(request, 'home/thank_you_sample_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': data,
+                })
+
+        else:
+            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
+        
+        pageDict = {
+            'page': self,
+            'lab': lab.lab_id,
+            }
+        
+        for form in forms:
+            pageDict[form.Meta.model.__name__] = form
+            
+        pageDict['forms'] = forms
+        formlist =[]
+        # return the form page, with the form as data.
+        # TODO: while using settings is correct, create/find another softcoded var!!
+        try:
+            home_path = settings.PROJECT_DIR[:len(settings.PROJECT_DIR)-7]
+            abs_path = join(home_path,"home/templates/home/forms/")
+            formlist = [f for f in listdir(abs_path)]
+        except Exception as e:
+            e # TODO: properly catch this
+
+        for formTemplate in formlist:
+            if pageDict['lab'].lower() in formTemplate:
+                return render(request, 'home/forms/' + formTemplate, pageDict)
+        return render(request, 'home/generic_form_page.html', pageDict)
