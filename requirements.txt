@@ -6,3 +6,6 @@ wagtail>=6.0.2
 psycopg2-binary>=2.9.9
 # Allauth:
 django-allauth>=0.62.1
+# Tables and Filters
+django-tables2>=2.7.0
+django-filter>=24.3

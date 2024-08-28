@@ -1,0 +1,14 @@
+.table-container{
+    font-size: small;
+    background-color: aliceblue;
+}
+
+#filterText {
+    float: left;
+    display: inline-flex;
+    width: 250pt;
+}
+
+.table-container a{
+    font-size: small;
+}

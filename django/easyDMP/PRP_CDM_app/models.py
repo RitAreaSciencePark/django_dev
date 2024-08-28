@@ -4,6 +4,8 @@ from django.db import models
 from django import forms
 from uuid import uuid4
 from .fields import MultiChoicheAndOtherWidget, BooleanIfWhat
+import datetime
+
 
 # NOTE: For "multiple choices + free text fields"
 # in this version they must be declared like this:
@@ -62,6 +64,7 @@ class Proposals(models.Model):
         ("feasible with reservations","feasible with reservations"),
     )
     proposal_feasibility = models.CharField(choices=proposal_feasibility_choices,blank=True)
+    proposal_date = models.DateField(blank=False, default=datetime.date.today)
     
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -72,7 +75,6 @@ class Proposals(models.Model):
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'proposals'.lower()
-
 
 
 class Laboratories(models.Model):

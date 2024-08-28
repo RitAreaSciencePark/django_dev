@@ -1,29 +1,17 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags%}
-
+{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags django_tables2  %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="{% static 'css/list_page.css' %}">
 
-<table>
-    <tr>
-        <th align="left">proposal_id</th>
-        <th align="left">proposal_status</th>
-        <th align="left">proposal_filename</th>
-    </tr>
-    {% for cdata in data %}
-    <tr>
-        <td align="left">{{ cdata.proposal_id }}</td>
-        <td align="left">{{ cdata.proposal_status }}</td>
-        <td align="left">{{ cdata.proposal_filename }}</td>
-        <td align="left">
-            <form action="/dmp-view/" method="post">
-                {% csrf_token %}
-                <button type="submit" name="proposal_id" value="{{ cdata.proposal_id }}"
-                    class="button-link">view</button>
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+Filter:
+<form action="." method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText" placeholder="filter...">
+    <button type="submit" class="btn btn-primary">search</button>
+</form>
+{% render_table table %}
+
 {% endblock %}

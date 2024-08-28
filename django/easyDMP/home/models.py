@@ -31,6 +31,10 @@ from django.forms.models import model_to_dict
 
 from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation, sample_id_generation
 
+from .tables import ProposalsTable
+from django_tables2.config import RequestConfig
+
+
 @register_setting
 class HeaderSettings(BaseGenericSetting):
     header_text = RichTextField(blank=True)
@@ -508,11 +512,28 @@ class ProposalListPage(Page):
     def serve(self,request):
         if request.user.is_authenticated:
             username = request.user.username
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
+        else:
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
+
+        if request.method == 'POST':
+            filter = request.POST.get("filter","")
+            request.GET = request.GET.copy()
+            request.GET["filter"] = request.POST.get("filter","")
+        
 
         data = Proposals.objects.filter(user_id_id=request.user.username)
+        data = data.filter(proposal_id__contains = filter)
+        table = ProposalsTable(data)
+        RequestConfig(request).configure(table)
+
+        table.paginate(page=request.GET.get("page",1), per_page=25)
         return render(request, 'home/proposal_list.html', {
             'page': self,
-            'data': data,
+            'table': table,
         })
     
 
