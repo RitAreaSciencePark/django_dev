@@ -30,7 +30,7 @@ def form_orchestrator(user_lab, request, filerequest):
         formClass = getattr(FormsDefinition,user_lab.title() + "Form")
         if hasattr(formClass, "exclude") and formClass.exclude is not None:
             for formdef, values in formClass.exclude.items():
-                pass
+                pass # TODO fix this ... maybe not, investigate
 
         form_list = []
         # this block checks if there are some special field names to override the widgets

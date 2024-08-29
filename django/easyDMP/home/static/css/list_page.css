@@ -7,6 +7,7 @@
     float: left;
     display: inline-flex;
     width: 250pt;
+    height: fit-content;
 }
 
 .table-container a{

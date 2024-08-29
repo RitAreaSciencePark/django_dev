@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms/lage_form.css' %}">
+
+<h1><b>{{ lab }} SAMPLE ENTRY FORM</b></h1>
+
+
+{{ page.intro | richtext }}
+
+<form action="." method="POST" enctype="multipart/form-data" id="sampleform">
+    <br>
+    {% csrf_token %}
+    <input type="hidden" name="sr_id" value="{{ sr_id }}"/>
+    <div class="section_div">
+        <h4><b> GENERAL SAMPLE INFORMATION </b></h4>
+        <br>
+        <p>
+        <!-- <i>sr_id*</i>: <br> {{ .dmptitle }} <br> !-->
+        <i>Please describe in a few words the experiment (max 500 characters)*</i>: <br> {{ LageSamples.sample_description }} <br>
+        </p>
+        <br>
+    </div>
+
+    <div class="section_div">
+        <h4><b> LAGE SAMPLE INFORMATION </b></h4>
+        <br>
+        <p>
+            <i>Type of sample</i>: <br> {{ LageSamples.type }} <br>
+            <i>In the list of samples, have you included the volume expressed in µl? (if not, specify why)</i>: <br>
+            Yes? {{ LageSamples.is_volume_in_ul }} <br>
+            <i>In the list of samples, have you included the Buffer used? (if not, specify why)</i>: <br> Yes? {{ LageSamples.is_buffer_used }} <br>
+            <i>Expected date of delivery ("YYYY-MM-DD")</i>: <br> {{ LageSamples.sample_date_of_delivery }} <br>
+            <i>[Not Mandatory] In the list of samples, have you specified the quality (if available RIN in case of RNA,
+                DIN in case of DNA, and/or 260/280nm ratio)?</i>: <br> Yes? {{ LageSamples.is_quality }} <br>
+            <i>only for scientific collaborations: do you want the rest of the sample back?</i> Yes: {{ LageSamples.sample_back }} <br>
+
+            <br>
+        </p>
+    </div>
+    <div class="section_div">
+        <h4><b> FILES </b></h4>
+        <br>
+        <p>
+            <i>Include the sample sheet if present</i>: {{ LageSamples.sample_sheet_filename }} <br>
+            <i>Include additional file: <br> (FOR THIS VERSION OF EASYDMP: if more than one compress the files in a
+                single zip or tar format)</i> {{ LageSamples.additional_filename }}
+
+        </p>
+    </div>
+    <br>
+
+    <p><input type="submit" value="Insert data" class="btn btn-primary"></p>
+</form>
+
+
+
+{% endblock %}

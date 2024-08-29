@@ -6,5 +6,5 @@ class ReportDefinition:
         lab = 'LAGE'
         content = [
             Administration,
-            lageSample,
+            LageSamples,
         ]

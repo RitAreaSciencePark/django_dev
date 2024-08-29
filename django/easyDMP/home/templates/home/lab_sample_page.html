@@ -1,18 +1,20 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags django_tables2 %}
 
 {% block body_class %}template-form{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
 
-<h1>Insert sample information</h1>
+<h1>Select the service request associated with the sample:</h1>
+<link rel="stylesheet" href="{% static 'css/list_page.css' %}">
 
-<form method="post" action="" enctype="multipart/form-data">
+Filter:
+<form action="." method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ data }}
-
-    <button type="submit">Submit</button>
+    <input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText" placeholder="filter...">
+    <button type="submit" class="btn btn-primary">search</button>
 </form>
+{% render_table table %}
 
 {% endblock %}

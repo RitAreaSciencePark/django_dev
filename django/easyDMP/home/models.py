@@ -31,7 +31,7 @@ from django.forms.models import model_to_dict
 
 from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation, sample_id_generation
 
-from .tables import ProposalsTable
+from .tables import ProposalsTable,ServiceRequestTable,SamplesTable
 from django_tables2.config import RequestConfig
 
 
@@ -536,9 +536,6 @@ class ProposalListPage(Page):
             'table': table,
         })
     
-
-
-
 class AddNewLabPage(Page): # USER DATA
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -613,6 +610,24 @@ class SRSubmissionPage(Page):
         if request.user.is_authenticated:
             username = request.user.username
 
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
+        else:
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
+
+        if request.method == 'POST':
+            filter = request.POST.get("filter","")
+            request.GET = request.GET.copy()
+            request.GET["filter"] = request.POST.get("filter","")
+        
+
+        data = Proposals.objects.filter(user_id=username)
+        data = data.filter(proposal_id__contains = filter)
+        table = ProposalsTable(data)
+        RequestConfig(request).configure(table)
+        table.paginate(page=request.GET.get("page",1), per_page=3)
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
             form = SRSubmissionForm(data=request.POST, user=username)
@@ -653,54 +668,42 @@ class SRSubmissionPage(Page):
 
         return render(request, 'home/sr_submission_page.html', {
                 'page': self,
+                'table': table,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,
             })
-
-
-
 
 class SRForSamplePage(Page):
 
     def serve(self, request):
         if request.user.is_authenticated:
             username = request.user.username
+        
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
+        else:
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
 
         if request.method == 'POST':
-            form = SRForSampleForm(request.POST, user=username)
-            if form.is_valid():
-                data = form.save(commit=False)
-                sr = data.sr_id
-                request.session['sr_id'] = sr.sr_id
-                dynamic_redirect_page = f'{GeneralSamplePage.objects.live().first().url}'
-                return redirect(dynamic_redirect_page)
-                
-            else:
-                #debug = form.errors
-                return render(request, 'home/error_page.html', {
-                        'page': self,
-                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values, # TODO: improve this
-                    })
-            
-        else:
-            try:
-                if Samples.objects.get(pk=username) is not None:
-                    form = SRForSampleForm(instance=Samples.objects.get(pk=username), user=username)
-                else:
-                    form = SRForSampleForm(user=username)
-            except Exception as e: # TODO Properly catch this
-                form = SRForSampleForm(user=username)
+            filter = request.POST.get("filter","")
+            request.GET = request.GET.copy()
+            request.GET["filter"] = request.POST.get("filter","")
+        
 
-        return render(request, 'home/sample_page.html', {
-                'page': self,
-                # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                'data': form,
-            })
+        data = ServiceRequests.objects.filter(lab_id=request.session.get('lab_selected'))
+        data = data.filter(sr_id__contains = filter)
+        table = ServiceRequestTable(data)
+        RequestConfig(request).configure(table)
 
+        table.paginate(page=request.GET.get("page",1), per_page=25)
+        return render(request, 'home/lab_sample_page.html', {
+            'page': self,
+            'table': table,
+        })
 
-
-class GeneralSamplePage(Page):
+class SamplePage(Page):
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
     max_length=255, help_text="Title text to use for the 'thank you' page")
@@ -711,7 +714,12 @@ class GeneralSamplePage(Page):
         ]
     
     def serve(self, request):
-        sr_id = request.session.get('sr_id')
+        if 'sr_id' in request.GET:
+            sr_id = request.GET.get('sr_id')
+        elif request.method == 'POST':
+            sr_id = request.POST.get('sr_id')
+        else:
+            return redirect("/sample-entry")
         sr = ServiceRequests.objects.get(sr_id=sr_id)
         lab = sr.lab_id
 
@@ -729,21 +737,22 @@ class GeneralSamplePage(Page):
                     data = form.save(commit=False)
                     data.sr_id = sr
                     data.sample_id = sample_id_generation()
+                    data.lab_id = lab
                     data.sample_status = 'Submitted'
                     data.save()
-
-            return render(request, 'home/thank_you_sample_page.html', {
+            return render(request, 'home/thank_you_page.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': data,
                 })
 
         else:
-            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
+            forms = form_orchestrator(user_lab=lab.lab_id, request=None, filerequest=None)
         
         pageDict = {
             'page': self,
             'lab': lab.lab_id,
+            'sr_id': sr_id,
             }
         
         for form in forms:
@@ -764,3 +773,36 @@ class GeneralSamplePage(Page):
             if pageDict['lab'].lower() in formTemplate:
                 return render(request, 'home/forms/' + formTemplate, pageDict)
         return render(request, 'home/generic_form_page.html', pageDict)
+    
+class SampleListPage(Page):
+    intro = RichTextField(blank=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
+        else:
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
+
+        if request.method == 'POST':
+            filter = request.POST.get("filter","")
+            request.GET = request.GET.copy()
+            request.GET["filter"] = request.POST.get("filter","")
+        
+
+        data = Samples.objects.filter(lab_id=request.session.get('lab_selected'))
+        data = data.filter(sample_id__contains = filter)
+        table = SamplesTable(data)
+        RequestConfig(request).configure(table)
+
+        table.paginate(page=request.GET.get("page",1), per_page=25)
+        return render(request, 'home/proposal_list.html', {
+            'page': self,
+            'table': table,
+        })

@@ -106,14 +106,7 @@ class Samples(models.Model):
     #widgets = {}
     sample_id = models.CharField(max_length=37, primary_key=True)
     sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT)
-    type_choices = (
-        ("DNA","DNA"),
-        ("RNA","RNA"),
-        ("pellet","pellet"),
-        ("biopsy","biopsy"),
-    )
-    type = models.CharField(choices=type_choices, blank=True)
-    #widgets["type"] = MultiChoicheAndOtherWidget(choices=type_choices)
+    lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
     sample_description = models.TextField(max_length=500, blank=True)
     sample_feasibility_choices = (("feasible","feasible"),
         ("not feasible","not feasible"),
@@ -121,7 +114,7 @@ class Samples(models.Model):
     )
     sample_feasibility = models.CharField(choices=sample_feasibility_choices, blank=True)
     #widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sample_feasibility_choices)
-    sample_tatus = models.CharField(default='Submitted')
+    sample_status = models.CharField(default='Submitted')
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
@@ -129,6 +122,14 @@ class Samples(models.Model):
 
 class LageSamples(Samples):
     widgets = {}
+    type_choices = (
+        ("DNA","DNA"),
+        ("RNA","RNA"),
+        ("pellet","pellet"),
+        ("biopsy","biopsy"),
+    )
+    type = models.CharField(blank=True)
+    widgets["type"] = MultiChoicheAndOtherWidget(choices=type_choices)
     #sample_id = models.CharField(max_length=37, primary_key=True) # also FK table samples
     is_volume_in_ul = models.CharField(blank=True)
     widgets["is_volume_in_ul"] = BooleanIfWhat(yes_or_no=False)
@@ -152,8 +153,6 @@ class LageSamples(Samples):
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'lage_samples'.lower()
-
-
 
 class LameSamples(Samples):
     chemical_formula = models.CharField(blank=True)
@@ -262,7 +261,7 @@ class Administration(models.Model):
     class Meta:
         db_table= 'administration'.lower()
 
-class lageSample(models.Model):
+'''class lageSample(models.Model):
     widgets = {}
 
     sr_id = models.CharField(max_length=37, primary_key=True, default=uuid4())
@@ -304,7 +303,7 @@ class lageSample(models.Model):
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'lagesample'.lower()
-
+'''
 
 class labDMP(models.Model):
     lab_id = models.CharField(max_length=128, primary_key=True)
