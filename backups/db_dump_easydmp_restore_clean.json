@@ -49,7 +49,7 @@
       "page"
     ],
     "object_id": "1",
-    "title_norm": 2.5833333333333335,
+    "title_norm": 2.3333333333333335,
     "autocomplete": "'root':1",
     "title": "'root':1B",
     "body": ""
@@ -64,9 +64,9 @@
       "homepage"
     ],
     "object_id": "3",
-    "title_norm": 1.0,
-    "autocomplete": "",
-    "title": "",
+    "title_norm": 0.8333333333333334,
+    "autocomplete": "'easydmp':1 'home':2 'page':3",
+    "title": "'easydmp':1B 'home':2B 'page':3B",
     "body": ""
   }
 },
@@ -79,7 +79,7 @@
       "image"
     ],
     "object_id": "1",
-    "title_norm": 0.6458333333333334,
+    "title_norm": 0.5833333333333334,
     "autocomplete": "'logo':1 'pathogen':3 'prp':2 'ri':4",
     "title": "'logo':1A 'pathogen':3A 'prp':2A 'ri':4A",
     "body": ""
@@ -177,31 +177,16 @@
 },
 {
   "model": "wagtailsearch.indexentry",
-  "pk": 39,
-  "fields": {
-    "content_type": [
-      "home",
-      "srforsamplepage"
-    ],
-    "object_id": "10",
-    "title_norm": 1.0,
-    "autocomplete": "",
-    "title": "",
-    "body": ""
-  }
-},
-{
-  "model": "wagtailsearch.indexentry",
   "pk": 44,
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "object_id": "11",
-    "title_norm": 1.0,
-    "autocomplete": "",
-    "title": "",
+    "title_norm": 0.8666666666666667,
+    "autocomplete": "'entry':2 'information':3 'sample':1",
+    "title": "'entri':2B 'inform':3B 'sampl':1B",
     "body": ""
   }
 },
@@ -217,6 +202,21 @@
     "title_norm": 1.0,
     "autocomplete": "",
     "title": "",
+    "body": ""
+  }
+},
+{
+  "model": "wagtailsearch.indexentry",
+  "pk": 52,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "object_id": "13",
+    "title_norm": 1.1666666666666667,
+    "autocomplete": "'list':2 'sample':1",
+    "title": "'list':2B 'sampl':1B",
     "body": ""
   }
 },
@@ -420,7 +420,7 @@
   "model": "auth.user",
   "fields": {
     "password": "pbkdf2_sha256$870000$qIF7WevJO8et3u2lBFSjiO$JgskjjOkrn9q/R03O8FNuF+h1tlPOLIVVTGyUsD6KZE=",
-    "last_login": "2024-08-27T09:42:49.663Z",
+    "last_login": "2024-08-29T11:04:30.574Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "Marco",
@@ -442,10 +442,10 @@
 },
 {
   "model": "sessions.session",
-  "pk": "g6vt4y9okndc8z59pyzxjqgd23qoclzi",
+  "pk": "rk3syvarjjhi7yu2pi3d7dvhfe4ezdkf",
   "fields": {
-    "session_data": ".eJxVj0FuwyAQRe8ya8sCZwzGy-57gqqyhgHXtDVEBquJoty9ps0mu9H895_0b0DMaY9lor0sPpbAVEKK0-rLklyG8e0G_zeMcKacf9LmoAEqMErdoe6lVqZVvdaqgT37LdLqD5bcGiLc3xv4U081mkK1SHj6WeIvH2vgPil-pJZTLFuwbUXaR5rb1-T898uDfRIslJejbYS2iNZaPJFFYqVwMBrtwGaeux7xJMgI4VnhzEIPAxlnGJm9kkZJqtLsc67r_eUctuuxsBNGCXH_BQEQYP4:1sisiv:HzuiK7Ei-gYkfg2Yat7sxx1W-7pqamPKRRzzrw10DUQ",
-    "expire_date": "2024-09-10T09:42:49.669Z"
+    "session_data": ".eJxVkMFOxCAQht9lzrWlLUtLb5oYL_oExjQDzG6rLTRAo5vNvruge9nbhP_ny3xzAdTa7TaOuMeJbJw1xtnZcaU4ORNgeL_A_wwDbBjCt_MGCsAIQ901XDaSd6w8CMFFeyhgD-QtrpTaaNbZwvWjgD_4mKNxzpwa7t4U6i-yOTCfaE-u1M5GP6syV8pbGso3Z2h5unXvABOGKf2WrFOcK6V4i4qjTjv1suOq1_J4bA6ctwwlY6QFP2rW9T1KIzXXmkQtRY0ZGiiE7E8_2-zPybFhUjBWgKe4eztueMpuU4zbUFWE4WzWrVycxmVyIQ4961kVcN0Wekjn9OcqURdUCbyQjpQtXx9fnuH6C1cXfVE:1slrNO:2h6uj3pLhJDLUzpexIznEqCYF6RyazZbwhOSFmTg9QQ",
+    "expire_date": "2024-09-18T14:52:54.631Z"
   }
 },
 {
@@ -527,17 +527,6 @@
 },
 {
   "model": "wagtailcore.pagesubscription",
-  "pk": 9,
-  "fields": {
-    "user": [
-      "admin"
-    ],
-    "page": 10,
-    "comment_notifications": true
-  }
-},
-{
-  "model": "wagtailcore.pagesubscription",
   "pk": 10,
   "fields": {
     "user": [
@@ -555,6 +544,17 @@
       "admin"
     ],
     "page": 12,
+    "comment_notifications": true
+  }
+},
+{
+  "model": "wagtailcore.pagesubscription",
+  "pk": 12,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "page": 13,
     "comment_notifications": true
   }
 },
@@ -1545,7 +1545,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "label": "Sample entry information",
     "action": "wagtail.create",
@@ -1567,7 +1567,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "label": "Sample entry information",
     "action": "wagtail.edit",
@@ -1589,7 +1589,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "label": "Sample entry information",
     "action": "wagtail.view_restriction.create",
@@ -1616,7 +1616,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "label": "Sample entry information",
     "action": "wagtail.edit",
@@ -1638,7 +1638,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "label": "Sample entry information",
     "action": "wagtail.publish",
@@ -1660,7 +1660,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "label": "Sample entry information",
     "action": "wagtail.edit",
@@ -1682,7 +1682,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "label": "Sample entry information",
     "action": "wagtail.publish",
@@ -1880,6 +1880,253 @@
   }
 },
 {
+  "model": "wagtailcore.pagelogentry",
+  "pk": 59,
+  "fields": {
+    "content_type": [
+      "home",
+      "userdatapage"
+    ],
+    "label": "User information",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-27T13:55:23.255Z",
+    "uuid": "089d3099-fc22-4348-a9cb-ac94f6278190",
+    "user": [
+      "admin"
+    ],
+    "revision": 23,
+    "content_changed": true,
+    "deleted": false,
+    "page": 5
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 60,
+  "fields": {
+    "content_type": [
+      "home",
+      "userdatapage"
+    ],
+    "label": "User information",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-08-27T13:55:23.317Z",
+    "uuid": "089d3099-fc22-4348-a9cb-ac94f6278190",
+    "user": [
+      "admin"
+    ],
+    "revision": 23,
+    "content_changed": true,
+    "deleted": false,
+    "page": 5
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 61,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "label": "Sample List",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2024-08-29T13:22:51.285Z",
+    "uuid": "1efe8309-cb6f-4787-8a09-509be15a19c1",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "page": 13
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 62,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "label": "Sample List",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-29T13:22:51.318Z",
+    "uuid": "1efe8309-cb6f-4787-8a09-509be15a19c1",
+    "user": [
+      "admin"
+    ],
+    "revision": 24,
+    "content_changed": true,
+    "deleted": false,
+    "page": 13
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 63,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "label": "Sample List",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-08-29T13:22:51.358Z",
+    "uuid": "1efe8309-cb6f-4787-8a09-509be15a19c1",
+    "user": [
+      "admin"
+    ],
+    "revision": 24,
+    "content_changed": true,
+    "deleted": false,
+    "page": 13
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 64,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "label": "Sample List",
+    "action": "wagtail.view_restriction.create",
+    "data": {
+      "restriction": {
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2024-08-29T13:25:10.474Z",
+    "uuid": "710f748f-59e4-44fc-9298-4b80c7dc0f95",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": false,
+    "deleted": false,
+    "page": 13
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 65,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "label": "Sample List",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-08-29T13:25:13.307Z",
+    "uuid": "6c1fd478-0617-4898-acfe-413451d731f4",
+    "user": [
+      "admin"
+    ],
+    "revision": 25,
+    "content_changed": true,
+    "deleted": false,
+    "page": 13
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 66,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "label": "Sample List",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-08-29T13:25:13.349Z",
+    "uuid": "6c1fd478-0617-4898-acfe-413451d731f4",
+    "user": [
+      "admin"
+    ],
+    "revision": 25,
+    "content_changed": false,
+    "deleted": false,
+    "page": 13
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 67,
+  "fields": {
+    "content_type": [
+      "home",
+      "srforsamplepage"
+    ],
+    "label": "Sample Entry",
+    "action": "wagtail.delete",
+    "data": {},
+    "timestamp": "2024-09-04T10:08:03.226Z",
+    "uuid": "373b37b5-5024-4b78-b2aa-e37bc75bf66d",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": false,
+    "deleted": true,
+    "page": 10
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 68,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplepage"
+    ],
+    "label": "Sample entry information",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2024-09-04T10:08:19.355Z",
+    "uuid": "14c7e8f2-e4d5-4df8-b046-cfef803d670d",
+    "user": [
+      "admin"
+    ],
+    "revision": 26,
+    "content_changed": true,
+    "deleted": false,
+    "page": 11
+  }
+},
+{
+  "model": "wagtailcore.pagelogentry",
+  "pk": 69,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplepage"
+    ],
+    "label": "Sample entry information",
+    "action": "wagtail.publish",
+    "data": {},
+    "timestamp": "2024-09-04T10:08:19.441Z",
+    "uuid": "14c7e8f2-e4d5-4df8-b046-cfef803d670d",
+    "user": [
+      "admin"
+    ],
+    "revision": 26,
+    "content_changed": true,
+    "deleted": false,
+    "page": 11
+  }
+},
+{
   "model": "wagtailcore.groupapprovaltask",
   "pk": 1,
   "fields": {
@@ -1953,16 +2200,6 @@
 },
 {
   "model": "wagtailcore.pageviewrestriction",
-  "pk": 7,
-  "fields": {
-    "restriction_type": "login",
-    "password": "",
-    "page": 10,
-    "groups": []
-  }
-},
-{
-  "model": "wagtailcore.pageviewrestriction",
   "pk": 8,
   "fields": {
     "restriction_type": "login",
@@ -1978,6 +2215,16 @@
     "restriction_type": "login",
     "password": "",
     "page": 12,
+    "groups": []
+  }
+},
+{
+  "model": "wagtailcore.pageviewrestriction",
+  "pk": 10,
+  "fields": {
+    "restriction_type": "login",
+    "password": "",
+    "page": 13,
     "groups": []
   }
 },
@@ -2853,117 +3100,11 @@
 },
 {
   "model": "wagtailcore.revision",
-  "pk": 15,
-  "fields": {
-    "content_type": [
-      "home",
-      "srforsamplepage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "10",
-    "created_at": "2024-08-27T09:29:04.844Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Sample Entry",
-    "content": {
-      "pk": 10,
-      "live": false,
-      "path": "000100010007",
-      "slug": "sample-entry",
-      "depth": 3,
-      "owner": 1,
-      "title": "Sample Entry",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/easydmp-home/sample-entry/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Sample Entry",
-      "content_type": 37,
-      "live_revision": null,
-      "show_in_menus": true,
-      "latest_revision": null,
-      "translation_key": "642e3a60-7b1c-4f46-98a2-8037acb1d095",
-      "last_published_at": null,
-      "first_published_at": null,
-      "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": null
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 16,
-  "fields": {
-    "content_type": [
-      "home",
-      "srforsamplepage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "10",
-    "created_at": "2024-08-27T09:29:17.259Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Sample Entry",
-    "content": {
-      "pk": 10,
-      "live": false,
-      "path": "000100010007",
-      "slug": "sample-entry",
-      "depth": 3,
-      "owner": 1,
-      "title": "Sample Entry",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/easydmp-home/sample-entry/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Sample Entry",
-      "content_type": 37,
-      "live_revision": null,
-      "show_in_menus": true,
-      "latest_revision": 15,
-      "translation_key": "642e3a60-7b1c-4f46-98a2-8037acb1d095",
-      "last_published_at": null,
-      "first_published_at": null,
-      "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": true,
-      "latest_revision_created_at": "2024-08-27T09:29:04.844Z"
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
   "pk": 17,
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "base_content_type": [
       "wagtailcore",
@@ -3018,7 +3159,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "base_content_type": [
       "wagtailcore",
@@ -3073,7 +3214,7 @@
   "fields": {
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
     "base_content_type": [
       "wagtailcore",
@@ -3288,6 +3429,224 @@
   }
 },
 {
+  "model": "wagtailcore.revision",
+  "pk": 23,
+  "fields": {
+    "content_type": [
+      "home",
+      "userdatapage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "5",
+    "created_at": "2024-08-27T13:55:23.202Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "User information",
+    "content": {
+      "pk": 5,
+      "live": true,
+      "path": "000100010002",
+      "slug": "user-data",
+      "depth": 3,
+      "intro": "<p data-block-key=\"ml7kd\">Insert the additional user information</p>",
+      "owner": 1,
+      "title": "User information",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/user-information/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "User information",
+      "content_type": 40,
+      "live_revision": 9,
+      "show_in_menus": false,
+      "latest_revision": 9,
+      "translation_key": "b51f8b64-64e6-4a7f-b017-53e40223a8ac",
+      "last_published_at": "2024-08-27T09:20:29.110Z",
+      "first_published_at": "2024-08-27T09:02:02.790Z",
+      "search_description": "",
+      "thankyou_page_title": "Thank you!",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": "2024-08-27T09:20:29.077Z"
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 24,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "13",
+    "created_at": "2024-08-29T13:22:51.299Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Sample List",
+    "content": {
+      "pk": 13,
+      "live": true,
+      "path": "00010001000A",
+      "slug": "sample-list",
+      "depth": 3,
+      "intro": "",
+      "owner": 1,
+      "title": "Sample List",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/sample-list/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "Sample List",
+      "content_type": 79,
+      "live_revision": null,
+      "show_in_menus": true,
+      "latest_revision": null,
+      "translation_key": "050fe626-de6c-4f7b-a578-7f83c0ce7bfc",
+      "last_published_at": null,
+      "first_published_at": null,
+      "search_description": "",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": null
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 25,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "13",
+    "created_at": "2024-08-29T13:25:13.286Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Sample List",
+    "content": {
+      "pk": 13,
+      "live": true,
+      "path": "00010001000A",
+      "slug": "sample-list",
+      "depth": 3,
+      "intro": "",
+      "owner": 1,
+      "title": "Sample List",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/sample-list/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "Sample List",
+      "content_type": 79,
+      "live_revision": 24,
+      "show_in_menus": true,
+      "latest_revision": 24,
+      "translation_key": "050fe626-de6c-4f7b-a578-7f83c0ce7bfc",
+      "last_published_at": "2024-08-29T13:22:51.331Z",
+      "first_published_at": "2024-08-29T13:22:51.331Z",
+      "search_description": "",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": "2024-08-29T13:22:51.299Z"
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 26,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "11",
+    "created_at": "2024-09-04T10:08:19.317Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Sample entry information",
+    "content": {
+      "pk": 11,
+      "live": true,
+      "path": "000100010008",
+      "slug": "sample-entry",
+      "depth": 3,
+      "intro": "<p data-block-key=\"rnqwv\">Please enter the information about the sample</p>",
+      "owner": 1,
+      "title": "Sample entry information",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/sample-entry-information/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "Sample entry information",
+      "content_type": 33,
+      "live_revision": 19,
+      "show_in_menus": true,
+      "latest_revision": 19,
+      "translation_key": "48591020-fe91-41bd-a607-f27d56bc7a6f",
+      "last_published_at": "2024-08-27T09:32:18.274Z",
+      "first_published_at": "2024-08-27T09:31:47.451Z",
+      "search_description": "",
+      "thankyou_page_title": "Thank you!",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": "2024-08-27T09:32:18.241Z"
+    },
+    "approved_go_live_at": null
+  }
+},
+{
   "model": "wagtailcore.page",
   "pk": 1,
   "fields": {
@@ -3411,12 +3770,12 @@
     "numchild": 0,
     "translation_key": "b51f8b64-64e6-4a7f-b017-53e40223a8ac",
     "locale": 1,
-    "latest_revision": 9,
+    "latest_revision": 23,
     "live": true,
     "has_unpublished_changes": false,
     "first_published_at": "2024-08-27T09:02:02.790Z",
-    "last_published_at": "2024-08-27T09:20:29.110Z",
-    "live_revision": 9,
+    "last_published_at": "2024-08-27T13:55:23.272Z",
+    "live_revision": 23,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
@@ -3425,19 +3784,19 @@
     "locked_by": null,
     "title": "User information",
     "draft_title": "User information",
-    "slug": "user-information",
+    "slug": "user-data",
     "content_type": [
       "home",
       "userdatapage"
     ],
-    "url_path": "/easydmp-home/user-information/",
+    "url_path": "/easydmp-home/user-data/",
     "owner": [
       "admin"
     ],
     "seo_title": "",
-    "show_in_menus": true,
+    "show_in_menus": false,
     "search_description": "",
-    "latest_revision_created_at": "2024-08-27T09:20:29.077Z",
+    "latest_revision_created_at": "2024-08-27T13:55:23.202Z",
     "alias_of": null
   }
 },
@@ -3599,45 +3958,6 @@
 },
 {
   "model": "wagtailcore.page",
-  "pk": 10,
-  "fields": {
-    "path": "000100010007",
-    "depth": 3,
-    "numchild": 0,
-    "translation_key": "642e3a60-7b1c-4f46-98a2-8037acb1d095",
-    "locale": 1,
-    "latest_revision": 16,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": "2024-08-27T09:29:17.280Z",
-    "last_published_at": "2024-08-27T09:29:17.280Z",
-    "live_revision": 16,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "Sample Entry",
-    "draft_title": "Sample Entry",
-    "slug": "sample-entry",
-    "content_type": [
-      "home",
-      "srforsamplepage"
-    ],
-    "url_path": "/easydmp-home/sample-entry/",
-    "owner": [
-      "admin"
-    ],
-    "seo_title": "",
-    "show_in_menus": true,
-    "search_description": "",
-    "latest_revision_created_at": "2024-08-27T09:29:17.259Z",
-    "alias_of": null
-  }
-},
-{
-  "model": "wagtailcore.page",
   "pk": 11,
   "fields": {
     "path": "000100010008",
@@ -3645,12 +3965,12 @@
     "numchild": 0,
     "translation_key": "48591020-fe91-41bd-a607-f27d56bc7a6f",
     "locale": 1,
-    "latest_revision": 19,
+    "latest_revision": 26,
     "live": true,
     "has_unpublished_changes": false,
     "first_published_at": "2024-08-27T09:31:47.451Z",
-    "last_published_at": "2024-08-27T09:32:18.274Z",
-    "live_revision": 19,
+    "last_published_at": "2024-09-04T10:08:19.380Z",
+    "live_revision": 26,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
@@ -3659,19 +3979,19 @@
     "locked_by": null,
     "title": "Sample entry information",
     "draft_title": "Sample entry information",
-    "slug": "sample-entry-information",
+    "slug": "sample-entry",
     "content_type": [
       "home",
-      "generalsamplepage"
+      "samplepage"
     ],
-    "url_path": "/easydmp-home/sample-entry-information/",
+    "url_path": "/easydmp-home/sample-entry/",
     "owner": [
       "admin"
     ],
     "seo_title": "",
-    "show_in_menus": false,
+    "show_in_menus": true,
     "search_description": "",
-    "latest_revision_created_at": "2024-08-27T09:32:18.241Z",
+    "latest_revision_created_at": "2024-09-04T10:08:19.317Z",
     "alias_of": null
   }
 },
@@ -3711,6 +4031,45 @@
     "show_in_menus": true,
     "search_description": "",
     "latest_revision_created_at": "2024-08-27T09:36:58.477Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 13,
+  "fields": {
+    "path": "00010001000A",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "050fe626-de6c-4f7b-a578-7f83c0ce7bfc",
+    "locale": 1,
+    "latest_revision": 25,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2024-08-29T13:22:51.331Z",
+    "last_published_at": "2024-08-29T13:25:13.320Z",
+    "live_revision": 25,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Sample List",
+    "draft_title": "Sample List",
+    "slug": "sample-list",
+    "content_type": [
+      "home",
+      "samplelistpage"
+    ],
+    "url_path": "/easydmp-home/sample-list/",
+    "owner": [
+      "admin"
+    ],
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "latest_revision_created_at": "2024-08-29T13:25:13.286Z",
     "alias_of": null
   }
 },
@@ -4047,19 +4406,54 @@
   }
 },
 {
-  "model": "home.generalsamplepage",
+  "model": "wagtailredirects.redirect",
+  "pk": 2,
+  "fields": {
+    "old_path": "/user-information",
+    "site": [
+      "easydmp.localhost",
+      8080
+    ],
+    "is_permanent": true,
+    "redirect_page": 5,
+    "redirect_page_route_path": "",
+    "redirect_link": "",
+    "automatically_created": true,
+    "created_at": "2024-08-27T13:55:23.309Z"
+  }
+},
+{
+  "model": "wagtailredirects.redirect",
+  "pk": 3,
+  "fields": {
+    "old_path": "/sample-entry-information",
+    "site": [
+      "easydmp.localhost",
+      8080
+    ],
+    "is_permanent": true,
+    "redirect_page": 11,
+    "redirect_page_route_path": "",
+    "redirect_link": "",
+    "automatically_created": true,
+    "created_at": "2024-09-04T10:08:19.432Z"
+  }
+},
+{
+  "model": "home.samplelistpage",
+  "pk": 13,
+  "fields": {
+    "page_ptr": 13,
+    "intro": ""
+  }
+},
+{
+  "model": "home.samplepage",
   "pk": 11,
   "fields": {
     "page_ptr": 11,
     "intro": "<p data-block-key=\"rnqwv\">Please enter the information about the sample</p>",
     "thankyou_page_title": "Thank you!"
-  }
-},
-{
-  "model": "home.srforsamplepage",
-  "pk": 10,
-  "fields": {
-    "page_ptr": 10
   }
 },
 {

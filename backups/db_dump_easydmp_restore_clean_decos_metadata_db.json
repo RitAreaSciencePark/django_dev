@@ -3,12 +3,318 @@
   "model": "PRP_CDM_app.users",
   "pk": "admin",
   "fields": {
-    "name_surname": "Marco Prenassi",
+    "name_surname": "",
     "email": "m.prenassi@gmail.com",
-    "affiliation": "Area Science Park",
-    "gender": "male",
-    "legal_status": "PRV",
-    "research_role": "technician"
+    "affiliation": "",
+    "gender": "",
+    "legal_status": "",
+    "research_role": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.proposals",
+  "pk": "0c2e47dd-7da6-4fdd-a6c7-948b0c7c9f13",
+  "fields": {
+    "user_id": "admin",
+    "proposal_status": "Submitted",
+    "proposal_feasibility": "",
+    "proposal_date": "2024-09-03",
+    "proposal_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.proposals",
+  "pk": "12bdc1ca-b80f-4c60-9648-2de375482174",
+  "fields": {
+    "user_id": "admin",
+    "proposal_status": "Submitted",
+    "proposal_feasibility": "",
+    "proposal_date": "2024-08-29",
+    "proposal_filename": "uploads/proposals/admin/easyDMP_mFR8y0C.drawio"
+  }
+},
+{
+  "model": "PRP_CDM_app.proposals",
+  "pk": "2c6d326a-d72b-4a13-b277-15cba4680c79",
+  "fields": {
+    "user_id": "admin",
+    "proposal_status": "Submitted",
+    "proposal_feasibility": "",
+    "proposal_date": "2024-08-29",
+    "proposal_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.proposals",
+  "pk": "4c35b54e-d917-44cd-a11d-6833184aab6a",
+  "fields": {
+    "user_id": "admin",
+    "proposal_status": "Submitted",
+    "proposal_feasibility": "",
+    "proposal_date": "2024-08-29",
+    "proposal_filename": "uploads/proposals/admin/er_a4yEfoQ.drawio"
+  }
+},
+{
+  "model": "PRP_CDM_app.proposals",
+  "pk": "9d2ac3ff-ab04-45e3-8a2d-f47d437f219c",
+  "fields": {
+    "user_id": "admin",
+    "proposal_status": "Submitted",
+    "proposal_feasibility": "",
+    "proposal_date": "2024-08-29",
+    "proposal_filename": "uploads/proposals/admin/easyDMP.drawio"
+  }
+},
+{
+  "model": "PRP_CDM_app.proposals",
+  "pk": "ea0224fc-0924-4bec-a293-aa02b1aa6472",
+  "fields": {
+    "user_id": "admin",
+    "proposal_status": "Submitted",
+    "proposal_feasibility": "",
+    "proposal_date": "2024-09-04",
+    "proposal_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.laboratories",
+  "pk": "LAGE",
+  "fields": {
+    "description": "Laboratory of Genetics and Epigenetics"
+  }
+},
+{
+  "model": "PRP_CDM_app.laboratories",
+  "pk": "LAME",
+  "fields": {
+    "description": "Laboratory of Electron Microscopy"
+  }
+},
+{
+  "model": "PRP_CDM_app.servicerequests",
+  "pk": "10c921ba-9055-4fc7-9fad-4261212a07d5",
+  "fields": {
+    "proposal_id": "12bdc1ca-b80f-4c60-9648-2de375482174",
+    "lab_id": "LAME",
+    "sr_status": "Submitted",
+    "exp_description": "ABCDE\r\nFGH",
+    "output_delivery_date": "2024-01-22"
+  }
+},
+{
+  "model": "PRP_CDM_app.servicerequests",
+  "pk": "4249573a-c801-4b6c-aa52-fc994643b218",
+  "fields": {
+    "proposal_id": "2c6d326a-d72b-4a13-b277-15cba4680c79",
+    "lab_id": "LAME",
+    "sr_status": "Submitted",
+    "exp_description": "ID APOTHEKE ALLEIN",
+    "output_delivery_date": "2024-01-01"
+  }
+},
+{
+  "model": "PRP_CDM_app.servicerequests",
+  "pk": "94a5d8dc-8baa-4166-9184-d8ff41fd13ba",
+  "fields": {
+    "proposal_id": "9d2ac3ff-ab04-45e3-8a2d-f47d437f219c",
+    "lab_id": "LAME",
+    "sr_status": "Submitted",
+    "exp_description": "Interesting experiment",
+    "output_delivery_date": "2024-01-22"
+  }
+},
+{
+  "model": "PRP_CDM_app.servicerequests",
+  "pk": "c64a43f1-91f8-4c4d-8f8c-3f5d29910068",
+  "fields": {
+    "proposal_id": "0c2e47dd-7da6-4fdd-a6c7-948b0c7c9f13",
+    "lab_id": "LAME",
+    "sr_status": "Submitted",
+    "exp_description": "jbjbbj",
+    "output_delivery_date": "2024-01-22"
+  }
+},
+{
+  "model": "PRP_CDM_app.servicerequests",
+  "pk": "e9159707-d4db-4a1b-b90a-893f8cbd0df2",
+  "fields": {
+    "proposal_id": "9d2ac3ff-ab04-45e3-8a2d-f47d437f219c",
+    "lab_id": "LAGE",
+    "sr_status": "Submitted",
+    "exp_description": "TEST 1\r\nTEST 2\r\nTEST 3",
+    "output_delivery_date": "2024-05-01"
+  }
+},
+{
+  "model": "PRP_CDM_app.servicerequests",
+  "pk": "fd3413a1-5680-4d53-a424-054ea307db3a",
+  "fields": {
+    "proposal_id": "2c6d326a-d72b-4a13-b277-15cba4680c79",
+    "lab_id": "LAGE",
+    "sr_status": "Submitted",
+    "exp_description": "IPSE DIXIT",
+    "output_delivery_date": "2024-01-01"
+  }
+},
+{
+  "model": "PRP_CDM_app.samples",
+  "pk": "afefb037-0493-4b8f-8b11-8c2abbd74632",
+  "fields": {
+    "sr_id": null,
+    "lab_id": "LAGE",
+    "sample_description": "",
+    "sample_feasibility": "",
+    "sample_status": "Submitted"
+  }
+},
+{
+  "model": "PRP_CDM_app.samples",
+  "pk": "c505adc5-8684-4c00-a524-506521257249",
+  "fields": {
+    "sr_id": "94a5d8dc-8baa-4166-9184-d8ff41fd13ba",
+    "lab_id": "LAGE",
+    "sample_description": "lorem ipsilon",
+    "sample_feasibility": "",
+    "sample_status": "Submitted"
+  }
+},
+{
+  "model": "PRP_CDM_app.samples",
+  "pk": "d146eeab-7487-47e5-af8a-0216935fe27d",
+  "fields": {
+    "sr_id": "fd3413a1-5680-4d53-a424-054ea307db3a",
+    "lab_id": "LAGE",
+    "sample_description": "Ipse dixit gaudium",
+    "sample_feasibility": "",
+    "sample_status": "Submitted"
+  }
+},
+{
+  "model": "PRP_CDM_app.samples",
+  "pk": "d939f712-9e37-477b-ad94-ba45e53d3999",
+  "fields": {
+    "sr_id": "4249573a-c801-4b6c-aa52-fc994643b218",
+    "lab_id": "LAME",
+    "sample_description": "LOREN IPSILUN",
+    "sample_feasibility": "",
+    "sample_status": "Submitted"
+  }
+},
+{
+  "model": "PRP_CDM_app.samples",
+  "pk": "da481a31-ec85-4308-8199-a6af9618ad89",
+  "fields": {
+    "sr_id": null,
+    "lab_id": "LAGE",
+    "sample_description": "",
+    "sample_feasibility": "",
+    "sample_status": "Submitted"
+  }
+},
+{
+  "model": "PRP_CDM_app.samples",
+  "pk": "e289066f-2dc1-40c5-b528-77e48f6c432a",
+  "fields": {
+    "sr_id": null,
+    "lab_id": "LAGE",
+    "sample_description": "Beautiful experiment",
+    "sample_feasibility": "",
+    "sample_status": "Submitted"
+  }
+},
+{
+  "model": "PRP_CDM_app.lagesamples",
+  "pk": "afefb037-0493-4b8f-8b11-8c2abbd74632",
+  "fields": {
+    "samples_ptr": "afefb037-0493-4b8f-8b11-8c2abbd74632",
+    "type": "DNA",
+    "is_volume_in_ul": "Yes",
+    "is_buffer_used": "No: None",
+    "is_quality": "No:",
+    "sample_date_of_delivery": "2024-01-02",
+    "sample_back": false,
+    "reagents_provided_by_client": false,
+    "reagents_date_of_delivery": null,
+    "sample_sheet_filename": "uploads/samples/Laboratories object (LAGE)/afefb037-0493-4b8f-8b11-8c2abbd74632/base.html",
+    "additional_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.lagesamples",
+  "pk": "d146eeab-7487-47e5-af8a-0216935fe27d",
+  "fields": {
+    "samples_ptr": "d146eeab-7487-47e5-af8a-0216935fe27d",
+    "type": "pellet",
+    "is_volume_in_ul": "Yes",
+    "is_buffer_used": "No: Not used",
+    "is_quality": "Yes",
+    "sample_date_of_delivery": "2024-10-02",
+    "sample_back": false,
+    "reagents_provided_by_client": false,
+    "reagents_date_of_delivery": null,
+    "sample_sheet_filename": "uploads/samples/fd3413a1-5680-4d53-a424-054ea307db3a/d146eeab-7487-47e5-af8a-0216935fe27d/er.drawio",
+    "additional_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.lagesamples",
+  "pk": "da481a31-ec85-4308-8199-a6af9618ad89",
+  "fields": {
+    "samples_ptr": "da481a31-ec85-4308-8199-a6af9618ad89",
+    "type": "DNA",
+    "is_volume_in_ul": "No:",
+    "is_buffer_used": "No: None",
+    "is_quality": "No:",
+    "sample_date_of_delivery": "2024-01-02",
+    "sample_back": false,
+    "reagents_provided_by_client": false,
+    "reagents_date_of_delivery": null,
+    "sample_sheet_filename": "",
+    "additional_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.lagesamples",
+  "pk": "e289066f-2dc1-40c5-b528-77e48f6c432a",
+  "fields": {
+    "samples_ptr": "e289066f-2dc1-40c5-b528-77e48f6c432a",
+    "type": "pellet",
+    "is_volume_in_ul": "Yes",
+    "is_buffer_used": "No: None",
+    "is_quality": "No:",
+    "sample_date_of_delivery": "2024-03-02",
+    "sample_back": false,
+    "reagents_provided_by_client": false,
+    "reagents_date_of_delivery": null,
+    "sample_sheet_filename": "uploads/samples/Laboratories object (LAGE)/e289066f-2dc1-40c5-b528-77e48f6c432a/AFM.png",
+    "additional_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.lamesamples",
+  "pk": "c505adc5-8684-4c00-a524-506521257249",
+  "fields": {
+    "samples_ptr": "c505adc5-8684-4c00-a524-506521257249",
+    "chemical_formula": "CHOO CHOOO",
+    "elements_list": "Ga Ti Ni",
+    "sample_date_of_delivery": "2024-10-02",
+    "sample_back": true,
+    "sample_sheet_filename": "",
+    "additional_filename": ""
+  }
+},
+{
+  "model": "PRP_CDM_app.lamesamples",
+  "pk": "d939f712-9e37-477b-ad94-ba45e53d3999",
+  "fields": {
+    "samples_ptr": "d939f712-9e37-477b-ad94-ba45e53d3999",
+    "chemical_formula": "CHOO CHOOO",
+    "elements_list": "Ga Ti Ni",
+    "sample_date_of_delivery": "2024-10-02",
+    "sample_back": false,
+    "sample_sheet_filename": "",
+    "additional_filename": ""
   }
 }
 ]
