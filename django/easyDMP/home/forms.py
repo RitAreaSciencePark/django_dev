@@ -117,13 +117,14 @@ class SRSubmissionForm(forms.ModelForm):
             model = ServiceRequests
             exclude = ['sr_id',
                        'sr_status',
+                       'proposal_id',
                        ]
     
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(SRSubmissionForm, self).__init__(*args, **kwargs)
-        if user is not None:
-            self.fields['proposal_id'].queryset = Proposals.objects.filter(user_id=user)
+        # if user is not None:
+          #  self.fields['proposal_id'].queryset = Proposals.objects.filter(user_id=user)
 
 
 

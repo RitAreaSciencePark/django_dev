@@ -1,29 +1,64 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags django_tables2 %}
 
 {% block body_class %}template-form{% endblock %}
 
 {% block content %}
+
 <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
 <link rel="stylesheet" href="{% static 'css/forms/lage_form.css' %}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <h1><b>{{ lab }} SAMPLE ENTRY FORM</b></h1>
 
 
 {{ page.intro | richtext }}
 
-<form action="." method="POST" enctype="multipart/form-data" id="sampleform">
-    <br>
-    {% csrf_token %}
-    <input type="hidden" name="sr_id" value="{{ sr_id }}"/>
+<form id="sr_selection" method="get" action="">
     <div class="section_div">
         <h4><b> GENERAL SAMPLE INFORMATION </b></h4>
         <br>
-        <p>
+        <i>It is an internal entry or a service request?</i>
+
+            <input type="hidden" id="sr_id_hidden" name="sr_id" value="internal">
+        <div class="sr_id_selection" id="dropMenu">
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                    Service Request
+                </button>
+                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                    <input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText"
+                        placeholder="filter...">
+                    <button type="submit" class="btn btn-primary">search</button>
+
+                    <div class="dropdown-item" type="div" id="dropdown-div">
+                        {% render_table table %}
+                    </div>
+                </div>
+            </div>
+            <div class="sr_id_selection">
+                <button class="btn btn-link " type="submit" id="internalEntryButton" name="sr_id" value="internal"
+                    aria-haspopup="true" aria-expanded="true">
+                    Internal Request
+                </button>
+            </div>
+        </div>
+
+</form>
+<i>Service Request: </i> {{ sr_id }}
+</p>
+
+<form action="." method="POST" enctype="multipart/form-data" id="sampleform">
+    <br>
+    {% csrf_token %}
+    <input type="hidden" name="sr_id_hidden" value="Internal" />
+    </p>
+    <p>
         <!-- <i>sr_id*</i>: <br> {{ .dmptitle }} <br> !-->
         <i>Please describe in a few words the experiment (max 500 characters)*</i>: <br> {{ LageSamples.sample_description }} <br>
-        </p>
-        <br>
+    </p>
+    <br>
     </div>
 
     <div class="section_div">
@@ -33,7 +68,8 @@
             <i>Type of sample</i>: <br> {{ LageSamples.type }} <br>
             <i>In the list of samples, have you included the volume expressed in µl? (if not, specify why)</i>: <br>
             Yes? {{ LageSamples.is_volume_in_ul }} <br>
-            <i>In the list of samples, have you included the Buffer used? (if not, specify why)</i>: <br> Yes? {{ LageSamples.is_buffer_used }} <br>
+            <i>In the list of samples, have you included the Buffer used? (if not, specify why)</i>: <br> Yes? {{
+            LageSamples.is_buffer_used }} <br>
             <i>Expected date of delivery ("YYYY-MM-DD")</i>: <br> {{ LageSamples.sample_date_of_delivery }} <br>
             <i>[Not Mandatory] In the list of samples, have you specified the quality (if available RIN in case of RNA,
                 DIN in case of DNA, and/or 260/280nm ratio)?</i>: <br> Yes? {{ LageSamples.is_quality }} <br>
@@ -56,7 +92,11 @@
 
     <p><input type="submit" value="Insert data" class="btn btn-primary"></p>
 </form>
-
+<script>
+    var QueryString = (new URL(location.href)).searchParams.get('filter');
+    if (QueryString != '')
+        $('#dropMenu .dropdown .dropdown-menu').show();
+</script>
 
 
 {% endblock %}

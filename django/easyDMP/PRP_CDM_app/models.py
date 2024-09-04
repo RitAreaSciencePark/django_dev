@@ -105,7 +105,7 @@ class ServiceRequests(models.Model):
 class Samples(models.Model):
     #widgets = {}
     sample_id = models.CharField(max_length=37, primary_key=True)
-    sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT)
+    sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT, null=True)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
     sample_description = models.TextField(max_length=500, blank=True)
     sample_feasibility_choices = (("feasible","feasible"),
@@ -144,7 +144,11 @@ class LageSamples(Samples):
     
     def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-        return 'uploads/samples/{0}/{1}/{2}'.format(instance.sr_id.sr_id, instance.sample_id, filename)
+        if(instance.sr_id):
+            return 'uploads/samples/{0}/{1}/{2}'.format(instance.sr_id.sr_id, instance.sample_id, filename)
+        else:
+            return 'uploads/samples/{0}/{1}/{2}'.format(instance.lab_id, instance.sample_id, filename)
+
 
     sample_sheet_filename = models.FileField(blank=True, upload_to=user_directory_path)
 

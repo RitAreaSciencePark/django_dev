@@ -49,6 +49,7 @@ class FormsDefinition:
 
         exclude = { 'LageSamples': ['sr_id',
                                     'sample_id',
+                                    'lab_id',
                                     'sample_feasibility',
                                     'sample_status']
                    }

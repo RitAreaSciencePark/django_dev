@@ -12,6 +12,14 @@
     background-color: #fff;
 }
 
+.sr_id_selection{
+    display: flex;
+}
+
+#dropMenu .dropdown-menu {
+    width: 800px;
+}
+
 #sampleform {
     padding: 5px;
 }

@@ -587,8 +587,6 @@ class AddNewLabPage(Page): # USER DATA
             })
     
 
-
-
 class SRSubmissionPage(Page):
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -615,7 +613,7 @@ class SRSubmissionPage(Page):
         else:
             filter = ""
             request.GET = request.GET.copy()
-            request.GET["filter"]= ""
+            request.GET["filter"]= filter
 
         if request.method == 'POST':
             filter = request.POST.get("filter","")
@@ -623,11 +621,11 @@ class SRSubmissionPage(Page):
             request.GET["filter"] = request.POST.get("filter","")
         
 
-        data = Proposals.objects.filter(user_id=username)
-        data = data.filter(proposal_id__contains = filter)
-        table = ProposalsTable(data)
+        dataQuery = Proposals.objects.filter(user_id=username)
+        dataQuery = dataQuery.filter(proposal_id__contains = filter)
+        table = ProposalsTable(dataQuery)
         RequestConfig(request).configure(table)
-        table.paginate(page=request.GET.get("page",1), per_page=3)
+        table.paginate(page=request.GET.get("page",1), per_page=25)
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
             form = SRSubmissionForm(data=request.POST, user=username)
@@ -636,6 +634,7 @@ class SRSubmissionPage(Page):
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                 # In our example the routing takes care of the external db save
                 data = form.save(commit=False)
+                data.proposal_id = Proposals.objects.get(pk=request.POST.get('proposalId'))
                 data.sr_id = sr_id_generation()
                 data.sr_status = 'Submitted'
                 
@@ -671,6 +670,7 @@ class SRSubmissionPage(Page):
                 'table': table,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,
+                # keep the selection form open or not ("true" or "false")
             })
 
 class SRForSamplePage(Page):
@@ -692,9 +692,9 @@ class SRForSamplePage(Page):
             request.GET["filter"] = request.POST.get("filter","")
         
 
-        data = ServiceRequests.objects.filter(lab_id=request.session.get('lab_selected'))
-        data = data.filter(sr_id__contains = filter)
-        table = ServiceRequestTable(data)
+        dataQuery = ServiceRequests.objects.filter(lab_id=request.session.get('lab_selected'))
+        dataQuery = dataQuery.filter(sr_id__contains = filter)
+        table = ServiceRequestTable(dataQuery)
         RequestConfig(request).configure(table)
 
         table.paginate(page=request.GET.get("page",1), per_page=25)
@@ -714,15 +714,28 @@ class SamplePage(Page):
         ]
     
     def serve(self, request):
-        if 'sr_id' in request.GET:
-            sr_id = request.GET.get('sr_id')
-        elif request.method == 'POST':
-            sr_id = request.POST.get('sr_id')
+        
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
         else:
-            return redirect("/sample-entry")
-        sr = ServiceRequests.objects.get(sr_id=sr_id)
-        lab = sr.lab_id
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
 
+        if request.method == 'POST': #???
+            filter = request.POST.get("filter","")
+            request.GET = request.GET.copy()
+            request.GET["filter"] = request.POST.get("filter","")
+        
+        if(request.GET.get("sr_id") and request.GET.get("sr_id") != "internal"):
+           sr_id = request.GET.get("sr_id")
+           sr = ServiceRequests.objects.get(sr_id = sr_id)
+        else:
+            sr_id = "internal"
+            sr = None
+
+        lab = Laboratories.objects.get(lab_id=request.session.get('lab_selected'))
+        
         if request.method == 'POST':
             
             forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
@@ -731,11 +744,12 @@ class SamplePage(Page):
                 if not form.is_valid():
                     return render(request, 'home/error_page.html', {
                         'page': self,
-                        'errors': form.errors.values, # TODO: improve this
+                        'errors': form.errors, # TODO: improve this
                     })
                 else:
                     data = form.save(commit=False)
-                    data.sr_id = sr
+                    if(sr):
+                        data.sr_id = sr
                     data.sample_id = sample_id_generation()
                     data.lab_id = lab
                     data.sample_status = 'Submitted'
@@ -749,10 +763,18 @@ class SamplePage(Page):
         else:
             forms = form_orchestrator(user_lab=lab.lab_id, request=None, filerequest=None)
         
+        dataQuery = ServiceRequests.objects.filter(lab_id=lab.lab_id)
+        dataQuery = dataQuery.filter(sr_id__contains = filter)
+        table = ServiceRequestTable(dataQuery)
+        RequestConfig(request).configure(table)
+
+        table.paginate(page=request.GET.get("page",1), per_page=25)
+
         pageDict = {
             'page': self,
             'lab': lab.lab_id,
             'sr_id': sr_id,
+            'table': table,
             }
         
         for form in forms:

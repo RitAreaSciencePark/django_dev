@@ -7,22 +7,44 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
 <link rel="stylesheet" href="{% static 'css/list_page.css' %}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<h1>Service Request Submission</h1>
 
-Filter:
-<form action="." method="GET" enctype="multipart/form-data">
-<input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText" placeholder="filter...">
-<button type="submit" class="btn btn-primary">search</button>
-</form>
+<h1 id="h1Id">Service Request Submission</h1>
+
+<div id="dropMenu">
+    <div class="dropdown open">
+    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+        <form method="get" action="">
+        <input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText"
+            placeholder="filter...">
+        <button type="submit" class="btn btn-primary">search</button>
+
+        <div class="dropdown-item" type="div" id="dropdown-div">
+            {% render_table table %}
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
 
 <form method="post" action="">
+
     {% csrf_token %}
-    {% render_table table %}
+    <b>Proposal Id: </b><input type="text" name="proposalId" id="proposalIdBox" />
 
     {{ data }}
-    <input type="text" id="proposalIdBox" value="A"/>
     <button type="submit">Submit</button>
 </form>
 
+<script type="text/javascript">
+
+    $('#proposalIdBox').click(function (e) {
+        $('#dropMenu .dropdown-menu').toggle();
+    });
+
+    $('#dropMenu tr').click(function (e) {
+        $('#dropMenu .dropdown-menu').hide();
+    })
+</script>
 {% endblock %}

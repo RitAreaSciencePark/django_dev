@@ -29,7 +29,7 @@ class ServiceRequestTable(tables.Table):
         template_name = "django_tables2/bootstrap-responsive.html"
         fields = ("sr_id","proposal_id","lab_id","sr_status","output_delivery_date")
         row_attrs = {
-        "onClick": lambda record: f"document.location.href='/sample-entry-information/?sr_id={record.sr_id}';"
+        "onClick": lambda record: f"document.getElementById('sr_id_hidden').value = '{record.sr_id}'; document.getElementById('sr_selection').submit();"
         }
 
 class SamplesTable(tables.Table):
