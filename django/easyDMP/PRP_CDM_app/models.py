@@ -24,6 +24,7 @@ class Users(models.Model):
     name_surname = models.CharField(max_length=50)
     email = models.CharField(max_length=128)
     affiliation = models.CharField(max_length=128)
+    short_affiliation = models.CharField(max_length=8)
     gender_choices = (
         ("male","male"),
         ("female","female"),
@@ -104,7 +105,7 @@ class ServiceRequests(models.Model):
 
 class Samples(models.Model):
     #widgets = {}
-    sample_id = models.CharField(max_length=37, primary_key=True)
+    sample_id = models.CharField(max_length=42, primary_key=True)
     sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT)
     type_choices = (
         ("DNA","DNA"),

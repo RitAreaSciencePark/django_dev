@@ -89,7 +89,7 @@ class UserDataForm(forms.ModelForm):
                        'legal_status': forms.SelectMultiple(),
                        'research_role': forms.SelectMultiple(),
                        }'''
-            exclude = ['user_id']
+            exclude = ['user_id','short_affiliation']
 
 
 class ProposalSubmissionForm(forms.ModelForm):

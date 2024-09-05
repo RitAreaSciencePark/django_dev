@@ -1,0 +1,43 @@
+django
+├── django
+│   └── [...]
+├── DecosWebApp
+│   ├── PRP_CDM_app
+│   │   ├── apps.py
+│   │   ├── code_generation.py
+│   │   ├── fields.py
+│   │   ├── forms.py
+│   │   ├── models.py
+│   │   └── [...]
+│   ├── DecosWebApp
+│   │   ├── db_routers.py
+│   │   ├── settings
+│   │   │   └── [...]
+│   │   ├── static
+│   │   │   └── [...]
+│   │   ├── templates
+│   │   │   └── [...]
+│   │   └── [...]
+│   ├── home
+│   │   ├── forms.py
+│   │   ├── models.py
+│   │   ├── static
+│   │   │   └── [...]
+│   │   ├── templates
+│   │   │   ├── forms
+│   │   │   │   └── [...]
+│   │   │   └── [...]
+│   │   └── [...]
+│   ├── manage.py
+│   ├── media
+│   │   ├── [...]
+│   │   └── uploads
+│   │       ├── proposals
+│   │       │   └── [...]
+│   │       └── samples
+│   │           └── [...]
+│   └── [...]
+└── [...]
+
+
+

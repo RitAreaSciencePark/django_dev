@@ -391,6 +391,17 @@ class UserDataPage(Page): # USER DATA
     def serve(self,request):
         if request.user.is_authenticated:
             username = request.user.username
+        
+        def create_acronym(institution, length=8):
+            words = institution.split()
+            num_words = len(words)
+            # Determine how many letters to take from each word
+            letters_per_word = [length // num_words] * num_words
+            for i in range(length % num_words):
+                letters_per_word[i] += 1
+            # Build the acronym by taking the correct number of letters from each word
+            acronym = ''.join([word[:letters] for word, letters in zip(words, letters_per_word)])
+            return acronym
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
@@ -402,6 +413,7 @@ class UserDataPage(Page): # USER DATA
                 data = form.save(commit=False)
                 #data.lab_id = request.session["lab_selected"]
                 data.user_id = username
+                data.short_affiliation = create_acronym(data.affiliation)
                 data.save()
                 return render(request, 'home/user_data_page.html', {
                     'page': self,
@@ -454,6 +466,8 @@ class ProposalSubmissionPage(Page): # USER DATA
     def serve(self,request):
         if request.user.is_authenticated:
             username = request.user.username
+            #user_obj = Users.objects.get(pk=username).affiliation
+            
 
         if request.method == 'POST':
             # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
@@ -463,7 +477,7 @@ class ProposalSubmissionPage(Page): # USER DATA
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                 # In our example the routing takes care of the external db save
                 data = form.save(commit=False)
-                data.proposal_id = proposal_id_generation()
+                data.proposal_id = proposal_id_generation(affiliation = Users.objects.get(pk=username).short_affiliation) 
                 data.proposal_status = 'Submitted'
                 if Users.objects.get(pk=username) is not None:
                     data.user_id = Users.objects.get(pk=username)
@@ -485,10 +499,11 @@ class ProposalSubmissionPage(Page): # USER DATA
                     })
 
         else:
-            #form = UserRegistrationForm()
+            #debug = Proposals.objects.get(pk=username)
             try:
-                if Proposals.objects.get(pk=username) is not None:
-                    form = ProposalSubmissionForm(instance=Proposals.objects.get(pk=username))
+                if Users.objects.get(pk=username).affiliation == '':
+                    next = f'{UserDataPage.objects.live().first().url}'
+                    return redirect(next)
                 else:
                     form = ProposalSubmissionForm()
             except Exception as e: # TODO Properly catch this
@@ -621,7 +636,8 @@ class SRSubmissionPage(Page):
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                 # In our example the routing takes care of the external db save
                 data = form.save(commit=False)
-                data.sr_id = sr_id_generation()
+                #data.sr_id = sr_id_generation()
+                data.sr_id = sr_id_generation(proposal_id = data.proposal_id.proposal_id, lab_id = data.lab_id.lab_id)
                 data.sr_status = 'Submitted'
                 
                 #debug = data.proposal_filename
@@ -728,7 +744,7 @@ class GeneralSamplePage(Page):
                 else:
                     data = form.save(commit=False)
                     data.sr_id = sr
-                    data.sample_id = sample_id_generation()
+                    data.sample_id = sample_id_generation(sr.sr_id)
                     data.sample_status = 'Submitted'
                     data.save()
 
