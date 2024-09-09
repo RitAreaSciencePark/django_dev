@@ -7,8 +7,8 @@
 
     <p>
         Error: 
-        {% for error in errors %}
-            {{ error | safe}}
+        {% for error, value in errors.items %}
+            {{ error | safe}} : {{ value | safe }}
         {% endfor %}
     </p>
 {% endblock %}

@@ -12,26 +12,6 @@ html {
     height: 100px;
 }
 
-a {
-    background-color: transparent;
-    color: #823030d3;
-}
-
-a:hover {
-    color: #04031c;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-p,
-ul {
-    padding: 0;
-    margin: 0;
-}
-
 svg:not(:root) {
     overflow: hidden;
 }

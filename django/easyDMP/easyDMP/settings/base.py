@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.openid_connect",
     # Tables
     "django_tables2",
+    # laboratories
+    "laboratories",
 
 ]
 

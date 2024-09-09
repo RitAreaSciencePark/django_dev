@@ -78,8 +78,6 @@ class DMPform(forms.ModelForm):
                        'open_data_licence':BooleanIfWhat(yes_or_no=True),
                        }
             exclude = ['lab_id', 'user_id']
-            exclude = ['labname', 'user_id'] 
-
 
 class UserDataForm(forms.ModelForm):
     class Meta:
@@ -103,14 +101,11 @@ class ProposalSubmissionForm(forms.ModelForm):
                        #'proposal_submission_date'
                        ]
             
-
-
 class AddNewLabForm(forms.ModelForm):
     class Meta:
             model = Laboratories
             fields = ['lab_id', 'description']
 
-    
 
 class SRSubmissionForm(forms.ModelForm):
     class Meta:
@@ -161,3 +156,4 @@ class LameSamplesForm(forms.ModelForm):
                    'sample_id',
                    'sample_feasibility',
                    'sample_tatus']'''
+

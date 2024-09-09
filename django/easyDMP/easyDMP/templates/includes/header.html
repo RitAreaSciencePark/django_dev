@@ -27,8 +27,8 @@
             </div>
 
             {% if request.user.is_authenticated %}
-
             <div id="dynamicpagemenu">
+                {% if "dimmt" in request.build_absolute_uri %}
                 <div class="dropdown">
 
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -61,6 +61,7 @@
                         {% endfor %}
                     </div>
                 </div>
+                {% else %}
                 <div class="dropdown">
 
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -94,7 +95,7 @@
                             {% endfor %}
                         </div>
                     </div>
-    
+
                     <div class="dropdown">
 
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -109,7 +110,10 @@
                         {% endif %}
                         {% endfor %}
                     </div>
+                    
             </div>
+            {% endif %}
+
             {% endif %}
 
             </p>
@@ -128,25 +132,28 @@
                     <a class="dropdown-item" type="button" id="dropdown-button" href="/logout">Logout</a>
                 </div>
             </div>
+                {% if "easydmp" in request.build_absolute_uri %}
 
-            {% if request.session.lab_selected == None %}
-            <a class="btn btn-link" id="dropdownMenuButton" href="{{ current_site.root_url }}/switch-laboratory">Switch
-                lab</a>
-            </button>
+                    {% if request.session.lab_selected == None %}
+                        <a class="btn btn-link" id="dropdownMenuButton" href="{{ current_site.root_url }}/switch-laboratory">Switch
+                            lab</a>
+                        </button>
+                        {% else %}
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                                {{ request.session.lab_selected }}
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" type="button" id="dropdown-button" href="/switch-laboratory">Switch lab</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                {% endif %}
             {% else %}
-            <div class="dropdown">
-                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
-                    {{ request.session.lab_selected }}
-                </button>
-                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" type="button" id="dropdown-button" href="/switch-laboratory">Switch lab</a>
-                </div>
-            </div>
-            {% endif %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-            {% else %}
-            <a href="{{ current_site.root_url }}/login">Login</a>
+                <a href="{{ current_site.root_url }}/login">Login</a>
             {% endif %}
             </p>
         </div>

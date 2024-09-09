@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, connections
 from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.admin.panels import (
@@ -12,10 +12,9 @@ from wagtail.contrib.settings.models import (
 
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.db import connections
 from django import forms
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SRForSampleForm#, LageSamplesForm, LameSamplesForm
 
@@ -34,6 +33,8 @@ from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation
 from .tables import ProposalsTable,ServiceRequestTable,SamplesTable
 from django_tables2.config import RequestConfig
 
+from django.contrib.auth.models import Group
+Group.add_to_class('laboratory', models.BooleanField(default=False))   
 
 @register_setting
 class HeaderSettings(BaseGenericSetting):
@@ -80,6 +81,12 @@ class FooterSettings(BaseGenericSetting):
         )
     ]
 
+
+@register_setting
+class AddNewLab(BaseGenericSetting): # USER DATA
+    newlab = AddNewLabForm()
+    
+
 class HomePage(Page):
     intro = models.CharField(max_length=250, default="")
     body = RichTextField(blank=True)
@@ -89,6 +96,7 @@ class HomePage(Page):
     FieldPanel("body"),
     ]
 
+'''
 class SampleEntryForm(Page):
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -121,7 +129,7 @@ class SampleEntryForm(Page):
                     return render(request, 'home/error_page.html', {
                         'page': self,
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values, # TODO: improve this
+                        'errors': form.errors, # TODO: improve this
                     })
                 
             sr_id = sr_id_generation()
@@ -174,6 +182,7 @@ class SampleEntryForm(Page):
             if pageDict['lab'].lower() in formTemplate:
                 return render(request, 'home/forms/' + formTemplate, pageDict)
         return render(request, 'home/generic_form_page.html', pageDict)
+'''
 
 class SwitchLabPage(Page):
     intro = RichTextField(blank=True)
@@ -199,7 +208,10 @@ class SwitchLabPage(Page):
                 except:
                     return redirect('/')
         else:
-            request.session["return_page"] = request.META['HTTP_REFERER']
+            try:
+                request.session["return_page"] = request.META['HTTP_REFERER']
+            except KeyError:
+                request.session["return_page"] = "/"
             form = LabSwitchForm(user_labs=request.user.groups.all())
             
         renderPage = render(request, 'switch_lab.html', {
@@ -258,7 +270,7 @@ class DMPPage(Page):
                 return render(request, 'home/error_page.html', {
                         'page': self,
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values, # TODO: improve this
+                        'errors': form.errors, # TODO: improve this
                     })
 
         else:
@@ -278,30 +290,7 @@ class DMPPage(Page):
             })
 
 class DMPSearchPage(Page):
-    intro = RichTextField(blank=True)
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-    ]
-
-    def serve(self,request):
-        if request.user.is_authenticated:
-            username = request.user.username
-        
-        try: # TODO: optimize this
-            if(request.session['lab_selected'] is None):
-                request.session["return_page"] = request.META['HTTP_REFERER']
-                next = request.POST.get("next", "/switch-laboratory")
-                return redirect(next)
-        except KeyError:
-            request.session["return_page"] = request.META['HTTP_REFERER']
-            next = request.POST.get("next", "/switch-laboratory")
-            return redirect(next)
-        
-        data = Administration.objects.filter(lab_id=request.session['lab_selected'])
-        return render(request, 'home/dmp_search.html', {
-            'page': self,
-            'data': data,
-        })
+    pass
 
 class DMPViewPage(Page):
     intro = RichTextField(blank=True)
@@ -413,7 +402,7 @@ class UserDataPage(Page): # USER DATA
                 return render(request, 'home/error_page.html', {
                         'page': self,
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values, # TODO: improve this
+                        'errors': form.errors, # TODO: improve this
                     })
 
         else:
@@ -481,7 +470,7 @@ class ProposalSubmissionPage(Page): # USER DATA
                 return render(request, 'home/error_page.html', {
                         'page': self,
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values, # TODO: improve this
+                        'errors': form.errors, # TODO: improve this
                     })
 
         else:
@@ -535,59 +524,8 @@ class ProposalListPage(Page):
             'page': self,
             'table': table,
         })
-    
-class AddNewLabPage(Page): # USER DATA
-    intro = RichTextField(blank=True)
-    thankyou_page_title = models.CharField(
-        max_length=255, help_text="Title text to use for the 'thank you' page")
-    # Note that there's nothing here for specifying the actual form fields -
-    # those are still defined in forms.py. There's no benefit to making these
-    # editable within the Wagtail admin, since you'd need to make changes to
-    # the code to make them work anyway.
 
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('thankyou_page_title'),
-    ]
-
-    def serve(self,request):
-        if request.method == 'POST':
-            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            form = AddNewLabForm(data=request.POST)
-            if form.is_valid():
-                data = form.save()
-                return render(request, 'home/thank_you_page.html', {
-                    'page': self,
-                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                    'data': data,
-                })
-            else:
-                #debug = form.errors
-                return render(request, 'home/error_page.html', {
-                        'page': self,
-                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values, # TODO: improve this
-                    })
-
-        else:
-            #form = UserRegistrationForm()
-            try:
-                if Laboratories.objects.get() is not None:
-                    form = AddNewLabForm()
-                else:
-                    form = AddNewLabForm()
-            except Exception as e: # TODO Properly catch this
-                form = AddNewLabForm()
-
-
-        return render(request, 'home/add_new_lab_page.html', {
-                'page': self,
-                # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                'data': form,
-            })
-    
-
-class SRSubmissionPage(Page):
+class ServiceRequestSubmissionPage(Page):
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
         max_length=255, help_text="Title text to use for the 'thank you' page")
@@ -651,7 +589,7 @@ class SRSubmissionPage(Page):
                 return render(request, 'home/error_page.html', {
                         'page': self,
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors.values, # TODO: improve this
+                        'errors': form.errors, # TODO: improve this
                     })
 
         else:
@@ -672,8 +610,8 @@ class SRSubmissionPage(Page):
                 'data': form,
                 # keep the selection form open or not ("true" or "false")
             })
-
-class SRForSamplePage(Page):
+'''
+class ServiceRequestForSamplePage(Page):
 
     def serve(self, request):
         if request.user.is_authenticated:
@@ -702,7 +640,7 @@ class SRForSamplePage(Page):
             'page': self,
             'table': table,
         })
-
+'''
 class SamplePage(Page):
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -828,3 +766,4 @@ class SampleListPage(Page):
             'page': self,
             'table': table,
         })
+

@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}{{ current_year }} calendar{% endblock %}
+
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Calendar" icon="date" %}
+
+    <div class="nice-padding">
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit"> Send </button>
+        </form>
+    </div>
+{% endblock %}
