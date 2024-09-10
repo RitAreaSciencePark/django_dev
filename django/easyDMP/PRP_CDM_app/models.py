@@ -5,6 +5,9 @@ from django import forms
 from uuid import uuid4
 from .fields import MultiChoicheAndOtherWidget, BooleanIfWhat
 import datetime
+import json
+import os
+from pathlib import Path
 
 
 # NOTE: For "multiple choices + free text fields"
@@ -17,37 +20,34 @@ import datetime
 #    widgets = {"test": MultiChoicheAndOtherWidget(choices=test_choices),}
 # NOTE: If multiple choices without free text field, use:
 #     test = models.CharField(choices=test_choices)
- 
+
+def initChoices():
+    path = Path(__file__).parent / "choices.json"
+    with path.open() as f:
+        d = json.load(f)            
+        return d
+    
+choices = initChoices()
+
+def tupleConvert(shortList):
+    outlist = []
+    for item in shortList:
+        outlist.append((item[0],item[1]))
+    return outlist
+
+
 
 class Users(models.Model):
-    user_id = models.CharField(max_length=37, primary_key=True)
+    user_id = models.CharField(max_length=50, primary_key=True)
     name_surname = models.CharField(max_length=50)
     email = models.CharField(max_length=128)
     affiliation = models.CharField(max_length=128)
-    gender_choices = (
-        ("male","male"),
-        ("female","female"),
-        ("other","other"),
-    )
+    userchoices = choices["Users"]
+    gender_choices = tupleConvert(userchoices["gender_choices"])
     gender = models.CharField(choices=gender_choices)
-    legal_status_choices = (
-        ("OTH","OTH"),
-        ("PRV","PRV"),
-        ("RES","RES"),
-        ("SME","SME"),
-        ("UNI","UNI"),
-    )
+    legal_status_choices = tupleConvert(userchoices["legal_status_choices"])
     legal_status = models.CharField(choices=legal_status_choices)
-    research_role_choices = (("senior scientist","senior scientist"),
-        ("phd student","phd student"),
-        ("professor / scientific coordinator","professor / scientific coordinator"),
-        ("scientist","scientist"),
-        ("manager","manager"),
-        ("degree student","degree student"),
-        ("post-doc","post-doc"),
-        ("technician","technician"),
-        ("other","other"),
-    )
+    research_role_choices = tupleConvert(userchoices["research_role_choices"])
     research_role = models.CharField(choices=research_role_choices)
     
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
@@ -56,13 +56,12 @@ class Users(models.Model):
 
 
 class Proposals(models.Model):
-    proposal_id = models.CharField(max_length=37, primary_key=True)
+    proposal_id = models.CharField(max_length=50, primary_key=True)
     user_id = models.ForeignKey(Users, on_delete=models.PROTECT)
     proposal_status = models.CharField(default='Submitted')
-    proposal_feasibility_choices = (("feasible","feasible"),
-        ("not feasible","not feasible"),
-        ("feasible with reservations","feasible with reservations"),
-    )
+    proposalschoices = choices["Proposals"]
+
+    proposal_feasibility_choices = tupleConvert(proposalschoices["proposal_feasibility_choices"])
     proposal_feasibility = models.CharField(choices=proposal_feasibility_choices,blank=True)
     proposal_date = models.DateField(blank=False, default=datetime.date.today)
     
@@ -78,7 +77,7 @@ class Proposals(models.Model):
 
 
 class Laboratories(models.Model):
-    lab_id = models.CharField(max_length=37, primary_key=True)
+    lab_id = models.CharField(max_length=50, primary_key=True)
     description = models.CharField(max_length=50)
     #user_id_responsible = models.ForeignKey(Users, on_delete=models.PROTECT)
 
@@ -89,7 +88,7 @@ class Laboratories(models.Model):
 
 
 class ServiceRequests(models.Model):
-    sr_id = models.CharField(max_length=37, primary_key=True)
+    sr_id = models.CharField(max_length=50, primary_key=True)
     proposal_id = models.ForeignKey(Proposals, on_delete=models.PROTECT)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
     sr_status = models.CharField(default='Submitted')
@@ -104,14 +103,12 @@ class ServiceRequests(models.Model):
 
 class Samples(models.Model):
     #widgets = {}
-    sample_id = models.CharField(max_length=37, primary_key=True)
+    sample_id = models.CharField(max_length=50, primary_key=True)
     sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT, null=True)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
     sample_description = models.TextField(max_length=500, blank=True)
-    sample_feasibility_choices = (("feasible","feasible"),
-        ("not feasible","not feasible"),
-        ("feasible with reservations","feasible with reservations"),
-    )
+    samples_choices = choices["Samples"]
+    sample_feasibility_choices = samples_choices["sample_feasibility_choices"]
     sample_feasibility = models.CharField(choices=sample_feasibility_choices, blank=True)
     #widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sample_feasibility_choices)
     sample_status = models.CharField(default='Submitted')
@@ -122,15 +119,11 @@ class Samples(models.Model):
 
 class LageSamples(Samples):
     widgets = {}
-    type_choices = (
-        ("DNA","DNA"),
-        ("RNA","RNA"),
-        ("pellet","pellet"),
-        ("biopsy","biopsy"),
-    )
+    lagesamples_choices = choices["LageSamples"]
+    type_choices = tupleConvert(lagesamples_choices["type_choices"])
     type = models.CharField(blank=True)
     widgets["type"] = MultiChoicheAndOtherWidget(choices=type_choices)
-    #sample_id = models.CharField(max_length=37, primary_key=True) # also FK table samples
+    #sample_id = models.CharField(max_length=50, primary_key=True) # also FK table samples
     is_volume_in_ul = models.CharField(blank=True)
     widgets["is_volume_in_ul"] = BooleanIfWhat(yes_or_no=False)
     is_buffer_used = models.CharField(blank=True)
@@ -178,7 +171,7 @@ class LameSamples(Samples):
 
 
 class Instruments(models.Model):
-    instrument_id = models.CharField(max_length=37, primary_key=True)
+    instrument_id = models.CharField(max_length=50, primary_key=True)
     vendor = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     description = models.CharField(max_length=50, blank=True)
@@ -189,7 +182,7 @@ class Instruments(models.Model):
 
 
 class Techniques(models.Model):
-    technique_id = models.CharField(max_length=37, primary_key=True)
+    technique_id = models.CharField(max_length=50, primary_key=True)
     technique_name = models.CharField(max_length=50)
     description = models.CharField(max_length=50, blank=True)
 
@@ -199,7 +192,7 @@ class Techniques(models.Model):
 
 
 class InstrumentXTechnique(models.Model):
-    x_id = models.CharField(max_length=37, primary_key=True)
+    x_id = models.CharField(max_length=50, primary_key=True)
     instrument_id = models.ForeignKey(Instruments, on_delete=models.PROTECT)
     technique_id = models.ForeignKey(Techniques, on_delete=models.PROTECT)
 
@@ -208,7 +201,7 @@ class InstrumentXTechnique(models.Model):
         db_table= 'instrument_x_technique'.lower()
 
 class LabXInstrument(models.Model):
-    x_id = models.CharField(max_length=37, primary_key=True)
+    x_id = models.CharField(max_length=50, primary_key=True)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
     instrument_id = models.ForeignKey(Instruments, on_delete=models.PROTECT)
 
@@ -218,7 +211,7 @@ class LabXInstrument(models.Model):
 
 class Steps(models.Model):
     widgets = {}
-    step_id = models.CharField(max_length=37, primary_key=True)
+    step_id = models.CharField(max_length=50, primary_key=True)
     sample_id = models.ForeignKey(Samples, on_delete=models.PROTECT)
     instrument_id = models.ForeignKey(Instruments, on_delete=models.PROTECT)
     technique_id = models.ForeignKey(Techniques, on_delete=models.PROTECT)
@@ -226,11 +219,8 @@ class Steps(models.Model):
     performed_uoa = models.IntegerField(default = 0)
     eff_sample_date_of_delivery = models.DateField()
     eff_reagents_date_of_delivery = models.DateField()
-    sample_quality_choices = (
-        ("good","good"),
-        ("not good","not good"),
-        ("partially good","partially good"),
-    )
+    steps_choices = choices["Steps"]
+    sample_quality_choices = tupleConvert(steps_choices["sample_quality_choices"])
     sample_quality = models.CharField(blank=True)
     widgets["sample_quality"] = MultiChoicheAndOtherWidget(choices=sample_quality_choices)
     sample_quality_description = models.TextField(max_length=500, blank=True)
@@ -242,7 +232,7 @@ class Steps(models.Model):
 
 
 class Questions(models.Model):
-    question_id = models.CharField(max_length=37, primary_key=True)
+    question_id = models.CharField(max_length=50, primary_key=True)
     sample_id = models.ForeignKey(Samples, on_delete=models.PROTECT)
     question = models.TextField(max_length=500, blank=True)
     answer = models.TextField(max_length=500, blank=True)
@@ -253,7 +243,7 @@ class Questions(models.Model):
 
 
 class Administration(models.Model):
-    sr_id = models.CharField(max_length=37, primary_key=True, default=uuid4())
+    sr_id = models.CharField(max_length=50, primary_key=True, default=uuid4())
     lab_id = models.CharField(max_length=50)
     dmptitle = models.CharField(max_length=128, blank=True)
     user_id = models.CharField(max_length=50)
@@ -268,7 +258,7 @@ class Administration(models.Model):
 '''class lageSample(models.Model):
     widgets = {}
 
-    sr_id = models.CharField(max_length=37, primary_key=True, default=uuid4())
+    sr_id = models.CharField(max_length=50, primary_key=True, default=uuid4())
     user_id = models.CharField(max_length=50)
     sample_description = models.TextField(max_length=500)
     
@@ -361,5 +351,4 @@ class labDMP(models.Model):
 
     class Meta:
         db_table= 'labdmp'.lower()
-    
 

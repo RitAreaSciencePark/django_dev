@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="{% static 'css/forms/lage_form.css' %}">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<h1><b>{{ lab }} SAMPLE ENTRY FORM</b></h1>
+<h1><b>SAMPLE ENTRY FORM</b></h1>
 
 
 {{ page.intro | richtext }}
@@ -52,7 +52,11 @@
 <form action="." method="POST" enctype="multipart/form-data" id="sampleform">
     <br>
     {% csrf_token %}
-    <input type="hidden" name="sr_id_hidden" value="Internal" />
+    {% if "sr_" in sr_id %}
+    <input type="hidden" name="sr_id_hidden" value='{{ sr_id }}' />
+    {% else %}
+    <input type="hidden" name="sr_id_hidden" value="internal" />
+    {% endif %}
     </p>
     <p>
         <!-- <i>sr_id*</i>: <br> {{ .dmptitle }} <br> !-->

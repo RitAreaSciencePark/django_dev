@@ -13,7 +13,7 @@ class MultiChoicheAndOtherWidget(forms.MultiWidget):
     template_name = "jsmultipleandother.html"   # TODO: check if this is vulnerable to injection (I think not), easydmp/widgets/...
 
     def __init__(self, choices):
-        choices = choices+(('other','other'),)
+        choices = choices+[('other','other'),]
         widgets = [
             forms.Select(choices=choices),
             forms.TextInput(attrs={'placeholder':'Other'}),

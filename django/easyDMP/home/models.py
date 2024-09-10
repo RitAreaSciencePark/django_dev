@@ -423,9 +423,6 @@ class UserDataPage(Page): # USER DATA
             })
 
 
-
-
-
 class ProposalSubmissionPage(Page): # USER DATA
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -452,7 +449,7 @@ class ProposalSubmissionPage(Page): # USER DATA
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                 # In our example the routing takes care of the external db save
                 data = form.save(commit=False)
-                data.proposal_id = proposal_id_generation()
+                data.proposal_id = proposal_id_generation(Users.objects.get(pk=username).affiliation)
                 data.proposal_status = 'Submitted'
                 if Users.objects.get(pk=username) is not None:
                     data.user_id = Users.objects.get(pk=username)
@@ -573,7 +570,7 @@ class ServiceRequestSubmissionPage(Page):
                 # In our example the routing takes care of the external db save
                 data = form.save(commit=False)
                 data.proposal_id = Proposals.objects.get(pk=request.POST.get('proposalId'))
-                data.sr_id = sr_id_generation()
+                data.sr_id = sr_id_generation(proposal=data.proposal_id, lab=form.cleaned_data["lab_id"])
                 data.sr_status = 'Submitted'
                 
                 #debug = data.proposal_filename
@@ -686,9 +683,9 @@ class SamplePage(Page):
                     })
                 else:
                     data = form.save(commit=False)
-                    if(sr):
-                        data.sr_id = sr
-                    data.sample_id = sample_id_generation()
+                    if(request.POST.get("sr_id_hidden") and (request.POST.get("sr_id_hidden") != 'internal')):
+                        data.sr_id = ServiceRequests.objects.get(pk=request.POST.get("sr_id_hidden"))
+                    data.sample_id = sample_id_generation(data.sr_id.sr_id)
                     data.lab_id = lab
                     data.sample_status = 'Submitted'
                     data.save()

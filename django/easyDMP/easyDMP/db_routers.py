@@ -1,6 +1,4 @@
 class ExternalDbRouter:
-
-
     route_app_labels = {"PRP_CDM_app"}
 
     # -- Normal routing operations

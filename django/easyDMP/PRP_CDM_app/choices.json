@@ -1,0 +1,69 @@
+
+    { 
+    "Users" : 
+    {
+        "gender_choices" :
+        [
+            ["male","male"],
+            ["female","female"],
+            ["other","other"]
+            ],
+        "legal_status_choices" : 
+        [
+            ["OTH","OTH"],
+            ["PRV","PRV"],
+            ["RES","RES"],
+            ["SME","SME"],
+            ["UNI","UNI"]
+        ],
+            "research_role_choices" : 
+            [
+            ["senior scientist","senior scientist"],
+            ["phd student","phd student"],
+            ["professor / scientific coordinator","professor / scientific coordinator"],
+            ["scientist","scientist"],
+            ["manager","manager"],
+            ["degree student","degree student"],
+            ["post-doc","post-doc"],
+            ["technician","technician"],
+            ["other","other"]
+        ]
+    },
+    "Proposals" :
+    {
+        "proposal_feasibility_choices" :
+        [
+            ["feasible","feasible"],
+            ["not feasible","not feasible"],
+            ["feasible with reservations","feasible with reservations"]
+        ]
+    },
+    "Samples" :
+    {
+        "sample_feasibility_choices" :
+        [
+            ["feasible","feasible"],
+            ["not feasible","not feasible"],
+            ["feasible with reservations","feasible with reservations"]
+        ]
+    },
+    "LageSamples" :
+    {
+        "type_choices" :
+        [
+            ["DNA","DNA"],
+            ["RNA","RNA"],
+            ["pellet","pellet"],
+            ["biopsy","biopsy"]
+        ]
+    },
+    "Steps" :
+    {
+        "sample_quality_choices" :
+        [
+            ["good","good"],
+            ["not good","not good"],
+            ["partially good","partially good"]
+        ]
+    }
+}
