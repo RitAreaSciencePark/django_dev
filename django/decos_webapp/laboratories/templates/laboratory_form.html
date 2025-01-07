@@ -1,15 +1,27 @@
 {% extends "wagtailadmin/base.html" %}
-{% block titletag %}{{ current_year }} calendar{% endblock %}
+{% block titletag %}{{ current_year }} add laboratory {% endblock %}
 
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title="Calendar" icon="date" %}
-
+    {% include "wagtailadmin/shared/header.html" with title="Add laboratory" icon="mail" %}
     <div class="nice-padding">
         <form method="post" action=".">
             {% csrf_token %}
             {{ form.as_ul }}
             <input type="submit"> Send </button>
         </form>
+    </div>
+    <br> 
+    <div class="nice-padding">
+        
+    {% for laboratory in laboratories %}
+        <form method = "post" action="./{{ laboratory.lab_id }}/modify/">
+            {% csrf_token %}
+            - {{ laboratory.lab_id | safe }} : {{ laboratory.description | safe }} 
+            <input type="submit" id="{{ laboratory.lab_id }}" value="modify"> </button>
+        <br>
+    </form>
+
+    {% endfor %}
     </div>
 {% endblock %}

@@ -35,6 +35,9 @@ from django_tables2.config import RequestConfig
 
 from django.contrib.auth.models import Group
 Group.add_to_class('laboratory', models.BooleanField(default=False))   
+from django.core.exceptions import ObjectDoesNotExist
+
+
 
 @register_setting
 class HeaderSettings(BaseGenericSetting):
@@ -80,12 +83,6 @@ class FooterSettings(BaseGenericSetting):
             "Footer Links",
         )
     ]
-
-
-@register_setting
-class AddNewLab(BaseGenericSetting): # USER DATA
-    newlab = AddNewLabForm()
-    
 
 class HomePage(Page):
     intro = models.CharField(max_length=250, default="")
@@ -212,6 +209,13 @@ class SwitchLabPage(Page):
                 request.session["return_page"] = request.META['HTTP_REFERER']
             except KeyError:
                 request.session["return_page"] = "/"
+            
+            debug = request.user.groups.all()
+            if not request.user.groups.all():
+                return render(request, 'home/error_page.html', {
+                'page': self,
+                'errors': {"No assigned laboratory":"The User has no assigned laboratory, contact the administrator."}, # TODO: improve this
+                })
             form = LabSwitchForm(user_labs=request.user.groups.all())
             
         renderPage = render(request, 'switch_lab.html', {
@@ -362,7 +366,6 @@ class DMPViewPage(Page):
                 return render(request, 'home/reports/' + reportTemplate, pageDict)
         return render(request, 'home/generic_dmp_view.html', pageDict)
 
-
 class UserDataPage(Page): # USER DATA
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -421,7 +424,6 @@ class UserDataPage(Page): # USER DATA
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,
             })
-
 
 class ProposalSubmissionPage(Page): # USER DATA
     intro = RichTextField(blank=True)
@@ -486,8 +488,6 @@ class ProposalSubmissionPage(Page): # USER DATA
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,
             })
-
-
 
 class ProposalListPage(Page):
     intro = RichTextField(blank=True)
@@ -669,7 +669,15 @@ class SamplePage(Page):
             sr_id = "internal"
             sr = None
 
-        lab = Laboratories.objects.get(lab_id=request.session.get('lab_selected'))
+        try:
+            if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+        except KeyError:
+            request.session["return_page"] = request.META['HTTP_REFERER']
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
         
         if request.method == 'POST':
             

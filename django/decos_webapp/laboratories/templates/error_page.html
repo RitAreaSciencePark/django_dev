@@ -1,0 +1,13 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}{{ current_year }} add laboratory {% endblock %}
+
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Add laboratory" icon="mail" %}
+    <div class="nice-padding">
+        Error: 
+        {% for error, value in errors.items %}
+            {{ error | safe}} : {{ value | safe }}
+        {% endfor %}
+    </div>
+{% endblock %}

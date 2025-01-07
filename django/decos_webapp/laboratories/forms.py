@@ -5,3 +5,8 @@ class AddNewLabForm(forms.ModelForm):
     class Meta:
             model = Laboratories
             fields = ['lab_id', 'description']
+
+class ModifyLabForm(forms.ModelForm):
+    class Meta:
+            model = Laboratories
+            fields = ['description']

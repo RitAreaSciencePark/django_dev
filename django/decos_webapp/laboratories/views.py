@@ -1,13 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
-import calendar
-
 from django.http import HttpResponse
 from django.utils import timezone
-from .forms import AddNewLabForm
+from .forms import AddNewLabForm, ModifyLabForm
 from django.contrib.auth.models import Group
 from django.db.models import Model
+from PRP_CDM_app.models import Laboratories
 
 
 def AddLabView(request):
@@ -24,43 +23,41 @@ def AddLabView(request):
             form.save()
         else:
             errors = form.errors
-            pass
+            return render(request, 'error_page.html', {
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'errors': form.errors,
+            })
     
     form = AddNewLabForm()
+    if Group.objects.filter(laboratory = True ).count() != Laboratories.objects.count():
+        return render(request, 'error_page.html', {
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'errors': {'Group Mismatch' : 'Laboratories and Groups are mismatched, contact an Administrator!'},
+            })
+    laboratories = list(Laboratories.objects.all())
+    return render(request, 'laboratory_form.html', {'form' : form, 'laboratories' : laboratories})
 
-    return render(request, 'laboratory_form.html', {'form' : form})
+def ModifyLabView(request, lab_id):
+    if request.method == "POST":
+        form = ModifyLabForm(data=request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.lab_id = lab_id
+            data.save()
+            return redirect("/admin/add-laboratory/")
 
-## -----
+    data = Laboratories.objects.get(pk=lab_id)
+    form = ModifyLabForm(instance=data)
+    return render(request, 'edit_laboratory_form.html', {'lab_name' : lab_id, 'form' : form})
 
-from django import forms
-
-from wagtail.users.forms import GroupForm as WagtailGroupForm
-
-from PRP_CDM_app.models import Laboratories
-
-
-class GroupForm(WagtailGroupForm):
-    laboratories = forms.CharField()
-
-    class Meta(WagtailGroupForm.Meta):
-        fields = WagtailGroupForm.Meta.fields + ("laboratories",)
-
-    def __init__(self, initial=None, instance=None, **kwargs):
-        if instance is not None:
-            if initial is None:
-                initial = {}
-            initial["laboratories"] = instance.adgroups.all()
-        super().__init__(initial=initial, instance=instance, **kwargs)
-
-    def save(self, commit=True):
-        instance = super().save()
-        instance.laboratories.set(self.cleaned_data["laboratories"])
-        return instance
+def DeleteLabView(request, lab_id):
+    if request.method == "POST":
+        if(request.POST['delete'] == 'DELETE') and request.POST['security_question'] == lab_id:
+            lab_to_delete = Laboratories.objects.get(pk=lab_id)
+            group_to_delete = Group.objects.get(pk=Group.objects.filter(name=lab_id).values().first()['id'])
+            lab_to_delete.delete()
+            group_to_delete.delete()
+            return redirect("/admin/add-laboratory/")
+    data = Laboratories.objects.get(pk=lab_id)
+    return render(request, 'delete_laboratory_form.html', {'lab_name' : lab_id})
     
-from wagtail.users.views.groups import GroupViewSet as WagtailGroupViewSet
-
-from .forms import AddNewLabForm
-    
-class GroupViewSet(WagtailGroupViewSet):
-    def get_form_class(self, for_update=False):
-        return AddNewLabForm

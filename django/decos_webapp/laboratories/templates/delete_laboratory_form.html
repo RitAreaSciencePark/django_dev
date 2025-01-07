@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/base.html" %}
+{% block titletag %}{{ current_year }} Delete laboratory {% endblock %}
+
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title="Delete laboratory" icon="mail" %}
+    <div class="nice-padding">
+        {{ lab_name | safe }}
+        <form method="post" action=".">
+            {% csrf_token %}
+            <input type="text" name="security_question" placeholder="write the name of the lab for security reason...">
+            <input type="submit" name="delete" value="DELETE"> </button>
+        </form>
+    </div>
+{% endblock %}
