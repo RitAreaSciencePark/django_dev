@@ -1,0 +1,22 @@
+{% load i18n wagtailcore_tags %}
+
+{% load static %}
+{% block content %}
+    <b>sample_id</b>: {{ sample_id }}  <br>
+    <b>sample status</b>: {{ sample_status }} <br>
+    <p>
+    <i>type:</i> {{ type }} <br> 
+    {% if is_volume_in_ul == 'Yes' %}
+    <i>Volume:</i> ul <br>
+    {% else %}
+    <i>Volume:</i> {{ is_volume_in_ul }} <br>
+    {% endif %}
+    <i>It was used a buffer:</i> {{ is_buffer_used }} <br>
+    <i>Quality check:</i> {{ is_quality }} <br>
+    <i>date of delivery of the sample:</i> {{ sample_date_of_delivery.day }}/{{ sample_date_of_delivery.month }}/{{ sample_date_of_delivery.year }}<br>
+    </p>
+    <p>
+    <b>Description</b>:
+    {{ sample_description }}
+    </p>
+{% endblock %}

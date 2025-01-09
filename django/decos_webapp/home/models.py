@@ -16,9 +16,9 @@ from django import forms
 
 from django.contrib.auth.models import User, Group
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SRForSampleForm#, LageSamplesForm, LameSamplesForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, APITokenForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SRForSampleForm#, LageSamplesForm, LameSamplesForm
 
-from PRP_CDM_app.models import labDMP, Administration, Users, Proposals, ServiceRequests, Laboratories, Samples, LageSamples, LameSamples
+from PRP_CDM_app.models import labDMP, Administration, Users, Proposals, ServiceRequests, Laboratories, Samples, LageSamples, LameSamples, API_Tokens
 from django.template.loader import render_to_string
 
 from os import listdir
@@ -37,6 +37,7 @@ from django.contrib.auth.models import Group
 Group.add_to_class('laboratory', models.BooleanField(default=False))   
 from django.core.exceptions import ObjectDoesNotExist
 
+from .decos_elab import Decos_Elab_API
 
 
 @register_setting
@@ -84,6 +85,17 @@ class FooterSettings(BaseGenericSetting):
         )
     ]
 
+@register_setting
+class ApiSettings(BaseGenericSetting):
+    # TODO: FIX FOR MULTIPLE LABS!  
+    elab_base_url = models.URLField(verbose_name = "elab url", blank=True)
+    jenkins_base_url = models.URLField(verbose_name="jenkins url", blank = True)
+    
+    panels = [
+        FieldPanel("elab_base_url"),
+        FieldPanel("jenkins_base_url"),
+    ]
+
 class HomePage(Page):
     intro = models.CharField(max_length=250, default="")
     body = RichTextField(blank=True)
@@ -92,94 +104,6 @@ class HomePage(Page):
     FieldPanel("intro"),
     FieldPanel("body"),
     ]
-
-'''
-class SampleEntryForm(Page):
-    intro = RichTextField(blank=True)
-    thankyou_page_title = models.CharField(
-        max_length=255, help_text="Title text to use for the 'thank you' page")
-    # Note that there's nothing here for specifying the actual form fields -
-    # those are still defined in forms.py. There's no benefit to making these
-    # editable within the Wagtail admin, since you'd need to make changes to
-    # the code to make them work anyway.
-
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('thankyou_page_title'),
-    ]
-
-    # Serve: method override to "serve" the CustomForm
-    def serve(self, request):
-        username = None
-        if request.user.is_authenticated:
-            username = request.user.username
-
-        if request.method == 'POST':
-            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            forms = form_orchestrator(user_lab=request.session['lab_selected'], request=request.POST, filerequest=request.FILES)
-            
-            for form in forms:
-                if not form.is_valid():
-                    # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
-                    # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
-                    # In our example the routing takes care of the external db save
-                    return render(request, 'home/error_page.html', {
-                        'page': self,
-                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors, # TODO: improve this
-                    })
-                
-            sr_id = sr_id_generation()
-            # sample_id = sample_id_generation()
-
-            for form in forms:
-                    data = form.save(commit=False)
-                    data.sr_id = sr_id
-                    data.user_id = username
-                    data.lab_id = request.session["lab_selected"]
-                    data.save()
-        
-            return render(request, 'home/thank_you_page.html', {
-                        'page': self,
-                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'data': data,
-                    })
-        else:
-            # If the method is not POST (so GET mostly), put the CustomForm in form and then...
-            try:
-                if(request.session['lab_selected'] is None):
-                    next = request.POST.get("next", "/switch-laboratory")
-                    return redirect(next)
-                else:
-                    forms = form_orchestrator(user_lab=request.session['lab_selected'], request=None, filerequest=None)
-            except KeyError:
-                next = request.POST.get("next", "/switch-laboratory")
-                return redirect(next)
-        
-        pageDict = {
-            'page': self,
-            'lab': request.session['lab_selected'],
-            }
-        
-        for form in forms:
-            pageDict[form.Meta.model.__name__]=form
-            
-        pageDict['forms'] = forms
-        formlist =[]
-        # return the form page, with the form as data.
-        # TODO: while using settings is correct, create/find another softcoded var!!
-        try:
-            home_path = settings.PROJECT_DIR[:len(settings.PROJECT_DIR)-7]
-            abs_path = join(home_path,"home/templates/home/forms/")
-            formlist = [f for f in listdir(abs_path)]
-        except Exception as e:
-            e # TODO: properly catch this
-
-        for formTemplate in formlist:
-            if pageDict['lab'].lower() in formTemplate:
-                return render(request, 'home/forms/' + formTemplate, pageDict)
-        return render(request, 'home/generic_form_page.html', pageDict)
-'''
 
 class SwitchLabPage(Page):
     intro = RichTextField(blank=True)
@@ -225,7 +149,252 @@ class SwitchLabPage(Page):
             })
         return renderPage
 
-class DMPPage(Page):
+class UserDataPage(Page):
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            debug = request.POST
+            form_user = UserDataForm(data=request.POST)
+            if form_user.is_valid():
+                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                # In our example the routing takes care of the external db save
+                data = form_user.save(commit=False)
+                #data.lab_id = request.session["lab_selected"]
+                data.user_id = username
+                data.save()
+            form_api_tokens = APITokenForm(data=request.POST)
+            try:
+                if form_api_tokens['laboratory'].data != '':
+                    lab = form_api_tokens['laboratory'].data
+                    # elab_token = form_api_tokens['elab_token'].data
+                    # jenkins_token = form_api_tokens['jenkins_token'].data
+                    data = form_api_tokens.save(commit=False)
+                    if form_api_tokens.is_valid() and lab != '':
+                        api_token_queryset = API_Tokens.objects.filter(laboratory_id = Laboratories.objects.get(pk = lab), user_id = Users.objects.get(pk=username))
+                        if api_token_queryset.values().count() > 0:
+                            data.id = api_token_queryset.first().id
+                            if form_api_tokens['elab_token'].data == '':
+                                data.elab_token = api_token_queryset.values('elab_token').first()['elab_token']
+                            if form_api_tokens['jenkins_token'].data == '':
+                                data.jenkins_token = api_token_queryset.values('jenkins_token').first()['jenkins_token']
+
+                        data.user_id = Users.objects.get(pk=username)
+                        data.save()
+                        return render(request, 'home/user_data_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'user_data': form_user,
+                        'api_token_data': form_api_tokens,
+                    })
+                else:
+                    return render(request, 'home/user_data_page.html', {
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'user_data': form_user,
+                    'api_token_data': APITokenForm(),
+                })
+            except KeyError as e:
+                pass
+                
+            
+            else:
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors, # TODO: improve this
+                    })
+            
+        else:
+            #form = UserRegistrationForm()
+            try:
+                if Users.objects.get(pk=username) is not None:
+                    form_user = UserDataForm(instance=Users.objects.get(pk=username))
+                else:
+                    form_user = UserDataForm()
+            except Exception as e: # TODO Properly catch this
+                form_user = UserDataForm()
+
+            try:
+                if API_Tokens.objects.get(pk=username) is not None:
+                    form_api_tokens = APITokenForm(instance=Users.objects.get(pk=username))
+                else:
+                    form_api_tokens = APITokenForm()
+            except Exception as e: # TODO Properly catch this
+                form_api_tokens = APITokenForm()
+
+        return render(request, 'home/user_data_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'user_data': form_user,
+                'api_token_data': form_api_tokens,
+            })
+
+class SamplePage(Page): # EASYDMP / DIMMT?
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+    max_length=255, help_text="Title text to use for the 'thank you' page")
+       
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+        ]
+    
+    def serve(self, request):
+
+        if request.user.is_authenticated:
+            username = request.user.username
+
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
+        else:
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
+
+        if request.method == 'POST': #???
+            filter = request.POST.get("filter","")
+            request.GET = request.GET.copy()
+            request.GET["filter"] = request.POST.get("filter","")
+        
+        if(request.GET.get("sr_id") and request.GET.get("sr_id") != "internal"):
+           sr_id = request.GET.get("sr_id")
+           sr = ServiceRequests.objects.get(sr_id = sr_id)
+        else:
+            sr_id = "internal"
+            sr = None
+
+        try:
+            if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+            else:
+                lab = Laboratories.objects.get(pk = request.session['lab_selected'])
+        except KeyError:
+            request.session["return_page"] = request.META['HTTP_REFERER']
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
+        
+        try:
+            elab_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab).values("elab_token").first()['elab_token']
+            elab_api = Decos_Elab_API('https://prp-electronic-lab.areasciencepark.it/', elab_token)
+        except Exception as e: # TODO: catch and manage this
+            print(f"error on elab_api: {e}") 
+
+        if request.method == 'POST':
+
+            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
+
+            for form in forms:
+                if not form.is_valid():
+                    return render(request, 'home/error_page.html', {
+                        'page': self,
+                        'errors': form.errors, # TODO: improve this
+                    })
+                else:
+                    data = form.save(commit=False)
+                    if(request.POST.get("sr_id_hidden") and (request.POST.get("sr_id_hidden") != 'internal')):
+                        data.sr_id = ServiceRequests.objects.get(pk=request.POST.get("sr_id_hidden"))
+                    data.sample_id = sample_id_generation(data.sr_id)
+                    data.lab_id = lab
+                    data.sample_status = 'Submitted'
+                    data.save()
+                    # TODO: ElabFTWAPI!
+                    elab_api.create_new_decos_experiment(lab=lab,username=username,experiment_info=data)
+                    
+            return render(request, 'home/thank_you_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': data,
+                })
+
+        else:
+            forms = form_orchestrator(user_lab=lab.lab_id, request=None, filerequest=None)
+        
+        dataQuery = ServiceRequests.objects.filter(lab_id=lab.lab_id)
+        dataQuery = dataQuery.filter(sr_id__contains = filter)
+        table = ServiceRequestTable(dataQuery)
+        RequestConfig(request).configure(table)
+
+        table.paginate(page=request.GET.get("page",1), per_page=25)
+
+        pageDict = {
+            'page': self,
+            'lab': lab.lab_id,
+            'sr_id': sr_id,
+            'table': table,
+            }
+        
+        for form in forms:
+            pageDict[form.Meta.model.__name__] = form
+            
+        pageDict['forms'] = forms
+        formlist =[]
+        # return the form page, with the form as data.
+        # TODO: while using settings is correct, create/find another softcoded var!!
+        try:
+            home_path = settings.BASE_DIR
+            abs_path = join(home_path,"home/templates/home/forms/")
+            formlist = [f for f in listdir(abs_path)]
+        except Exception as e:
+            e # TODO: properly catch this
+
+        for formTemplate in formlist:
+            if pageDict['lab'].lower() in formTemplate:
+                return render(request, 'home/forms/' + formTemplate, pageDict)
+        return render(request, 'home/generic_form_page.html', pageDict)
+
+class SampleListPage(Page): # EASYDMP
+    intro = RichTextField(blank=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
+        else:
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
+
+        if request.method == 'POST':
+            filter = request.POST.get("filter","")
+            request.GET = request.GET.copy()
+            request.GET["filter"] = request.POST.get("filter","")
+        
+
+        data = Samples.objects.filter(lab_id=request.session.get('lab_selected'))
+        data = data.filter(sample_id__contains = filter)
+        table = SamplesTable(data)
+        RequestConfig(request).configure(table)
+
+        table.paginate(page=request.GET.get("page",1), per_page=25)
+        return render(request, 'home/proposal_list.html', {
+            'page': self,
+            'table': table,
+        })
+
+class DMPPage(Page): # EASYDMP
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
         max_length=255, help_text="Title text to use for the 'thank you' page")
@@ -293,10 +462,10 @@ class DMPPage(Page):
                 'lab': request.session['lab_selected'],
             })
 
-class DMPSearchPage(Page):
+class DMPSearchPage(Page): # EASYDMP
     pass
 
-class DMPViewPage(Page):
+class DMPViewPage(Page): #EASYDMP
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -366,66 +535,7 @@ class DMPViewPage(Page):
                 return render(request, 'home/reports/' + reportTemplate, pageDict)
         return render(request, 'home/generic_dmp_view.html', pageDict)
 
-class UserDataPage(Page): # USER DATA
-    intro = RichTextField(blank=True)
-    thankyou_page_title = models.CharField(
-        max_length=255, help_text="Title text to use for the 'thank you' page")
-    # Note that there's nothing here for specifying the actual form fields -
-    # those are still defined in forms.py. There's no benefit to making these
-    # editable within the Wagtail admin, since you'd need to make changes to
-    # the code to make them work anyway.
-
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('thankyou_page_title'),
-    ]
-
-    def serve(self,request):
-        if request.user.is_authenticated:
-            username = request.user.username
-
-        if request.method == 'POST':
-            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
-            form = UserDataForm(data=request.POST)
-            if form.is_valid():
-                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
-                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
-                # In our example the routing takes care of the external db save
-                data = form.save(commit=False)
-                #data.lab_id = request.session["lab_selected"]
-                data.user_id = username
-                data.save()
-                return render(request, 'home/user_data_page.html', {
-                    'page': self,
-                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                    'data': form,
-                })
-            else:
-                debug = form.errors
-                return render(request, 'home/error_page.html', {
-                        'page': self,
-                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                        'errors': form.errors, # TODO: improve this
-                    })
-
-        else:
-            #form = UserRegistrationForm()
-            try:
-                if Users.objects.get(pk=username) is not None:
-                    form = UserDataForm(instance=Users.objects.get(pk=username))
-                else:
-                    form = UserDataForm()
-            except Exception as e: # TODO Properly catch this
-                form = UserDataForm()
-
-            
-        return render(request, 'home/user_data_page.html', {
-                'page': self,
-                # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                'data': form,
-            })
-
-class ProposalSubmissionPage(Page): # USER DATA
+class ProposalSubmissionPage(Page): # USER DATA DIMMT
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
         max_length=255, help_text="Title text to use for the 'thank you' page")
@@ -489,7 +599,7 @@ class ProposalSubmissionPage(Page): # USER DATA
                 'data': form,
             })
 
-class ProposalListPage(Page):
+class ProposalListPage(Page): # DIMMT
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -522,7 +632,7 @@ class ProposalListPage(Page):
             'table': table,
         })
 
-class ServiceRequestSubmissionPage(Page):
+class ServiceRequestSubmissionPage(Page): # DIMMT
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
         max_length=255, help_text="Title text to use for the 'thank you' page")
@@ -607,168 +717,4 @@ class ServiceRequestSubmissionPage(Page):
                 'data': form,
                 # keep the selection form open or not ("true" or "false")
             })
-'''
-class ServiceRequestForSamplePage(Page):
-
-    def serve(self, request):
-        if request.user.is_authenticated:
-            username = request.user.username
-        
-        if "filter" in request.GET:
-            filter = request.GET.get("filter","")
-        else:
-            filter = ""
-            request.GET = request.GET.copy()
-            request.GET["filter"]= ""
-
-        if request.method == 'POST':
-            filter = request.POST.get("filter","")
-            request.GET = request.GET.copy()
-            request.GET["filter"] = request.POST.get("filter","")
-        
-
-        dataQuery = ServiceRequests.objects.filter(lab_id=request.session.get('lab_selected'))
-        dataQuery = dataQuery.filter(sr_id__contains = filter)
-        table = ServiceRequestTable(dataQuery)
-        RequestConfig(request).configure(table)
-
-        table.paginate(page=request.GET.get("page",1), per_page=25)
-        return render(request, 'home/lab_sample_page.html', {
-            'page': self,
-            'table': table,
-        })
-'''
-class SamplePage(Page):
-    intro = RichTextField(blank=True)
-    thankyou_page_title = models.CharField(
-    max_length=255, help_text="Title text to use for the 'thank you' page")
-       
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('thankyou_page_title'),
-        ]
-    
-    def serve(self, request):
-        
-        if "filter" in request.GET:
-            filter = request.GET.get("filter","")
-        else:
-            filter = ""
-            request.GET = request.GET.copy()
-            request.GET["filter"]= ""
-
-        if request.method == 'POST': #???
-            filter = request.POST.get("filter","")
-            request.GET = request.GET.copy()
-            request.GET["filter"] = request.POST.get("filter","")
-        
-        if(request.GET.get("sr_id") and request.GET.get("sr_id") != "internal"):
-           sr_id = request.GET.get("sr_id")
-           sr = ServiceRequests.objects.get(sr_id = sr_id)
-        else:
-            sr_id = "internal"
-            sr = None
-
-        try:
-            if(request.session['lab_selected'] is None):
-                request.session["return_page"] = request.META['HTTP_REFERER']
-                next = request.POST.get("next", "/switch-laboratory")
-                return redirect(next)
-        except KeyError:
-            request.session["return_page"] = request.META['HTTP_REFERER']
-            next = request.POST.get("next", "/switch-laboratory")
-            return redirect(next)
-        
-        if request.method == 'POST':
-            
-            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
-
-            for form in forms:
-                if not form.is_valid():
-                    return render(request, 'home/error_page.html', {
-                        'page': self,
-                        'errors': form.errors, # TODO: improve this
-                    })
-                else:
-                    data = form.save(commit=False)
-                    if(request.POST.get("sr_id_hidden") and (request.POST.get("sr_id_hidden") != 'internal')):
-                        data.sr_id = ServiceRequests.objects.get(pk=request.POST.get("sr_id_hidden"))
-                    data.sample_id = sample_id_generation(data.sr_id)
-                    data.lab_id = lab
-                    data.sample_status = 'Submitted'
-                    data.save()
-            return render(request, 'home/thank_you_page.html', {
-                'page': self,
-                # We pass the data to the thank you page, data.datavarchar and data.dataint!
-                'data': data,
-                })
-
-        else:
-            forms = form_orchestrator(user_lab=lab.lab_id, request=None, filerequest=None)
-        
-        dataQuery = ServiceRequests.objects.filter(lab_id=lab.lab_id)
-        dataQuery = dataQuery.filter(sr_id__contains = filter)
-        table = ServiceRequestTable(dataQuery)
-        RequestConfig(request).configure(table)
-
-        table.paginate(page=request.GET.get("page",1), per_page=25)
-
-        pageDict = {
-            'page': self,
-            'lab': lab.lab_id,
-            'sr_id': sr_id,
-            'table': table,
-            }
-        
-        for form in forms:
-            pageDict[form.Meta.model.__name__] = form
-            
-        pageDict['forms'] = forms
-        formlist =[]
-        # return the form page, with the form as data.
-        # TODO: while using settings is correct, create/find another softcoded var!!
-        try:
-            home_path = settings.BASE_DIR
-            abs_path = join(home_path,"home/templates/home/forms/")
-            formlist = [f for f in listdir(abs_path)]
-        except Exception as e:
-            e # TODO: properly catch this
-
-        for formTemplate in formlist:
-            if pageDict['lab'].lower() in formTemplate:
-                return render(request, 'home/forms/' + formTemplate, pageDict)
-        return render(request, 'home/generic_form_page.html', pageDict)
-    
-class SampleListPage(Page):
-    intro = RichTextField(blank=True)
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-    ]
-
-    def serve(self,request):
-        if request.user.is_authenticated:
-            username = request.user.username
-        if "filter" in request.GET:
-            filter = request.GET.get("filter","")
-        else:
-            filter = ""
-            request.GET = request.GET.copy()
-            request.GET["filter"]= ""
-
-        if request.method == 'POST':
-            filter = request.POST.get("filter","")
-            request.GET = request.GET.copy()
-            request.GET["filter"] = request.POST.get("filter","")
-        
-
-        data = Samples.objects.filter(lab_id=request.session.get('lab_selected'))
-        data = data.filter(sample_id__contains = filter)
-        table = SamplesTable(data)
-        RequestConfig(request).configure(table)
-
-        table.paginate(page=request.GET.get("page",1), per_page=25)
-        return render(request, 'home/proposal_list.html', {
-            'page': self,
-            'table': table,
-        })
 

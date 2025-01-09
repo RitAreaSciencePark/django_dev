@@ -34,8 +34,6 @@ def tupleConvert(shortList):
         outlist.append((item[0],item[1]))
     return outlist
 
-
-
 class Users(models.Model):
     user_id = models.CharField(max_length=50, primary_key=True)
     name_surname = models.CharField(max_length=50)
@@ -45,16 +43,35 @@ class Users(models.Model):
     gender_choices = tupleConvert(userchoices["gender_choices"])
     gender = models.CharField(choices=gender_choices)
     legal_status_choices = tupleConvert(userchoices["legal_status_choices"])
-    legal_status = models.CharField(choices=legal_status_choices)
+    legal_status = models.CharField(choices=legal_status_choices, blank=True, null=True)
     research_role_choices = tupleConvert(userchoices["research_role_choices"])
     research_role = models.CharField(choices=research_role_choices)
-    # TODO: manage this secret!!!!
-    elab_token = models.CharField(max_length=128)
     
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'users'.lower()
 
+class Laboratories(models.Model):
+    lab_id = models.CharField(max_length=50, primary_key=True)
+    description = models.CharField(max_length=50)
+    #user_id_responsible = models.ForeignKey(Users, on_delete=models.PROTECT)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    def __str__(self):
+        return self.lab_id
+    
+    class Meta:
+        db_table= 'laboratories'.lower()
+
+class API_Tokens(models.Model):
+        # TODO: manage this secret!!!!
+    user_id = models.ForeignKey(Users, on_delete=models.PROTECT)
+    laboratory = models.ForeignKey(Laboratories, on_delete=models.PROTECT, blank=True)
+    elab_token = models.CharField(max_length=128, null=True, blank=True)
+    jenkins_token = models.CharField(max_length=128, null=True, blank=True)
+
+    class Meta:
+        db_table= 'API_tokens'.lower()
 
 class Proposals(models.Model):
     proposal_id = models.CharField(max_length=50, primary_key=True)
@@ -77,15 +94,6 @@ class Proposals(models.Model):
         db_table= 'proposals'.lower()
 
 
-class Laboratories(models.Model):
-    lab_id = models.CharField(max_length=50, primary_key=True)
-    description = models.CharField(max_length=50)
-    #user_id_responsible = models.ForeignKey(Users, on_delete=models.PROTECT)
-
-    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
-    class Meta:
-        db_table= 'laboratories'.lower()
-
 
 
 class ServiceRequests(models.Model):
@@ -100,13 +108,12 @@ class ServiceRequests(models.Model):
     class Meta:
         db_table= 'service_requests'.lower()
 
-
-
 class Samples(models.Model):
     #widgets = {}
     sample_id = models.CharField(max_length=50, primary_key=True)
     sr_id = models.ForeignKey(ServiceRequests, on_delete=models.PROTECT, null=True)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
+    sample_short_description = models.CharField(max_length=64)
     sample_description = models.TextField(max_length=500, blank=True)
     samples_choices = choices["Samples"]
     sample_feasibility_choices = samples_choices["sample_feasibility_choices"]

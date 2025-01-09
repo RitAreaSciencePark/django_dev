@@ -10,9 +10,9 @@
 
 <form method="post" action="">
     {% csrf_token %}
-    {{ data }}
-
-    <button type="submit">Register</button>
+    {{ user_data }}
+    {{ api_token_data }}
+    <button type="submit">modify data</button>
 </form>
 
 {% endblock %}

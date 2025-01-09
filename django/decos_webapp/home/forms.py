@@ -2,7 +2,7 @@ from django import forms
 # This import point to the external app schema!
 from PRP_CDM_app.forms import FormsDefinition
 from PRP_CDM_app.models import labDMP
-from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories, Samples
+from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens
 from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
 
 class LabSwitchForm(forms.Form): 
@@ -88,6 +88,17 @@ class UserDataForm(forms.ModelForm):
                        }'''
             exclude = ['user_id']
 
+class APITokenForm(forms.ModelForm):
+     class Meta:
+        model = API_Tokens
+        widgets = {
+            'laboratories' : forms.MultipleChoiceField(),
+            'elab_token' : forms.PasswordInput(),
+            'jenkins_token' : forms.PasswordInput(),
+        }
+        exclude = ['user_id']
+
+
 
 class ProposalSubmissionForm(forms.ModelForm):
     class Meta:
@@ -119,9 +130,6 @@ class SRSubmissionForm(forms.ModelForm):
         super(SRSubmissionForm, self).__init__(*args, **kwargs)
         # if user is not None:
           #  self.fields['proposal_id'].queryset = Proposals.objects.filter(user_id=user)
-
-
-
 
 class SRForSampleForm(forms.ModelForm):
     class Meta:
