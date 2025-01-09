@@ -1,18 +1,25 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags django_tables2 %}
 
 {% block body_class %}template-form{% endblock %}
 
 {% block content %}
+
 <link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/user_data.css' %}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <h1>User Data</h1>
 
 <form method="post" action="">
     {% csrf_token %}
-    {{ user_data }}
+    <div class="section_div">
+        {{ user_data }}
+    </div>
+    <div class="section_div">
     {{ api_token_data }}
-    <button type="submit">modify data</button>
+    </div>
+    <button type="submit" class="page_button">modify data</button>
 </form>
 
 {% endblock %}

@@ -64,7 +64,7 @@ a {
 }
 
 .header_nav {
-  display: block;
+  display: flex;
   width: fit-content;
   padding-bottom: 5px;
 }
