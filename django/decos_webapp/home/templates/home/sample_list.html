@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags django_tables2 %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms/lage_form.css' %}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<h1><b>SAMPLE ENTRY FORM</b></h1>
+<form method="get" action=".">
+    <button type="button" class="btn btn-light">Light</button>
+</form>
+<div class="dropdown-item" type="div" id="dropdown-div">
+    {% render_table table %}
+</div>

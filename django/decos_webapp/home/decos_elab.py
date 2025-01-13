@@ -1,4 +1,4 @@
-from decos_elabftw_API.decos_elabftw_API import ElabFTWAPI
+from APIs.decos_elabftw_API.decos_elabftw_API import ElabFTWAPI
 from django.template.loader import render_to_string
 from PRP_CDM_app.models import LageSamples
 from django.forms.models import model_to_dict

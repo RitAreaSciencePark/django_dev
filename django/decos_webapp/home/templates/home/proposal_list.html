@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet" href="{% static 'css/list_page.css' %}">
 
+<form method="get" action=".">
+    <button type="button" class="btn btn-light" value="refresh">Refresh</button>
+</form>
+
 Filter:
 <form action="." method="POST" enctype="multipart/form-data">
     {% csrf_token %}

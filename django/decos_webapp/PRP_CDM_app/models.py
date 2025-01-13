@@ -120,6 +120,7 @@ class Samples(models.Model):
     sample_feasibility = models.CharField(choices=sample_feasibility_choices, blank=True)
     #widgets["sr_feasibility"] = MultiChoicheAndOtherWidget(choices=sample_feasibility_choices)
     sample_status = models.CharField(default='Submitted')
+    sample_location = models.CharField(blank=True, null=True)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:

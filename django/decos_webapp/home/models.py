@@ -38,6 +38,7 @@ Group.add_to_class('laboratory', models.BooleanField(default=False))
 from django.core.exceptions import ObjectDoesNotExist
 
 from .decos_elab import Decos_Elab_API
+from .decos_jenkins import Decos_Jenkins_API
 
 
 @register_setting
@@ -370,6 +371,36 @@ class SampleListPage(Page): # EASYDMP
     def serve(self,request):
         if request.user.is_authenticated:
             username = request.user.username
+        
+        try:
+            if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+            else:
+                lab = Laboratories.objects.get(pk = request.session['lab_selected'])
+        except KeyError:
+            request.session["return_page"] = request.META['HTTP_REFERER']
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
+
+        try: # TODO: MAKE IT NOT HARDCODED!
+            jenkins_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab).values("jenkins_token").first()['jenkins_token']
+            credentials = (username, jenkins_token)
+            # 'http://localhost:9000/' or jenkins-test
+            jenkins_api = Decos_Jenkins_API('http://jenkins-test:8080/', credentials)
+            sample_id_list = jenkins_api.get_sample_list(f"test_Folder/job/folderList")
+            sample_list = []
+            for sample_id, sample_location in sample_id_list:
+                try:
+                    sample = (Samples.objects.get(pk = sample_id))
+                    sample.sample_location = "/"+sample_location
+                    sample.save()
+                except Samples.DoesNotExist as e:
+                    print("Debug: {e}")
+
+        except Exception as e: # TODO: catch and manage this
+            print(f"error on jenkins_api: {e}") 
         if "filter" in request.GET:
             filter = request.GET.get("filter","")
         else:
@@ -389,7 +420,7 @@ class SampleListPage(Page): # EASYDMP
         RequestConfig(request).configure(table)
 
         table.paginate(page=request.GET.get("page",1), per_page=25)
-        return render(request, 'home/proposal_list.html', {
+        return render(request, 'home/proposal_list.html', { # TODO: WHY PROPOSALS, WHYY!!!?! 
             'page': self,
             'table': table,
         })

@@ -51,7 +51,8 @@ class FormsDefinition:
                                     'sample_id',
                                     'lab_id',
                                     'sample_feasibility',
-                                    'sample_status']
+                                    'sample_status',
+                                    'sample_location']
                    }
         
     
@@ -62,7 +63,8 @@ class FormsDefinition:
         exclude = { 'LameSamples': ['sr_id',
                                     'sample_id',
                                     'sample_feasibility',
-                                    'sample_tatus']
+                                    'sample_tatus',
+                                    'sample_location']
                    }
     
 

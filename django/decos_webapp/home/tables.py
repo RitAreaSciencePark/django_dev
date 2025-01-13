@@ -36,4 +36,4 @@ class SamplesTable(tables.Table):
     class Meta:
         model = Samples
         template_name = "django_tables2/bootstrap.html"
-        fields = ("sample_id","sr_id","sample_feasibility","sample_status")
+        fields = ("sample_id","sr_id","sample_feasibility","sample_status","sample_location")
