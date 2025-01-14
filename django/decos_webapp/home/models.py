@@ -16,9 +16,9 @@ from django import forms
 
 from django.contrib.auth.models import User, Group
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, APITokenForm, ProposalSubmissionForm, SRSubmissionForm, AddNewLabForm, SRForSampleForm#, LageSamplesForm, LameSamplesForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, APITokenForm, ProposalSubmissionForm, SRSubmissionForm#, LageSamplesForm, LameSamplesForm
 
-from PRP_CDM_app.models import labDMP, Administration, Users, Proposals, ServiceRequests, Laboratories, Samples, LageSamples, LameSamples, API_Tokens
+from PRP_CDM_app.models import labDMP, Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens
 from django.template.loader import render_to_string
 
 from os import listdir
@@ -35,13 +35,12 @@ from django_tables2.config import RequestConfig
 
 from django.contrib.auth.models import Group
 Group.add_to_class('laboratory', models.BooleanField(default=False))   
-from django.core.exceptions import ObjectDoesNotExist
 
 from .decos_elab import Decos_Elab_API
 from .decos_jenkins import Decos_Jenkins_API
 
 
-@register_setting
+@register_setting # Settings in admin page
 class HeaderSettings(BaseGenericSetting):
     header_text = RichTextField(blank=True)
     prp_icon = models.ForeignKey(
@@ -87,7 +86,7 @@ class FooterSettings(BaseGenericSetting):
     ]
 
 @register_setting
-class ApiSettings(BaseGenericSetting):
+class ApiSettings(BaseGenericSetting): # TODO: Implement this, it is now hardcoded!
     # TODO: FIX FOR MULTIPLE LABS!  
     elab_base_url = models.URLField(verbose_name = "elab url", blank=True)
     jenkins_base_url = models.URLField(verbose_name="jenkins url", blank = True)
@@ -158,6 +157,8 @@ class UserDataPage(Page):
     # those are still defined in forms.py. There's no benefit to making these
     # editable within the Wagtail admin, since you'd need to make changes to
     # the code to make them work anyway.
+    # regardless, a little bit of customization for the page, as title and intros,
+    # are a good thing
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -187,6 +188,7 @@ class UserDataPage(Page):
                     # elab_token = form_api_tokens['elab_token'].data
                     # jenkins_token = form_api_tokens['jenkins_token'].data
                     data = form_api_tokens.save(commit=False)
+                    # this block is to update only the fields actually written on, TODO: api token check? Low priority
                     if form_api_tokens.is_valid() and lab != '':
                         api_token_queryset = API_Tokens.objects.filter(laboratory_id = Laboratories.objects.get(pk = lab), user_id = Users.objects.get(pk=username))
                         if api_token_queryset.values().count() > 0:
@@ -248,6 +250,7 @@ class UserDataPage(Page):
             })
 
 class SamplePage(Page): # EASYDMP / DIMMT?
+    # Just a little bit of customization
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
     max_length=255, help_text="Title text to use for the 'thank you' page")
@@ -256,12 +259,13 @@ class SamplePage(Page): # EASYDMP / DIMMT?
         FieldPanel('intro', classname="full"),
         FieldPanel('thankyou_page_title'),
         ]
-    
+    # Real page forms is served here:
     def serve(self, request):
 
         if request.user.is_authenticated:
             username = request.user.username
-
+        
+        # first service request selection dropdown ->
         if "filter" in request.GET:
             filter = request.GET.get("filter","")
         else:
@@ -280,7 +284,9 @@ class SamplePage(Page): # EASYDMP / DIMMT?
         else:
             sr_id = "internal"
             sr = None
+        # <- end selection here
 
+        # lab selected is retrieved from session
         try:
             if(request.session['lab_selected'] is None):
                 request.session["return_page"] = request.META['HTTP_REFERER']
@@ -293,14 +299,16 @@ class SamplePage(Page): # EASYDMP / DIMMT?
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
         
+        # Elab API init
         try:
             elab_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab).values("elab_token").first()['elab_token']
-            elab_api = Decos_Elab_API('https://prp-electronic-lab.areasciencepark.it/', elab_token)
+            elab_api = Decos_Elab_API('https://prp-electronic-lab.areasciencepark.it/', elab_token) # TODO: softcode this (check API settings)
         except Exception as e: # TODO: catch and manage this
             print(f"error on elab_api: {e}") 
 
         if request.method == 'POST':
-
+            # Dynamic form orchestrator (returns a factory that return the class form, why, 'cause django)
+            # Check PRP_CDM_App form and models
             forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
 
             for form in forms:
@@ -310,16 +318,20 @@ class SamplePage(Page): # EASYDMP / DIMMT?
                         'errors': form.errors, # TODO: improve this
                     })
                 else:
-                    data = form.save(commit=False)
+                    # Data is saved to db here
+                    data = form.save(commit=False) # form data inserted here
+                    # other info not in the form are inserted here ->
                     if(request.POST.get("sr_id_hidden") and (request.POST.get("sr_id_hidden") != 'internal')):
                         data.sr_id = ServiceRequests.objects.get(pk=request.POST.get("sr_id_hidden"))
                     data.sample_id = sample_id_generation(data.sr_id)
                     data.lab_id = lab
                     data.sample_status = 'Submitted'
+                    # final "TRUE" commit on db
                     data.save()
-                    # TODO: ElabFTWAPI!
+                    # Experiment created in elab, TODO: insert this in a better designed workflow
                     elab_api.create_new_decos_experiment(lab=lab,username=username,experiment_info=data)
-                    
+
+            # Return thank you page html rendered page        
             return render(request, 'home/thank_you_page.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
@@ -329,13 +341,13 @@ class SamplePage(Page): # EASYDMP / DIMMT?
         else:
             forms = form_orchestrator(user_lab=lab.lab_id, request=None, filerequest=None)
         
+        # Dropdown for service requests --> 
+        # check the service request in the dropdown
         dataQuery = ServiceRequests.objects.filter(lab_id=lab.lab_id)
         dataQuery = dataQuery.filter(sr_id__contains = filter)
         table = ServiceRequestTable(dataQuery)
         RequestConfig(request).configure(table)
-
-        table.paginate(page=request.GET.get("page",1), per_page=25)
-
+        table.paginate(page=request.GET.get("page",1), per_page=25) # TODO: per page settings?
         pageDict = {
             'page': self,
             'lab': lab.lab_id,
@@ -343,9 +355,10 @@ class SamplePage(Page): # EASYDMP / DIMMT?
             'table': table,
             }
         
+        # every form could be created by multiple PRP_CDM_App tables, so we use "multiple forms"
+        # one for every table, we put them in a list and visualize them in a linear layout (vertical)
         for form in forms:
             pageDict[form.Meta.model.__name__] = form
-            
         pageDict['forms'] = forms
         formlist =[]
         # return the form page, with the form as data.
@@ -357,6 +370,7 @@ class SamplePage(Page): # EASYDMP / DIMMT?
         except Exception as e:
             e # TODO: properly catch this
 
+        # Serve the form template in ./home/forms/ if present, if not, return render
         for formTemplate in formlist:
             if pageDict['lab'].lower() in formTemplate:
                 return render(request, 'home/forms/' + formTemplate, pageDict)
@@ -413,7 +427,6 @@ class SampleListPage(Page): # EASYDMP
             request.GET = request.GET.copy()
             request.GET["filter"] = request.POST.get("filter","")
         
-
         data = Samples.objects.filter(lab_id=request.session.get('lab_selected'))
         data = data.filter(sample_id__contains = filter)
         table = SamplesTable(data)

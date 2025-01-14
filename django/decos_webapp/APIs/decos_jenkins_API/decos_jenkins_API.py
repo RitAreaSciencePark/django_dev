@@ -116,7 +116,7 @@ class Server:
         print(self.credentials)
         response = self.session.get(f"{self.host}/job/{job_path}/lastBuild/logText/progressiveText?start=0", auth=self.credentials)
         return response.text
-
+    
     def build_job(self, job_path, secret_token, *args, **kwargs):
         if args:
             parameters = args[0]
