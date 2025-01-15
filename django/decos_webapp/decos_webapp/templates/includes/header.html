@@ -16,7 +16,7 @@
                 <a class="btn btn-link" id="dropdownMenuButton" href="{% pageurl site_root %}">Home</a>
                 </button>
                 {% for menuitem in site_root.get_children.live.in_menu.public %}
-                {% if 'Proposal' in menuitem.title %}
+                {% if 'proposal' in menuitem.content_type.model %}
                 {% else %}
                 {% endif %}
 
@@ -36,7 +36,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         {% for menuitem in site_root.get_children.live.in_menu.private %}
-                        {% if 'Sample' in menuitem.title %}
+                        {% if 'sample' in  menuitem.content_type.model %}
                         <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                         {% else %}
 
@@ -55,7 +55,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         {% for menuitem in site_root.get_children.live.in_menu.private %}
-                        {% if 'Proposal' in menuitem.title %}
+                        {% if 'proposal' in menuitem.content_type.model %}
                         <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                         {% else %}
 
@@ -71,7 +71,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         {% for menuitem in site_root.get_children.live.in_menu.private %}
-                        {% if 'Service' in menuitem.title %}
+                        {% if 'service' in menuitem.content_type.model %}
                         <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                         {% else %}
 
@@ -90,7 +90,7 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             {% for menuitem in site_root.get_children.live.in_menu.private %}
-                            {% if 'Data Management' in menuitem.title %}
+                            {% if 'dmp' in menuitem.content_type.model %}
                             <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                             {% else %}
     
@@ -107,7 +107,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         {% for menuitem in site_root.get_children.live.in_menu.private %}
-                        {% if 'Sample' in menuitem.title or 'Service' in menuitem.title or 'Proposal' in menuitem.title or 'Data Management' in menuitem.title %}
+                        {% if 'sample' in menuitem.content_type.model or 'service' in menuitem.content_type.model or 'proposal' in menuitem.content_type.model or 'dmp' in menuitem.content_type.model %}
                         {% else %}
                             <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                         {% endif %}

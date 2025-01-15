@@ -141,7 +141,7 @@ class SwitchLabPage(Page):
                 'errors': {"No assigned laboratory":"The User has no assigned laboratory, contact the administrator."}, # TODO: improve this
                 })
             form = LabSwitchForm(user_labs=request.user.groups.all())
-            
+        debug = form
         renderPage = render(request, 'switch_lab.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
@@ -329,8 +329,10 @@ class SamplePage(Page): # EASYDMP / DIMMT?
                     # final "TRUE" commit on db
                     data.save()
                     # Experiment created in elab, TODO: insert this in a better designed workflow
-                    elab_api.create_new_decos_experiment(lab=lab,username=username,experiment_info=data)
-
+                    try:
+                        elab_api.create_new_decos_experiment(lab=lab,username=username,experiment_info=data)
+                    except UnboundLocalError as e:
+                        print( " Elab api ") # TODO: catch this better!
             # Return thank you page html rendered page        
             return render(request, 'home/thank_you_page.html', {
                 'page': self,

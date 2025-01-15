@@ -54,8 +54,7 @@ class Users(models.Model):
 class Laboratories(models.Model):
     lab_id = models.CharField(max_length=50, primary_key=True)
     description = models.CharField(max_length=50)
-    #user_id_responsible = models.ForeignKey(Users, on_delete=models.PROTECT)
-
+    # user_id_responsible = models.ForeignKey(Users, on_delete=models.PROTECT)
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     def __str__(self):
         return self.lab_id
@@ -78,7 +77,6 @@ class Proposals(models.Model):
     user_id = models.ForeignKey(Users, on_delete=models.PROTECT)
     proposal_status = models.CharField(default='Submitted')
     proposalschoices = choices["Proposals"]
-
     proposal_feasibility_choices = tupleConvert(proposalschoices["proposal_feasibility_choices"])
     proposal_feasibility = models.CharField(choices=proposal_feasibility_choices,blank=True)
     proposal_date = models.DateField(blank=False, default=datetime.date.today)
@@ -92,9 +90,6 @@ class Proposals(models.Model):
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'proposals'.lower()
-
-
-
 
 class ServiceRequests(models.Model):
     sr_id = models.CharField(max_length=50, primary_key=True)
@@ -177,17 +172,14 @@ class LameSamples(Samples):
     class Meta:
         db_table= 'lame_samples'.lower()
 
-
 class Instruments(models.Model):
     instrument_id = models.CharField(max_length=50, primary_key=True)
     vendor = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     description = models.CharField(max_length=50, blank=True)
-
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'instruments'.lower()
-
 
 class Techniques(models.Model):
     technique_id = models.CharField(max_length=50, primary_key=True)
@@ -197,7 +189,6 @@ class Techniques(models.Model):
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
     class Meta:
         db_table= 'techniques'.lower()
-
 
 class InstrumentXTechnique(models.Model):
     x_id = models.CharField(max_length=50, primary_key=True)
