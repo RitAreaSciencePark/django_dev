@@ -17,23 +17,11 @@
   }
 },
 {
-  "model": "home.addnewlab",
-  "pk": 1,
-  "fields": {}
-},
-{
-  "model": "wagtailsearch.indexentry",
+  "model": "home.apisettings",
   "pk": 1,
   "fields": {
-    "content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "1",
-    "title_norm": 1.5,
-    "autocomplete": "'root':1",
-    "title": "'root':1B",
-    "body": ""
+    "elab_base_url": "",
+    "jenkins_base_url": ""
   }
 },
 {
@@ -45,97 +33,37 @@
       "homepage"
     ],
     "object_id": "3",
-    "title_norm": 0.75,
-    "autocomplete": "'easydmp':1 'homepage':2",
-    "title": "'easydmp':1B 'homepag':2B",
+    "title_norm": 1.25,
+    "autocomplete": "'easydmp':1 'home':2",
+    "title": "'easydmp':1B 'home':2B",
     "body": ""
   }
 },
 {
   "model": "wagtailsearch.indexentry",
-  "pk": 5,
+  "pk": 9,
   "fields": {
     "content_type": [
       "home",
       "switchlabpage"
     ],
     "object_id": "4",
-    "title_norm": 1.1428571428571428,
-    "autocomplete": "'laboratory':2 'switch':1",
-    "title": "'laboratori':2B 'switch':1B",
+    "title_norm": 1.25,
+    "autocomplete": "'laboratory':2 'select':1",
+    "title": "'laboratori':2B 'select':1B",
     "body": ""
   }
 },
 {
   "model": "wagtailsearch.indexentry",
-  "pk": 8,
-  "fields": {
-    "content_type": [
-      "home",
-      "samplepage"
-    ],
-    "object_id": "5",
-    "title_norm": 0.6666666666666666,
-    "autocomplete": "'page':3 'sample':1 'submission':2",
-    "title": "'page':3B 'sampl':1B 'submiss':2B",
-    "body": ""
-  }
-},
-{
-  "model": "wagtailsearch.indexentry",
-  "pk": 17,
-  "fields": {
-    "content_type": [
-      "home",
-      "homepage"
-    ],
-    "object_id": "6",
-    "title_norm": 1.125,
-    "autocomplete": "'dimmt':1 'homepage':2",
-    "title": "'dimmt':1B 'homepag':2B",
-    "body": ""
-  }
-},
-{
-  "model": "wagtailsearch.indexentry",
-  "pk": 20,
-  "fields": {
-    "content_type": [
-      "home",
-      "samplelistpage"
-    ],
-    "object_id": "7",
-    "title_norm": 1.1428571428571428,
-    "autocomplete": "'list':2 'sample':1",
-    "title": "'list':2B 'sampl':1B",
-    "body": ""
-  }
-},
-{
-  "model": "wagtailsearch.indexentry",
-  "pk": 27,
-  "fields": {
-    "content_type": [
-      "home",
-      "dmppage"
-    ],
-    "object_id": "8",
-    "title_norm": 0.5714285714285714,
-    "autocomplete": "'core':1 'data':2 'management':3 'plan':4",
-    "title": "'core':1B 'data':2B 'manag':3B 'plan':4B",
-    "body": ""
-  }
-},
-{
-  "model": "wagtailsearch.indexentry",
-  "pk": 34,
+  "pk": 14,
   "fields": {
     "content_type": [
       "home",
       "userdatapage"
     ],
-    "object_id": "9",
-    "title_norm": 1.125,
+    "object_id": "5",
+    "title_norm": 1.25,
     "autocomplete": "'information':2 'user':1",
     "title": "'inform':2B 'user':1B",
     "body": ""
@@ -143,46 +71,46 @@
 },
 {
   "model": "wagtailsearch.indexentry",
-  "pk": 41,
+  "pk": 23,
   "fields": {
     "content_type": [
       "home",
-      "proposalsubmissionpage"
+      "dmppage"
     ],
-    "object_id": "10",
-    "title_norm": 1.1111111111111112,
-    "autocomplete": "'proposal':1 'submission':2",
-    "title": "'propos':1B 'submiss':2B",
+    "object_id": "6",
+    "title_norm": 0.6,
+    "autocomplete": "'core':1 'data':2 'management':3 'plan':4",
+    "title": "'core':1B 'data':2B 'manag':3B 'plan':4B",
     "body": ""
   }
 },
 {
   "model": "wagtailsearch.indexentry",
-  "pk": 46,
+  "pk": 26,
   "fields": {
     "content_type": [
       "home",
-      "proposallistpage"
+      "samplepage"
     ],
-    "object_id": "11",
-    "title_norm": 1.1,
-    "autocomplete": "'list':2 'proposal':1",
-    "title": "'list':2B 'propos':1B",
+    "object_id": "7",
+    "title_norm": 1.2,
+    "autocomplete": "'add':1 'sample':2",
+    "title": "'add':1B 'sampl':2B",
     "body": ""
   }
 },
 {
   "model": "wagtailsearch.indexentry",
-  "pk": 53,
+  "pk": 33,
   "fields": {
     "content_type": [
       "home",
-      "servicerequestsubmissionpage"
+      "samplelistpage"
     ],
-    "object_id": "12",
-    "title_norm": 1.0909090909090908,
-    "autocomplete": "'request':2 'service':1",
-    "title": "'request':2B 'servic':1B",
+    "object_id": "8",
+    "title_norm": 1.1666666666666667,
+    "autocomplete": "'list':2 'sample':1",
+    "title": "'list':2B 'sampl':1B",
     "body": ""
   }
 },
@@ -201,16 +129,6 @@
     "site_name": "easydmp",
     "root_page": 3,
     "is_default_site": true
-  }
-},
-{
-  "model": "wagtailcore.site",
-  "fields": {
-    "hostname": "dimmt.localhost",
-    "port": 8080,
-    "site_name": "DIMMT",
-    "root_page": 6,
-    "is_default_site": false
   }
 },
 {
@@ -376,16 +294,16 @@
 {
   "model": "auth.user",
   "fields": {
-    "password": "pbkdf2_sha256$870000$8awOwNgIsYvGGdRx7WJMaj$WvsDA87kEkNCD3113+ZKUgui85RslVvsoRoJ/q6KWTQ=",
-    "last_login": "2024-09-09T15:24:24.736Z",
+    "password": "pbkdf2_sha256$870000$owYE1NygG4O7Rfn0QKi9lY$zmcdWzE/8/WyqnHxKDnEZKccGVy2kSaQZ6na+XrLrJ8=",
+    "last_login": "2025-01-17T11:42:09.896Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "Marco",
     "last_name": "Prenassi",
-    "email": "marco.prenassi@areasciencepark.it",
+    "email": "m.prenassi@gmail.com",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2024-09-05T13:51:44.896Z",
+    "date_joined": "2025-01-17T11:36:57.226Z",
     "groups": [
       [
         "LAGE"
@@ -399,26 +317,18 @@
 },
 {
   "model": "sessions.session",
-  "pk": "56lp0hdsxj71h2e09wj3kao6lg9la9tg",
+  "pk": "0u3587628le04pmp7bhy7na1vu23hrcm",
   "fields": {
-    "session_data": ".eJxVj0FuwyAQRe8yawuBjTF42X1OUFUWM9CatobIYCVVlLsX2mwyq6_5T0_6N7BE6YhlsUdZfSyBbAkpLpsva3IZ5tcb_GeY4WxzvqTdQQe2wCymftRmlEqymhRXHRzZ79FuvsLWbSHC_a2DP_fSqiU0jYCnH1r68rEV7tPGj8QoxbIHZA1hjzazU3L---XBPglWm9em7aUwpEbHRT0u3TBKjRq9Uu9CKdRiQjR8oAEN9oRGa6qoHDh3ZGhq0uxzbvP99Rz2nzqx50Zxfv8F86RgGg:1sngFc:Qrtp2q-xOnri7cMBq3dAPIBQvnxIuj2mB6YrX2gsCe4",
-    "expire_date": "2024-09-23T15:24:24.757Z"
+    "session_data": ".eJxVjs0OgjAQhN-lZ4NQ2qV608R40WdotrvLj5JiKJyM7y4kHPQ638yXeSuP89T6OcnoO1ZHpdXuNwtIT4kr4AfGZshoiNPYhWytZBtN2X1g6c9b90_QYmqXNdVgDWhXss01c-lAA2htoSZXG4bqEEjIGIfWVZgDVQ4KkyOjLri2YZGOMs1j9C9sZBHul6TH4JP0QpOsD2-n60V9vnu4RBY:1tYklT:BAiTbYm-49CXQK_gs14JXncn7LZgbSPpxkLn_cqAk7Y",
+    "expire_date": "2025-01-31T11:43:51.446Z"
   }
 },
 {
   "model": "sessions.session",
-  "pk": "wkohv3alepw8griscai0j3gosbwixphj",
+  "pk": "attra3yfm68iczqknb3hlyrnttr8xg3n",
   "fields": {
-    "session_data": ".eJxVj91KxDAQhd9lrkub_qVp7xTEG30CkTKZjNtqm5QmRZdl391E92bP1TDn8MF3ASRyhw0jHmFiG2bCMDs7rhwmZzwMbxf4v2GADb3_druBDDDAUHZV2zYxXa462XZNncHhebe4clyjWWcL1_cM_uBjqsY5cUq4-2mkL7apMJ9oTy4nZ8M-6zxN8lvr81dneHm8be8AE_opYaum7Em2RpQxojF12yitNEv5UUqpVdlp3Yuaat3rinSvFMVpUwthqKcuQT17n_z5Z5v3c3SsRC-FyGDncOx23PCU3KYQtqEoGP3ZrFu-OMJlcj4MSihRRNCCOrIWpsBJ7OXh-Qmuv2rGdzM:1snfup:-ZKBK9EQz4xUrgrlDLRVplQV4t-t1wu33GOKQtoEidc",
-    "expire_date": "2024-09-23T15:02:55.983Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "xbjah1wh1csfm7ar3lu6v3thda50eu3v",
-  "fields": {
-    "session_data": ".eJxVjEEOwiAUBe_C2hAolEKX7j0D4X9QUAMG2kRjvLsl6ULf8s1k3sS6dYl2baHa5MlMODn8fuDwFnIH_urypVAseakJaFfoThs9FR_ux939C0TXYs8OkhtUo2d8G5NejFKDhqDUmSsFmk8AhgkUYGBAMFrjpkrBmEeDU4-20Foq2YbnI9UXmdnnC0CPPgg:1smCtx:ACTF0stGr7dp9ie0fZkOVeZnSxB20_wNcVrVuHkfts4",
-    "expire_date": "2024-09-19T13:51:57.133Z"
+    "session_data": ".eJxVjEEOwiAQRe_C2hBKYYpduvcMZJgBixowpU00xrtrExe6_e_99xQe12Xya4uzzyxGocXudwtIl1g2wGcspyqplmXOQW6K_NImj5Xj9fB1_wITtunzpgTWgHY9W6WZewcaQGsLiVwyDMM-UCRjHFo3oAIaHHRGIaPuONmwRVtsLdfi4_2W54cY1esNaW0-vA:1tYkeu:t4yuTaOSS2l2rAQQgCuzVkjgZ14oK8wAJ45g49o15xM",
+    "expire_date": "2025-01-31T11:37:04.517Z"
   }
 },
 {
@@ -488,69 +398,25 @@
   }
 },
 {
-  "model": "wagtailcore.pagesubscription",
-  "pk": 7,
-  "fields": {
-    "user": [
-      "admin"
-    ],
-    "page": 9,
-    "comment_notifications": true
-  }
-},
-{
-  "model": "wagtailcore.pagesubscription",
-  "pk": 8,
-  "fields": {
-    "user": [
-      "admin"
-    ],
-    "page": 10,
-    "comment_notifications": true
-  }
-},
-{
-  "model": "wagtailcore.pagesubscription",
-  "pk": 9,
-  "fields": {
-    "user": [
-      "admin"
-    ],
-    "page": 11,
-    "comment_notifications": true
-  }
-},
-{
-  "model": "wagtailcore.pagesubscription",
-  "pk": 10,
-  "fields": {
-    "user": [
-      "admin"
-    ],
-    "page": 12,
-    "comment_notifications": true
-  }
-},
-{
   "model": "wagtailcore.pagelogentry",
   "pk": 1,
   "fields": {
     "content_type": [
-      "wagtailcore",
-      "page"
+      "home",
+      "homepage"
     ],
-    "label": "Welcome to your new Wagtail site!",
-    "action": "wagtail.delete",
+    "label": "easydmp home",
+    "action": "wagtail.create",
     "data": {},
-    "timestamp": "2024-09-05T13:52:14.398Z",
-    "uuid": "5f001524-29c4-4e65-866d-1ea9d863139d",
+    "timestamp": "2025-01-17T11:38:27.277Z",
+    "uuid": "6eede804-777f-4339-926a-f932bac9a57a",
     "user": [
       "admin"
     ],
     "revision": null,
-    "content_changed": false,
-    "deleted": true,
-    "page": 2
+    "content_changed": true,
+    "deleted": false,
+    "page": 3
   }
 },
 {
@@ -561,15 +427,15 @@
       "home",
       "homepage"
     ],
-    "label": "easyDMP - Homepage",
-    "action": "wagtail.create",
+    "label": "easydmp home",
+    "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-05T13:52:51.231Z",
-    "uuid": "df3ec6f7-c497-4426-a367-e0135b00c886",
+    "timestamp": "2025-01-17T11:38:27.291Z",
+    "uuid": "6eede804-777f-4339-926a-f932bac9a57a",
     "user": [
       "admin"
     ],
-    "revision": null,
+    "revision": 1,
     "content_changed": true,
     "deleted": false,
     "page": 3
@@ -583,11 +449,11 @@
       "home",
       "homepage"
     ],
-    "label": "easyDMP - Homepage",
-    "action": "wagtail.edit",
+    "label": "easydmp home",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-05T13:52:51.263Z",
-    "uuid": "df3ec6f7-c497-4426-a367-e0135b00c886",
+    "timestamp": "2025-01-17T11:38:27.314Z",
+    "uuid": "6eede804-777f-4339-926a-f932bac9a57a",
     "user": [
       "admin"
     ],
@@ -605,16 +471,21 @@
       "home",
       "homepage"
     ],
-    "label": "easyDMP - Homepage",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-05T13:52:51.305Z",
-    "uuid": "df3ec6f7-c497-4426-a367-e0135b00c886",
+    "label": "easydmp home",
+    "action": "wagtail.view_restriction.create",
+    "data": {
+      "restriction": {
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2025-01-17T11:38:32.723Z",
+    "uuid": "1e7f8e6a-8001-44be-b110-50e0785d55b8",
     "user": [
       "admin"
     ],
-    "revision": 1,
-    "content_changed": true,
+    "revision": null,
+    "content_changed": false,
     "deleted": false,
     "page": 3
   }
@@ -625,20 +496,20 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "homepage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.create",
+    "label": "easydmp home",
+    "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-05T13:53:55.843Z",
-    "uuid": "711a10fc-1a90-4bfb-be96-d218ec3e238a",
+    "timestamp": "2025-01-17T11:38:34.806Z",
+    "uuid": "94bb0e86-317f-448f-9280-e94bf50d9a71",
     "user": [
       "admin"
     ],
-    "revision": null,
+    "revision": 2,
     "content_changed": true,
     "deleted": false,
-    "page": 4
+    "page": 3
   }
 },
 {
@@ -647,20 +518,20 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "homepage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.edit",
+    "label": "easydmp home",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-05T13:53:55.871Z",
-    "uuid": "711a10fc-1a90-4bfb-be96-d218ec3e238a",
+    "timestamp": "2025-01-17T11:38:34.822Z",
+    "uuid": "94bb0e86-317f-448f-9280-e94bf50d9a71",
     "user": [
       "admin"
     ],
     "revision": 2,
-    "content_changed": true,
+    "content_changed": false,
     "deleted": false,
-    "page": 4
+    "page": 3
   }
 },
 {
@@ -669,20 +540,25 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "homepage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-05T13:53:55.908Z",
-    "uuid": "711a10fc-1a90-4bfb-be96-d218ec3e238a",
+    "label": "easydmp home",
+    "action": "wagtail.view_restriction.delete",
+    "data": {
+      "restriction": {
+        "type": "none",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2025-01-17T11:38:43.971Z",
+    "uuid": "705ba517-9e2d-46d2-a090-6c52e702dd75",
     "user": [
       "admin"
     ],
-    "revision": 2,
-    "content_changed": true,
+    "revision": null,
+    "content_changed": false,
     "deleted": false,
-    "page": 4
+    "page": 3
   }
 },
 {
@@ -691,20 +567,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "homepage"
     ],
-    "label": "Sample Submission Page",
-    "action": "wagtail.create",
+    "label": "easydmp home",
+    "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-05T13:55:54.700Z",
-    "uuid": "fe679fb6-3d12-45d1-ae4e-3aa158c467f3",
+    "timestamp": "2025-01-17T11:38:45.959Z",
+    "uuid": "3d1f794e-ab57-4625-8512-d4578b312e00",
     "user": [
       "admin"
     ],
-    "revision": null,
+    "revision": 3,
     "content_changed": true,
     "deleted": false,
-    "page": 5
+    "page": 3
   }
 },
 {
@@ -713,20 +589,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "homepage"
     ],
-    "label": "Sample Submission Page",
-    "action": "wagtail.edit",
+    "label": "easydmp home",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-05T13:55:54.724Z",
-    "uuid": "fe679fb6-3d12-45d1-ae4e-3aa158c467f3",
+    "timestamp": "2025-01-17T11:38:45.976Z",
+    "uuid": "3d1f794e-ab57-4625-8512-d4578b312e00",
     "user": [
       "admin"
     ],
     "revision": 3,
-    "content_changed": true,
+    "content_changed": false,
     "deleted": false,
-    "page": 5
+    "page": 3
   }
 },
 {
@@ -735,25 +611,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
-    "label": "Sample Submission Page",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-05T13:56:00.717Z",
-    "uuid": "bd395cef-3250-41c9-b401-87eb42080870",
+    "label": "Select Laboratory",
+    "action": "wagtail.create",
+    "data": {},
+    "timestamp": "2025-01-17T11:39:48.773Z",
+    "uuid": "24b1318d-1e80-45d8-9bfc-6965ab9c8813",
     "user": [
       "admin"
     ],
     "revision": null,
-    "content_changed": false,
+    "content_changed": true,
     "deleted": false,
-    "page": 5
+    "page": 4
   }
 },
 {
@@ -762,20 +633,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
-    "label": "Sample Submission Page",
+    "label": "Select Laboratory",
     "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-05T13:56:03.449Z",
-    "uuid": "46c74c6e-16fd-423d-af98-1ac2eb3fd8f0",
+    "timestamp": "2025-01-17T11:39:48.785Z",
+    "uuid": "24b1318d-1e80-45d8-9bfc-6965ab9c8813",
     "user": [
       "admin"
     ],
     "revision": 4,
     "content_changed": true,
     "deleted": false,
-    "page": 5
+    "page": 4
   }
 },
 {
@@ -784,20 +655,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
-    "label": "Sample Submission Page",
+    "label": "Select Laboratory",
     "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-05T13:56:03.489Z",
-    "uuid": "46c74c6e-16fd-423d-af98-1ac2eb3fd8f0",
+    "timestamp": "2025-01-17T11:39:48.899Z",
+    "uuid": "24b1318d-1e80-45d8-9bfc-6965ab9c8813",
     "user": [
       "admin"
     ],
     "revision": 4,
-    "content_changed": false,
+    "content_changed": true,
     "deleted": false,
-    "page": 5
+    "page": 4
   }
 },
 {
@@ -806,25 +677,25 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
-    "label": "Sample Submission Page",
-    "action": "wagtail.view_restriction.edit",
+    "label": "Select Laboratory",
+    "action": "wagtail.view_restriction.create",
     "data": {
       "restriction": {
-        "type": "groups",
-        "title": "Private, accessible to users in specific groups"
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
       }
     },
-    "timestamp": "2024-09-09T13:12:09.414Z",
-    "uuid": "023367b0-66e3-49ea-a379-5b54591dc06f",
+    "timestamp": "2025-01-17T11:39:57.411Z",
+    "uuid": "03c6efd9-9569-48a2-87e6-1cee60ee12d5",
     "user": [
       "admin"
     ],
     "revision": null,
     "content_changed": false,
     "deleted": false,
-    "page": 5
+    "page": 4
   }
 },
 {
@@ -833,20 +704,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
-    "label": "Sample Submission Page",
+    "label": "Select Laboratory",
     "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-09T13:12:13.394Z",
-    "uuid": "1c053678-ce01-4afe-aa3b-3cf8a5bd7e7f",
+    "timestamp": "2025-01-17T11:39:59.968Z",
+    "uuid": "056c404a-4484-45dd-9bc1-ce044d1e9c3d",
     "user": [
       "admin"
     ],
     "revision": 5,
     "content_changed": true,
     "deleted": false,
-    "page": 5
+    "page": 4
   }
 },
 {
@@ -855,20 +726,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
-    "label": "Sample Submission Page",
+    "label": "Select Laboratory",
     "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T13:12:13.455Z",
-    "uuid": "1c053678-ce01-4afe-aa3b-3cf8a5bd7e7f",
+    "timestamp": "2025-01-17T11:39:59.989Z",
+    "uuid": "056c404a-4484-45dd-9bc1-ce044d1e9c3d",
     "user": [
       "admin"
     ],
     "revision": 5,
     "content_changed": false,
     "deleted": false,
-    "page": 5
+    "page": 4
   }
 },
 {
@@ -877,20 +748,20 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "userdatapage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.edit",
+    "label": "User Information",
+    "action": "wagtail.create",
     "data": {},
-    "timestamp": "2024-09-09T13:19:03.498Z",
-    "uuid": "076c1390-8e43-4752-aa30-c25f384c31ca",
+    "timestamp": "2025-01-17T11:40:47.073Z",
+    "uuid": "2f4a7f3a-01d9-48f2-8e63-613f700d7c3b",
     "user": [
       "admin"
     ],
-    "revision": 6,
+    "revision": null,
     "content_changed": true,
     "deleted": false,
-    "page": 4
+    "page": 5
   }
 },
 {
@@ -899,20 +770,20 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "userdatapage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.publish",
+    "label": "User Information",
+    "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-09T13:19:03.570Z",
-    "uuid": "076c1390-8e43-4752-aa30-c25f384c31ca",
+    "timestamp": "2025-01-17T11:40:47.087Z",
+    "uuid": "2f4a7f3a-01d9-48f2-8e63-613f700d7c3b",
     "user": [
       "admin"
     ],
     "revision": 6,
     "content_changed": true,
     "deleted": false,
-    "page": 4
+    "page": 5
   }
 },
 {
@@ -921,20 +792,20 @@
   "fields": {
     "content_type": [
       "home",
-      "homepage"
+      "userdatapage"
     ],
-    "label": "DIMMT Homepage",
-    "action": "wagtail.create",
+    "label": "User Information",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T13:27:42.755Z",
-    "uuid": "033a0ff4-80ce-4736-b2f6-13eb58a83e7f",
+    "timestamp": "2025-01-17T11:40:47.104Z",
+    "uuid": "2f4a7f3a-01d9-48f2-8e63-613f700d7c3b",
     "user": [
       "admin"
     ],
-    "revision": null,
+    "revision": 6,
     "content_changed": true,
     "deleted": false,
-    "page": 6
+    "page": 5
   }
 },
 {
@@ -943,20 +814,25 @@
   "fields": {
     "content_type": [
       "home",
-      "homepage"
+      "userdatapage"
     ],
-    "label": "DIMMT Homepage",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T13:27:42.794Z",
-    "uuid": "033a0ff4-80ce-4736-b2f6-13eb58a83e7f",
+    "label": "User Information",
+    "action": "wagtail.view_restriction.create",
+    "data": {
+      "restriction": {
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2025-01-17T11:40:53.379Z",
+    "uuid": "430077f3-5679-4f6b-a1c7-be786ce4679c",
     "user": [
       "admin"
     ],
-    "revision": 7,
-    "content_changed": true,
+    "revision": null,
+    "content_changed": false,
     "deleted": false,
-    "page": 6
+    "page": 5
   }
 },
 {
@@ -965,20 +841,20 @@
   "fields": {
     "content_type": [
       "home",
-      "homepage"
+      "userdatapage"
     ],
-    "label": "DIMMT Homepage",
-    "action": "wagtail.publish",
+    "label": "User Information",
+    "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-09T13:27:42.832Z",
-    "uuid": "033a0ff4-80ce-4736-b2f6-13eb58a83e7f",
+    "timestamp": "2025-01-17T11:40:55.703Z",
+    "uuid": "5b92e0d7-b261-4cea-8fd0-4e858adb6617",
     "user": [
       "admin"
     ],
     "revision": 7,
     "content_changed": true,
     "deleted": false,
-    "page": 6
+    "page": 5
   }
 },
 {
@@ -987,20 +863,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "userdatapage"
     ],
-    "label": "Sample List",
-    "action": "wagtail.create",
+    "label": "User Information",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T13:30:07.687Z",
-    "uuid": "8b775b34-ed88-42bd-bbf7-6f351a8add00",
+    "timestamp": "2025-01-17T11:40:55.719Z",
+    "uuid": "5b92e0d7-b261-4cea-8fd0-4e858adb6617",
     "user": [
       "admin"
     ],
-    "revision": null,
-    "content_changed": true,
+    "revision": 7,
+    "content_changed": false,
     "deleted": false,
-    "page": 7
+    "page": 5
   }
 },
 {
@@ -1009,20 +885,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "userdatapage"
     ],
-    "label": "Sample List",
+    "label": "User Information",
     "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-09T13:30:07.721Z",
-    "uuid": "8b775b34-ed88-42bd-bbf7-6f351a8add00",
+    "timestamp": "2025-01-17T11:42:49.983Z",
+    "uuid": "91153ebd-f7f9-4b1a-956b-8effcbfaccb2",
     "user": [
       "admin"
     ],
     "revision": 8,
     "content_changed": true,
     "deleted": false,
-    "page": 7
+    "page": 5
   }
 },
 {
@@ -1031,20 +907,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "userdatapage"
     ],
-    "label": "Sample List",
+    "label": "User Information",
     "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T13:30:07.761Z",
-    "uuid": "8b775b34-ed88-42bd-bbf7-6f351a8add00",
+    "timestamp": "2025-01-17T11:42:50.012Z",
+    "uuid": "91153ebd-f7f9-4b1a-956b-8effcbfaccb2",
     "user": [
       "admin"
     ],
     "revision": 8,
     "content_changed": true,
     "deleted": false,
-    "page": 7
+    "page": 5
   }
 },
 {
@@ -1053,25 +929,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "switchlabpage"
     ],
-    "label": "Sample List",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-09T13:30:30.959Z",
-    "uuid": "c9f3682b-a4a7-4ac8-8f4a-a3d3e1e51327",
+    "label": "Select Laboratory",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2025-01-17T11:43:09.696Z",
+    "uuid": "3e2637a5-4b81-4def-a874-c1fef72dca6a",
     "user": [
       "admin"
     ],
-    "revision": null,
-    "content_changed": false,
+    "revision": 9,
+    "content_changed": true,
     "deleted": false,
-    "page": 7
+    "page": 4
   }
 },
 {
@@ -1080,20 +951,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "switchlabpage"
     ],
-    "label": "Sample List",
-    "action": "wagtail.edit",
+    "label": "Select Laboratory",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T13:30:33.139Z",
-    "uuid": "ade0a438-7704-4491-8a6d-36a6ff43d035",
+    "timestamp": "2025-01-17T11:43:09.722Z",
+    "uuid": "3e2637a5-4b81-4def-a874-c1fef72dca6a",
     "user": [
       "admin"
     ],
     "revision": 9,
     "content_changed": true,
     "deleted": false,
-    "page": 7
+    "page": 4
   }
 },
 {
@@ -1102,20 +973,20 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "dmppage"
     ],
-    "label": "Sample List",
-    "action": "wagtail.publish",
+    "label": "Core Data Management Plan",
+    "action": "wagtail.create",
     "data": {},
-    "timestamp": "2024-09-09T13:30:33.187Z",
-    "uuid": "ade0a438-7704-4491-8a6d-36a6ff43d035",
+    "timestamp": "2025-01-17T11:45:10.252Z",
+    "uuid": "3a95c2c6-9d2a-451a-af4e-c3bbd3ed81d4",
     "user": [
       "admin"
     ],
-    "revision": 9,
+    "revision": null,
     "content_changed": true,
     "deleted": false,
-    "page": 7
+    "page": 6
   }
 },
 {
@@ -1124,25 +995,20 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "dmppage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-09T14:10:37.663Z",
-    "uuid": "e5c7a816-d9a5-487b-8e57-176dc0f70afe",
+    "label": "Core Data Management Plan",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2025-01-17T11:45:10.265Z",
+    "uuid": "3a95c2c6-9d2a-451a-af4e-c3bbd3ed81d4",
     "user": [
       "admin"
     ],
-    "revision": null,
-    "content_changed": false,
+    "revision": 10,
+    "content_changed": true,
     "deleted": false,
-    "page": 4
+    "page": 6
   }
 },
 {
@@ -1151,20 +1017,20 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "dmppage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.edit",
+    "label": "Core Data Management Plan",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T14:10:40.228Z",
-    "uuid": "b59f051d-0156-43eb-8a54-c25e506e7028",
+    "timestamp": "2025-01-17T11:45:10.279Z",
+    "uuid": "3a95c2c6-9d2a-451a-af4e-c3bbd3ed81d4",
     "user": [
       "admin"
     ],
     "revision": 10,
     "content_changed": true,
     "deleted": false,
-    "page": 4
+    "page": 6
   }
 },
 {
@@ -1173,20 +1039,20 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "samplepage"
     ],
-    "label": "Switch laboratory",
-    "action": "wagtail.publish",
+    "label": "Add sample",
+    "action": "wagtail.create",
     "data": {},
-    "timestamp": "2024-09-09T14:10:40.270Z",
-    "uuid": "b59f051d-0156-43eb-8a54-c25e506e7028",
+    "timestamp": "2025-01-17T11:46:10.549Z",
+    "uuid": "1f180397-56c0-475c-b768-205b11d22656",
     "user": [
       "admin"
     ],
-    "revision": 10,
-    "content_changed": false,
+    "revision": null,
+    "content_changed": true,
     "deleted": false,
-    "page": 4
+    "page": 7
   }
 },
 {
@@ -1195,20 +1061,20 @@
   "fields": {
     "content_type": [
       "home",
-      "dmppage"
+      "samplepage"
     ],
-    "label": "Core Data Management Plan",
-    "action": "wagtail.create",
+    "label": "Add sample",
+    "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-09T14:41:38.294Z",
-    "uuid": "d3e8b6e7-f390-4ac8-9dff-01fddd15a619",
+    "timestamp": "2025-01-17T11:46:10.565Z",
+    "uuid": "1f180397-56c0-475c-b768-205b11d22656",
     "user": [
       "admin"
     ],
-    "revision": null,
+    "revision": 11,
     "content_changed": true,
     "deleted": false,
-    "page": 8
+    "page": 7
   }
 },
 {
@@ -1217,20 +1083,20 @@
   "fields": {
     "content_type": [
       "home",
-      "dmppage"
+      "samplepage"
     ],
-    "label": "Core Data Management Plan",
-    "action": "wagtail.edit",
+    "label": "Add sample",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T14:41:38.322Z",
-    "uuid": "d3e8b6e7-f390-4ac8-9dff-01fddd15a619",
+    "timestamp": "2025-01-17T11:46:10.581Z",
+    "uuid": "1f180397-56c0-475c-b768-205b11d22656",
     "user": [
       "admin"
     ],
     "revision": 11,
     "content_changed": true,
     "deleted": false,
-    "page": 8
+    "page": 7
   }
 },
 {
@@ -1242,17 +1108,22 @@
       "dmppage"
     ],
     "label": "Core Data Management Plan",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:41:38.359Z",
-    "uuid": "d3e8b6e7-f390-4ac8-9dff-01fddd15a619",
+    "action": "wagtail.view_restriction.create",
+    "data": {
+      "restriction": {
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2025-01-17T11:46:16.163Z",
+    "uuid": "9032eac6-2972-4237-882e-92d35981728a",
     "user": [
       "admin"
     ],
-    "revision": 11,
-    "content_changed": true,
+    "revision": null,
+    "content_changed": false,
     "deleted": false,
-    "page": 8
+    "page": 6
   }
 },
 {
@@ -1264,22 +1135,17 @@
       "dmppage"
     ],
     "label": "Core Data Management Plan",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-09T14:41:45.418Z",
-    "uuid": "fd01012e-92ca-4f81-aedd-76fe83d52468",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2025-01-17T11:46:18.269Z",
+    "uuid": "c1dc4cef-b149-4dce-aaa0-c6c6af16a90b",
     "user": [
       "admin"
     ],
-    "revision": null,
-    "content_changed": false,
+    "revision": 12,
+    "content_changed": true,
     "deleted": false,
-    "page": 8
+    "page": 6
   }
 },
 {
@@ -1291,17 +1157,17 @@
       "dmppage"
     ],
     "label": "Core Data Management Plan",
-    "action": "wagtail.edit",
+    "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T14:41:51.774Z",
-    "uuid": "3d5345ae-cced-4912-a9ac-b46b03b2b07d",
+    "timestamp": "2025-01-17T11:46:18.284Z",
+    "uuid": "c1dc4cef-b149-4dce-aaa0-c6c6af16a90b",
     "user": [
       "admin"
     ],
     "revision": 12,
-    "content_changed": true,
+    "content_changed": false,
     "deleted": false,
-    "page": 8
+    "page": 6
   }
 },
 {
@@ -1310,20 +1176,25 @@
   "fields": {
     "content_type": [
       "home",
-      "dmppage"
+      "samplepage"
     ],
-    "label": "Core Data Management Plan",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:41:51.831Z",
-    "uuid": "3d5345ae-cced-4912-a9ac-b46b03b2b07d",
+    "label": "Add sample",
+    "action": "wagtail.view_restriction.create",
+    "data": {
+      "restriction": {
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2025-01-17T11:46:23.867Z",
+    "uuid": "c1266073-2ae8-4e76-9bd1-b72fe7df4425",
     "user": [
       "admin"
     ],
-    "revision": 12,
+    "revision": null,
     "content_changed": false,
     "deleted": false,
-    "page": 8
+    "page": 7
   }
 },
 {
@@ -1332,20 +1203,20 @@
   "fields": {
     "content_type": [
       "home",
-      "dmppage"
+      "samplepage"
     ],
-    "label": "Core Data Management Plan",
+    "label": "Add sample",
     "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-09T14:42:18.728Z",
-    "uuid": "b10603fe-7785-4758-a76f-fb6b250f255f",
+    "timestamp": "2025-01-17T11:46:25.466Z",
+    "uuid": "9e1e6294-3e4f-4a63-8260-29c51d493e0b",
     "user": [
       "admin"
     ],
     "revision": 13,
     "content_changed": true,
     "deleted": false,
-    "page": 8
+    "page": 7
   }
 },
 {
@@ -1354,20 +1225,20 @@
   "fields": {
     "content_type": [
       "home",
-      "dmppage"
+      "samplepage"
     ],
-    "label": "Core Data Management Plan",
+    "label": "Add sample",
     "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T14:42:18.769Z",
-    "uuid": "b10603fe-7785-4758-a76f-fb6b250f255f",
+    "timestamp": "2025-01-17T11:46:25.481Z",
+    "uuid": "9e1e6294-3e4f-4a63-8260-29c51d493e0b",
     "user": [
       "admin"
     ],
     "revision": 13,
-    "content_changed": true,
+    "content_changed": false,
     "deleted": false,
-    "page": 8
+    "page": 7
   }
 },
 {
@@ -1376,20 +1247,20 @@
   "fields": {
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
-    "label": "User information",
+    "label": "Sample list",
     "action": "wagtail.create",
     "data": {},
-    "timestamp": "2024-09-09T14:52:16.308Z",
-    "uuid": "8edb930d-bde3-489d-bbbc-5f6fcc11e8b7",
+    "timestamp": "2025-01-17T11:47:35.949Z",
+    "uuid": "7f422389-40ef-4826-a392-a7037b35bf0b",
     "user": [
       "admin"
     ],
     "revision": null,
     "content_changed": true,
     "deleted": false,
-    "page": 9
+    "page": 8
   }
 },
 {
@@ -1398,20 +1269,20 @@
   "fields": {
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
-    "label": "User information",
+    "label": "Sample list",
     "action": "wagtail.edit",
     "data": {},
-    "timestamp": "2024-09-09T14:52:16.340Z",
-    "uuid": "8edb930d-bde3-489d-bbbc-5f6fcc11e8b7",
+    "timestamp": "2025-01-17T11:47:35.960Z",
+    "uuid": "7f422389-40ef-4826-a392-a7037b35bf0b",
     "user": [
       "admin"
     ],
     "revision": 14,
     "content_changed": true,
     "deleted": false,
-    "page": 9
+    "page": 8
   }
 },
 {
@@ -1420,20 +1291,25 @@
   "fields": {
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
-    "label": "User information",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:52:16.380Z",
-    "uuid": "8edb930d-bde3-489d-bbbc-5f6fcc11e8b7",
+    "label": "Sample list",
+    "action": "wagtail.view_restriction.create",
+    "data": {
+      "restriction": {
+        "type": "login",
+        "title": "Private, accessible to any logged-in users"
+      }
+    },
+    "timestamp": "2025-01-17T11:47:39.390Z",
+    "uuid": "0a74d09b-4cf0-4f9c-a8ca-bc0d38e322e2",
     "user": [
       "admin"
     ],
-    "revision": 14,
-    "content_changed": true,
+    "revision": null,
+    "content_changed": false,
     "deleted": false,
-    "page": 9
+    "page": 8
   }
 },
 {
@@ -1442,25 +1318,20 @@
   "fields": {
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
-    "label": "User information",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-09T14:52:23.055Z",
-    "uuid": "015703f0-9444-439d-98f4-35adcd347685",
+    "label": "Sample list",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2025-01-17T11:47:41.928Z",
+    "uuid": "5eb2d303-7970-4a0f-aab3-59ee2ad0797c",
     "user": [
       "admin"
     ],
-    "revision": null,
-    "content_changed": false,
+    "revision": 15,
+    "content_changed": true,
     "deleted": false,
-    "page": 9
+    "page": 8
   }
 },
 {
@@ -1469,573 +1340,20 @@
   "fields": {
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
-    "label": "User information",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:52:24.916Z",
-    "uuid": "6ba46a46-badc-4cfb-b8dd-3c6386abbf83",
-    "user": [
-      "admin"
-    ],
-    "revision": 15,
-    "content_changed": true,
-    "deleted": false,
-    "page": 9
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 43,
-  "fields": {
-    "content_type": [
-      "home",
-      "userdatapage"
-    ],
-    "label": "User information",
+    "label": "Sample list",
     "action": "wagtail.publish",
     "data": {},
-    "timestamp": "2024-09-09T14:52:24.959Z",
-    "uuid": "6ba46a46-badc-4cfb-b8dd-3c6386abbf83",
+    "timestamp": "2025-01-17T11:47:41.947Z",
+    "uuid": "5eb2d303-7970-4a0f-aab3-59ee2ad0797c",
     "user": [
       "admin"
     ],
     "revision": 15,
     "content_changed": false,
     "deleted": false,
-    "page": 9
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 44,
-  "fields": {
-    "content_type": [
-      "home",
-      "homepage"
-    ],
-    "label": "DIMMT Homepage",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:53:22.930Z",
-    "uuid": "fc34a9f0-2ece-46a4-86c2-adb575970c37",
-    "user": [
-      "admin"
-    ],
-    "revision": 16,
-    "content_changed": true,
-    "deleted": false,
-    "page": 6
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 45,
-  "fields": {
-    "content_type": [
-      "home",
-      "homepage"
-    ],
-    "label": "DIMMT - Homepage",
-    "action": "wagtail.rename",
-    "data": {
-      "title": {
-        "new": "DIMMT - Homepage",
-        "old": "DIMMT Homepage"
-      }
-    },
-    "timestamp": "2024-09-09T14:53:22.977Z",
-    "uuid": "fc34a9f0-2ece-46a4-86c2-adb575970c37",
-    "user": [
-      "admin"
-    ],
-    "revision": 16,
-    "content_changed": false,
-    "deleted": false,
-    "page": 6
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 46,
-  "fields": {
-    "content_type": [
-      "home",
-      "homepage"
-    ],
-    "label": "DIMMT - Homepage",
-    "action": "wagtail.publish",
-    "data": {
-      "title": {
-        "new": "DIMMT - Homepage",
-        "old": "DIMMT Homepage"
-      }
-    },
-    "timestamp": "2024-09-09T14:53:22.981Z",
-    "uuid": "fc34a9f0-2ece-46a4-86c2-adb575970c37",
-    "user": [
-      "admin"
-    ],
-    "revision": 16,
-    "content_changed": true,
-    "deleted": false,
-    "page": 6
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 47,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "label": "Proposal Submission",
-    "action": "wagtail.create",
-    "data": {},
-    "timestamp": "2024-09-09T14:53:50.229Z",
-    "uuid": "d75c2d87-d340-4517-8153-3bfc004a0c9d",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": true,
-    "deleted": false,
-    "page": 10
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 48,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "label": "Proposal Submission",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:53:50.260Z",
-    "uuid": "d75c2d87-d340-4517-8153-3bfc004a0c9d",
-    "user": [
-      "admin"
-    ],
-    "revision": 17,
-    "content_changed": true,
-    "deleted": false,
-    "page": 10
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 49,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "label": "Proposal Submission",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:53:50.303Z",
-    "uuid": "d75c2d87-d340-4517-8153-3bfc004a0c9d",
-    "user": [
-      "admin"
-    ],
-    "revision": 17,
-    "content_changed": true,
-    "deleted": false,
-    "page": 10
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 50,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "label": "Proposal Submission",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-09T14:54:00.607Z",
-    "uuid": "3e9a651a-d61f-4a41-86e4-6ced3e8eda56",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": false,
-    "deleted": false,
-    "page": 10
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 51,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "label": "Proposal Submission",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:54:02.474Z",
-    "uuid": "17552d55-2334-4139-acb0-55c896b4e86f",
-    "user": [
-      "admin"
-    ],
-    "revision": 18,
-    "content_changed": true,
-    "deleted": false,
-    "page": 10
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 52,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "label": "Proposal Submission",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:54:02.526Z",
-    "uuid": "17552d55-2334-4139-acb0-55c896b4e86f",
-    "user": [
-      "admin"
-    ],
-    "revision": 18,
-    "content_changed": true,
-    "deleted": false,
-    "page": 10
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 53,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.create",
-    "data": {},
-    "timestamp": "2024-09-09T14:54:25.810Z",
-    "uuid": "4c2b7d3b-c4e6-46eb-a395-da34df15be7a",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": true,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 54,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:54:25.849Z",
-    "uuid": "4c2b7d3b-c4e6-46eb-a395-da34df15be7a",
-    "user": [
-      "admin"
-    ],
-    "revision": 19,
-    "content_changed": true,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 55,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:54:25.893Z",
-    "uuid": "4c2b7d3b-c4e6-46eb-a395-da34df15be7a",
-    "user": [
-      "admin"
-    ],
-    "revision": 19,
-    "content_changed": true,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 56,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-09T14:54:32.566Z",
-    "uuid": "b4899b7d-2102-4584-934a-72b1e1a0b470",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": false,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 57,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:54:34.298Z",
-    "uuid": "5f39c292-5f53-4736-b466-7b2615627e89",
-    "user": [
-      "admin"
-    ],
-    "revision": 20,
-    "content_changed": true,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 58,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:54:34.346Z",
-    "uuid": "5f39c292-5f53-4736-b466-7b2615627e89",
-    "user": [
-      "admin"
-    ],
-    "revision": 20,
-    "content_changed": false,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 59,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:55:58.209Z",
-    "uuid": "b1ab1768-5c27-48f3-8f1e-513c98f8c0dd",
-    "user": [
-      "admin"
-    ],
-    "revision": 21,
-    "content_changed": true,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 60,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "label": "Proposal List",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:55:58.261Z",
-    "uuid": "b1ab1768-5c27-48f3-8f1e-513c98f8c0dd",
-    "user": [
-      "admin"
-    ],
-    "revision": 21,
-    "content_changed": true,
-    "deleted": false,
-    "page": 11
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 61,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "label": "Service Request",
-    "action": "wagtail.create",
-    "data": {},
-    "timestamp": "2024-09-09T14:59:38.242Z",
-    "uuid": "88c401b6-ffce-4435-9b93-0aae1ed22f6e",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": true,
-    "deleted": false,
-    "page": 12
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 62,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "label": "Service Request",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:59:38.266Z",
-    "uuid": "88c401b6-ffce-4435-9b93-0aae1ed22f6e",
-    "user": [
-      "admin"
-    ],
-    "revision": 22,
-    "content_changed": true,
-    "deleted": false,
-    "page": 12
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 63,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "label": "Service Request",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:59:38.310Z",
-    "uuid": "88c401b6-ffce-4435-9b93-0aae1ed22f6e",
-    "user": [
-      "admin"
-    ],
-    "revision": 22,
-    "content_changed": true,
-    "deleted": false,
-    "page": 12
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 64,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "label": "Service Request",
-    "action": "wagtail.view_restriction.create",
-    "data": {
-      "restriction": {
-        "type": "login",
-        "title": "Private, accessible to any logged-in users"
-      }
-    },
-    "timestamp": "2024-09-09T14:59:44.343Z",
-    "uuid": "55c298d1-5701-44bd-a12c-05f3af913eb1",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": false,
-    "deleted": false,
-    "page": 12
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 65,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "label": "Service Request",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T14:59:46.203Z",
-    "uuid": "fef78da6-32f3-4d0e-8d43-f59656f51fe5",
-    "user": [
-      "admin"
-    ],
-    "revision": 23,
-    "content_changed": true,
-    "deleted": false,
-    "page": 12
-  }
-},
-{
-  "model": "wagtailcore.pagelogentry",
-  "pk": 66,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "label": "Service Request",
-    "action": "wagtail.publish",
-    "data": {},
-    "timestamp": "2024-09-09T14:59:46.251Z",
-    "uuid": "fef78da6-32f3-4d0e-8d43-f59656f51fe5",
-    "user": [
-      "admin"
-    ],
-    "revision": 23,
-    "content_changed": false,
-    "deleted": false,
-    "page": 12
+    "page": 8
   }
 },
 {
@@ -2052,27 +1370,7 @@
 },
 {
   "model": "wagtailcore.pageviewrestriction",
-  "pk": 1,
-  "fields": {
-    "restriction_type": "groups",
-    "password": "",
-    "page": 5,
-    "groups": []
-  }
-},
-{
-  "model": "wagtailcore.pageviewrestriction",
   "pk": 2,
-  "fields": {
-    "restriction_type": "login",
-    "password": "",
-    "page": 7,
-    "groups": []
-  }
-},
-{
-  "model": "wagtailcore.pageviewrestriction",
-  "pk": 3,
   "fields": {
     "restriction_type": "login",
     "password": "",
@@ -2082,11 +1380,21 @@
 },
 {
   "model": "wagtailcore.pageviewrestriction",
+  "pk": 3,
+  "fields": {
+    "restriction_type": "login",
+    "password": "",
+    "page": 5,
+    "groups": []
+  }
+},
+{
+  "model": "wagtailcore.pageviewrestriction",
   "pk": 4,
   "fields": {
     "restriction_type": "login",
     "password": "",
-    "page": 8,
+    "page": 6,
     "groups": []
   }
 },
@@ -2096,7 +1404,7 @@
   "fields": {
     "restriction_type": "login",
     "password": "",
-    "page": 9,
+    "page": 7,
     "groups": []
   }
 },
@@ -2106,27 +1414,7 @@
   "fields": {
     "restriction_type": "login",
     "password": "",
-    "page": 10,
-    "groups": []
-  }
-},
-{
-  "model": "wagtailcore.pageviewrestriction",
-  "pk": 7,
-  "fields": {
-    "restriction_type": "login",
-    "password": "",
-    "page": 11,
-    "groups": []
-  }
-},
-{
-  "model": "wagtailcore.pageviewrestriction",
-  "pk": 8,
-  "fields": {
-    "restriction_type": "login",
-    "password": "",
-    "page": 12,
+    "page": 8,
     "groups": []
   }
 },
@@ -2248,11 +1536,11 @@
       "page"
     ],
     "object_id": "3",
-    "created_at": "2024-09-05T13:52:51.248Z",
+    "created_at": "2025-01-17T11:38:27.285Z",
     "user": [
       "admin"
     ],
-    "object_str": "easyDMP - Homepage",
+    "object_str": "easydmp home",
     "content": {
       "pk": 3,
       "body": "",
@@ -2260,9 +1548,9 @@
       "path": "00010001",
       "slug": "easydmp-home",
       "depth": 2,
-      "intro": "This is the homepage of easydmp",
-      "owner": 1,
-      "title": "easyDMP - Homepage",
+      "intro": "This is the home page of easyDMP",
+      "owner": 2,
+      "title": "easydmp home",
       "locale": 1,
       "locked": false,
       "expired": false,
@@ -2274,12 +1562,12 @@
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "easyDMP - Homepage",
+      "draft_title": "easydmp home",
       "content_type": 28,
       "live_revision": null,
       "show_in_menus": false,
       "latest_revision": null,
-      "translation_key": "1608fe09-8c4e-4f5e-ab80-289c638dfd5e",
+      "translation_key": "7b91540b-305b-442b-96b2-b92e2c3f48a9",
       "last_published_at": null,
       "first_published_at": null,
       "search_description": "",
@@ -2296,50 +1584,51 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "homepage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "4",
-    "created_at": "2024-09-05T13:53:55.858Z",
+    "object_id": "3",
+    "created_at": "2025-01-17T11:38:34.792Z",
     "user": [
       "admin"
     ],
-    "object_str": "Switch laboratory",
+    "object_str": "easydmp home",
     "content": {
-      "pk": 4,
+      "pk": 3,
+      "body": "",
       "live": true,
-      "path": "000100010001",
-      "slug": "switch-lab",
-      "depth": 3,
-      "intro": "<p data-block-key=\"uu1e7\">Select the working laboratory</p>",
-      "owner": 1,
-      "title": "Switch laboratory",
+      "path": "00010001",
+      "slug": "easydmp-home",
+      "depth": 2,
+      "intro": "This is the home page of easyDMP",
+      "owner": 2,
+      "title": "easydmp home",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/switch-lab/",
+      "url_path": "/easydmp-home/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Switch laboratory",
-      "content_type": 40,
-      "live_revision": null,
+      "draft_title": "easydmp home",
+      "content_type": 28,
+      "live_revision": 1,
       "show_in_menus": false,
-      "latest_revision": null,
-      "translation_key": "6866906e-422c-498d-8655-95db1c9fc8c7",
-      "last_published_at": null,
-      "first_published_at": null,
+      "latest_revision": 1,
+      "translation_key": "7b91540b-305b-442b-96b2-b92e2c3f48a9",
+      "last_published_at": "2025-01-17T11:38:27.296Z",
+      "first_published_at": "2025-01-17T11:38:27.296Z",
       "search_description": "",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": null
+      "latest_revision_created_at": "2025-01-17T11:38:27.285Z"
     },
     "approved_go_live_at": null
   }
@@ -2350,51 +1639,51 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "homepage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "5",
-    "created_at": "2024-09-05T13:55:54.712Z",
+    "object_id": "3",
+    "created_at": "2025-01-17T11:38:45.946Z",
     "user": [
       "admin"
     ],
-    "object_str": "Sample Submission Page",
+    "object_str": "easydmp home",
     "content": {
-      "pk": 5,
-      "live": false,
-      "path": "000100010002",
-      "slug": "sample-submission-page",
-      "depth": 3,
-      "intro": "<p data-block-key=\"3lsk9\">Enter the new sample information here</p>",
-      "owner": 1,
-      "title": "Sample Submission Page",
+      "pk": 3,
+      "body": "",
+      "live": true,
+      "path": "00010001",
+      "slug": "easydmp-home",
+      "depth": 2,
+      "intro": "This is the home page of easyDMP",
+      "owner": 2,
+      "title": "easydmp home",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/sample-submission-page/",
+      "url_path": "/easydmp-home/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Sample Submission Page",
-      "content_type": 37,
-      "live_revision": null,
-      "show_in_menus": true,
-      "latest_revision": null,
-      "translation_key": "1382d740-f808-4637-b26f-0ca6c1406aa1",
-      "last_published_at": null,
-      "first_published_at": null,
+      "draft_title": "easydmp home",
+      "content_type": 28,
+      "live_revision": 2,
+      "show_in_menus": false,
+      "latest_revision": 2,
+      "translation_key": "7b91540b-305b-442b-96b2-b92e2c3f48a9",
+      "last_published_at": "2025-01-17T11:38:34.812Z",
+      "first_published_at": "2025-01-17T11:38:27.296Z",
       "search_description": "",
-      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": null
+      "latest_revision_created_at": "2025-01-17T11:38:34.792Z"
     },
     "approved_go_live_at": null
   }
@@ -2405,51 +1694,50 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "5",
-    "created_at": "2024-09-05T13:56:03.437Z",
+    "object_id": "4",
+    "created_at": "2025-01-17T11:39:48.780Z",
     "user": [
       "admin"
     ],
-    "object_str": "Sample Submission Page",
+    "object_str": "Select Laboratory",
     "content": {
-      "pk": 5,
-      "live": false,
-      "path": "000100010002",
-      "slug": "sample-submission-page",
+      "pk": 4,
+      "live": true,
+      "path": "000100010001",
+      "slug": "select-laboratory",
       "depth": 3,
-      "intro": "<p data-block-key=\"3lsk9\">Enter the new sample information here</p>",
-      "owner": 1,
-      "title": "Sample Submission Page",
+      "intro": "<p data-block-key=\"8ziiz\">Select here your laboratory for the session.</p>",
+      "owner": 2,
+      "title": "Select Laboratory",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/sample-submission-page/",
+      "url_path": "/easydmp-home/select-laboratory/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Sample Submission Page",
+      "draft_title": "Select Laboratory",
       "content_type": 37,
       "live_revision": null,
-      "show_in_menus": true,
-      "latest_revision": 3,
-      "translation_key": "1382d740-f808-4637-b26f-0ca6c1406aa1",
+      "show_in_menus": false,
+      "latest_revision": null,
+      "translation_key": "bdf19d1e-c800-44c7-8174-3dbcf8f36678",
       "last_published_at": null,
       "first_published_at": null,
       "search_description": "",
-      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
-      "has_unpublished_changes": true,
-      "latest_revision_created_at": "2024-09-05T13:55:54.712Z"
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": null
     },
     "approved_go_live_at": null
   }
@@ -2460,51 +1748,50 @@
   "fields": {
     "content_type": [
       "home",
-      "samplepage"
+      "switchlabpage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "5",
-    "created_at": "2024-09-09T13:12:13.329Z",
+    "object_id": "4",
+    "created_at": "2025-01-17T11:39:59.954Z",
     "user": [
       "admin"
     ],
-    "object_str": "Sample Submission Page",
+    "object_str": "Select Laboratory",
     "content": {
-      "pk": 5,
+      "pk": 4,
       "live": true,
-      "path": "000100010002",
-      "slug": "sample-submission-page",
+      "path": "000100010001",
+      "slug": "select-laboratory",
       "depth": 3,
-      "intro": "<p data-block-key=\"3lsk9\">Enter the new sample information here</p>",
-      "owner": 1,
-      "title": "Sample Submission Page",
+      "intro": "<p data-block-key=\"8ziiz\">Select here your laboratory for the session.</p>",
+      "owner": 2,
+      "title": "Select Laboratory",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/sample-submission-page/",
+      "url_path": "/easydmp-home/select-laboratory/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Sample Submission Page",
+      "draft_title": "Select Laboratory",
       "content_type": 37,
       "live_revision": 4,
-      "show_in_menus": true,
+      "show_in_menus": false,
       "latest_revision": 4,
-      "translation_key": "1382d740-f808-4637-b26f-0ca6c1406aa1",
-      "last_published_at": "2024-09-05T13:56:03.460Z",
-      "first_published_at": "2024-09-05T13:56:03.460Z",
+      "translation_key": "bdf19d1e-c800-44c7-8174-3dbcf8f36678",
+      "last_published_at": "2025-01-17T11:39:48.791Z",
+      "first_published_at": "2025-01-17T11:39:48.791Z",
       "search_description": "",
-      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-05T13:56:03.437Z"
+      "latest_revision_created_at": "2025-01-17T11:39:48.780Z"
     },
     "approved_go_live_at": null
   }
@@ -2515,50 +1802,51 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
+      "userdatapage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "4",
-    "created_at": "2024-09-09T13:19:03.447Z",
+    "object_id": "5",
+    "created_at": "2025-01-17T11:40:47.080Z",
     "user": [
       "admin"
     ],
-    "object_str": "Switch laboratory",
+    "object_str": "User Information",
     "content": {
-      "pk": 4,
+      "pk": 5,
       "live": true,
-      "path": "000100010001",
-      "slug": "switch-laboratory",
+      "path": "000100010002",
+      "slug": "user-information",
       "depth": 3,
-      "intro": "<p data-block-key=\"uu1e7\">Select the working laboratory</p>",
-      "owner": 1,
-      "title": "Switch laboratory",
+      "intro": "<p data-block-key=\"0jfv1\">Edit the user information here and add api tokens</p>",
+      "owner": 2,
+      "title": "User Information",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/switch-lab/",
+      "url_path": "/easydmp-home/user-information/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Switch laboratory",
-      "content_type": 40,
-      "live_revision": 2,
+      "draft_title": "User Information",
+      "content_type": 38,
+      "live_revision": null,
       "show_in_menus": false,
-      "latest_revision": 2,
-      "translation_key": "6866906e-422c-498d-8655-95db1c9fc8c7",
-      "last_published_at": "2024-09-05T13:53:55.881Z",
-      "first_published_at": "2024-09-05T13:53:55.881Z",
+      "latest_revision": null,
+      "translation_key": "2a01456b-5467-421c-927e-66724e6b6887",
+      "last_published_at": null,
+      "first_published_at": null,
       "search_description": "",
+      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-05T13:53:55.858Z"
+      "latest_revision_created_at": null
     },
     "approved_go_live_at": null
   }
@@ -2569,51 +1857,51 @@
   "fields": {
     "content_type": [
       "home",
-      "homepage"
+      "userdatapage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "6",
-    "created_at": "2024-09-09T13:27:42.780Z",
+    "object_id": "5",
+    "created_at": "2025-01-17T11:40:55.688Z",
     "user": [
       "admin"
     ],
-    "object_str": "DIMMT Homepage",
+    "object_str": "User Information",
     "content": {
-      "pk": 6,
-      "body": "",
+      "pk": 5,
       "live": true,
-      "path": "00010002",
-      "slug": "dimmt-home",
-      "depth": 2,
-      "intro": "This is the home page of DIMMT",
-      "owner": 1,
-      "title": "DIMMT Homepage",
+      "path": "000100010002",
+      "slug": "user-information",
+      "depth": 3,
+      "intro": "<p data-block-key=\"0jfv1\">Edit the user information here and add api tokens</p>",
+      "owner": 2,
+      "title": "User Information",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/dimmt-home/",
+      "url_path": "/easydmp-home/user-information/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "DIMMT Homepage",
-      "content_type": 28,
-      "live_revision": null,
+      "draft_title": "User Information",
+      "content_type": 38,
+      "live_revision": 6,
       "show_in_menus": false,
-      "latest_revision": null,
-      "translation_key": "63d9b509-ab72-449b-ba49-3fc15b546f80",
-      "last_published_at": null,
-      "first_published_at": null,
+      "latest_revision": 6,
+      "translation_key": "2a01456b-5467-421c-927e-66724e6b6887",
+      "last_published_at": "2025-01-17T11:40:47.092Z",
+      "first_published_at": "2025-01-17T11:40:47.092Z",
       "search_description": "",
+      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": null
+      "latest_revision_created_at": "2025-01-17T11:40:47.080Z"
     },
     "approved_go_live_at": null
   }
@@ -2624,50 +1912,51 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "userdatapage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "7",
-    "created_at": "2024-09-09T13:30:07.706Z",
+    "object_id": "5",
+    "created_at": "2025-01-17T11:42:49.968Z",
     "user": [
       "admin"
     ],
-    "object_str": "Sample List",
+    "object_str": "User Information",
     "content": {
-      "pk": 7,
+      "pk": 5,
       "live": true,
-      "path": "000100010003",
-      "slug": "sample-list",
+      "path": "000100010002",
+      "slug": "user-data",
       "depth": 3,
-      "intro": "<p data-block-key=\"mve4n\">This is the list of all the samples of your lab</p>",
-      "owner": 1,
-      "title": "Sample List",
+      "intro": "<p data-block-key=\"0jfv1\">Edit the user information here and add api tokens</p>",
+      "owner": 2,
+      "title": "User Information",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/sample-list/",
+      "url_path": "/easydmp-home/user-information/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Sample List",
-      "content_type": 36,
-      "live_revision": null,
+      "draft_title": "User Information",
+      "content_type": 38,
+      "live_revision": 7,
       "show_in_menus": false,
-      "latest_revision": null,
-      "translation_key": "5ebb79bf-a42e-4d3e-a9da-f68981036c23",
-      "last_published_at": null,
-      "first_published_at": null,
+      "latest_revision": 7,
+      "translation_key": "2a01456b-5467-421c-927e-66724e6b6887",
+      "last_published_at": "2025-01-17T11:40:55.708Z",
+      "first_published_at": "2025-01-17T11:40:47.092Z",
       "search_description": "",
+      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": null
+      "latest_revision_created_at": "2025-01-17T11:40:55.688Z"
     },
     "approved_go_live_at": null
   }
@@ -2678,50 +1967,50 @@
   "fields": {
     "content_type": [
       "home",
-      "samplelistpage"
+      "switchlabpage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "7",
-    "created_at": "2024-09-09T13:30:33.117Z",
+    "object_id": "4",
+    "created_at": "2025-01-17T11:43:09.685Z",
     "user": [
       "admin"
     ],
-    "object_str": "Sample List",
+    "object_str": "Select Laboratory",
     "content": {
-      "pk": 7,
+      "pk": 4,
       "live": true,
-      "path": "000100010003",
-      "slug": "sample-list",
+      "path": "000100010001",
+      "slug": "switch-laboratory",
       "depth": 3,
-      "intro": "<p data-block-key=\"mve4n\">This is the list of all the samples of your lab</p>",
-      "owner": 1,
-      "title": "Sample List",
+      "intro": "<p data-block-key=\"8ziiz\">Select here your laboratory for the session.</p>",
+      "owner": 2,
+      "title": "Select Laboratory",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/sample-list/",
+      "url_path": "/easydmp-home/select-laboratory/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Sample List",
-      "content_type": 36,
-      "live_revision": 8,
-      "show_in_menus": true,
-      "latest_revision": 8,
-      "translation_key": "5ebb79bf-a42e-4d3e-a9da-f68981036c23",
-      "last_published_at": "2024-09-09T13:30:07.734Z",
-      "first_published_at": "2024-09-09T13:30:07.734Z",
+      "draft_title": "Select Laboratory",
+      "content_type": 37,
+      "live_revision": 5,
+      "show_in_menus": false,
+      "latest_revision": 5,
+      "translation_key": "bdf19d1e-c800-44c7-8174-3dbcf8f36678",
+      "last_published_at": "2025-01-17T11:39:59.978Z",
+      "first_published_at": "2025-01-17T11:39:48.791Z",
       "search_description": "",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T13:30:07.706Z"
+      "latest_revision_created_at": "2025-01-17T11:39:59.954Z"
     },
     "approved_go_live_at": null
   }
@@ -2732,80 +2021,26 @@
   "fields": {
     "content_type": [
       "home",
-      "switchlabpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "4",
-    "created_at": "2024-09-09T14:10:40.185Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Switch laboratory",
-    "content": {
-      "pk": 4,
-      "live": true,
-      "path": "000100010001",
-      "slug": "switch-laboratory",
-      "depth": 3,
-      "intro": "<p data-block-key=\"uu1e7\">Select the working laboratory</p>",
-      "owner": 1,
-      "title": "Switch laboratory",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/easydmp-home/switch-laboratory/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Switch laboratory",
-      "content_type": 40,
-      "live_revision": 6,
-      "show_in_menus": false,
-      "latest_revision": 6,
-      "translation_key": "6866906e-422c-498d-8655-95db1c9fc8c7",
-      "last_published_at": "2024-09-09T13:19:03.521Z",
-      "first_published_at": "2024-09-05T13:53:55.881Z",
-      "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T13:19:03.447Z"
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 11,
-  "fields": {
-    "content_type": [
-      "home",
       "dmppage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "8",
-    "created_at": "2024-09-09T14:41:38.308Z",
+    "object_id": "6",
+    "created_at": "2025-01-17T11:45:10.259Z",
     "user": [
       "admin"
     ],
     "object_str": "Core Data Management Plan",
     "content": {
-      "pk": 8,
+      "pk": 6,
       "live": true,
-      "path": "000100010004",
+      "path": "000100010003",
       "slug": "core-data-management-plan",
       "depth": 3,
-      "intro": "<p data-block-key=\"irnbl\">This is the laboratory management plan core page</p>",
-      "owner": 1,
+      "intro": "<p data-block-key=\"510rm\">This is the page to edit your core data management plan</p>",
+      "owner": 2,
       "title": "Core Data Management Plan",
       "locale": 1,
       "locked": false,
@@ -2819,15 +2054,70 @@
       "seo_title": "",
       "go_live_at": null,
       "draft_title": "Core Data Management Plan",
-      "content_type": 30,
+      "content_type": 29,
       "live_revision": null,
-      "show_in_menus": false,
+      "show_in_menus": true,
       "latest_revision": null,
-      "translation_key": "2048f21d-3019-4349-8a8d-dbd13a63f86a",
+      "translation_key": "78e13932-7f41-476a-ae1b-3d3c3416063a",
       "last_published_at": null,
       "first_published_at": null,
       "search_description": "",
-      "thankyou_page_title": "Thank you",
+      "thankyou_page_title": "Thank you!",
+      "wagtail_admin_comments": [],
+      "has_unpublished_changes": false,
+      "latest_revision_created_at": null
+    },
+    "approved_go_live_at": null
+  }
+},
+{
+  "model": "wagtailcore.revision",
+  "pk": 11,
+  "fields": {
+    "content_type": [
+      "home",
+      "samplepage"
+    ],
+    "base_content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "object_id": "7",
+    "created_at": "2025-01-17T11:46:10.560Z",
+    "user": [
+      "admin"
+    ],
+    "object_str": "Add sample",
+    "content": {
+      "pk": 7,
+      "live": true,
+      "path": "000100010004",
+      "slug": "add-sample",
+      "depth": 3,
+      "intro": "<p data-block-key=\"i81sz\">Add a new sample here</p>",
+      "owner": 2,
+      "title": "Add sample",
+      "locale": 1,
+      "locked": false,
+      "expired": false,
+      "alias_of": null,
+      "numchild": 0,
+      "url_path": "/easydmp-home/add-sample/",
+      "expire_at": null,
+      "locked_at": null,
+      "locked_by": null,
+      "seo_title": "",
+      "go_live_at": null,
+      "draft_title": "Add sample",
+      "content_type": 35,
+      "live_revision": null,
+      "show_in_menus": true,
+      "latest_revision": null,
+      "translation_key": "823ee5f5-d259-4a22-9313-47764a46aa2e",
+      "last_published_at": null,
+      "first_published_at": null,
+      "search_description": "",
+      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
       "latest_revision_created_at": null
@@ -2847,20 +2137,20 @@
       "wagtailcore",
       "page"
     ],
-    "object_id": "8",
-    "created_at": "2024-09-09T14:41:51.747Z",
+    "object_id": "6",
+    "created_at": "2025-01-17T11:46:18.253Z",
     "user": [
       "admin"
     ],
     "object_str": "Core Data Management Plan",
     "content": {
-      "pk": 8,
+      "pk": 6,
       "live": true,
-      "path": "000100010004",
+      "path": "000100010003",
       "slug": "core-data-management-plan",
       "depth": 3,
-      "intro": "<p data-block-key=\"irnbl\">This is the laboratory management plan core page</p>",
-      "owner": 1,
+      "intro": "<p data-block-key=\"510rm\">This is the page to edit your core data management plan</p>",
+      "owner": 2,
       "title": "Core Data Management Plan",
       "locale": 1,
       "locked": false,
@@ -2874,18 +2164,18 @@
       "seo_title": "",
       "go_live_at": null,
       "draft_title": "Core Data Management Plan",
-      "content_type": 30,
-      "live_revision": 11,
-      "show_in_menus": false,
-      "latest_revision": 11,
-      "translation_key": "2048f21d-3019-4349-8a8d-dbd13a63f86a",
-      "last_published_at": "2024-09-09T14:41:38.332Z",
-      "first_published_at": "2024-09-09T14:41:38.332Z",
+      "content_type": 29,
+      "live_revision": 10,
+      "show_in_menus": true,
+      "latest_revision": 10,
+      "translation_key": "78e13932-7f41-476a-ae1b-3d3c3416063a",
+      "last_published_at": "2025-01-17T11:45:10.269Z",
+      "first_published_at": "2025-01-17T11:45:10.269Z",
       "search_description": "",
-      "thankyou_page_title": "Thank you",
+      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T14:41:38.308Z"
+      "latest_revision_created_at": "2025-01-17T11:45:10.259Z"
     },
     "approved_go_live_at": null
   }
@@ -2896,51 +2186,51 @@
   "fields": {
     "content_type": [
       "home",
-      "dmppage"
+      "samplepage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "8",
-    "created_at": "2024-09-09T14:42:18.707Z",
+    "object_id": "7",
+    "created_at": "2025-01-17T11:46:25.453Z",
     "user": [
       "admin"
     ],
-    "object_str": "Core Data Management Plan",
+    "object_str": "Add sample",
     "content": {
-      "pk": 8,
+      "pk": 7,
       "live": true,
       "path": "000100010004",
-      "slug": "core-data-management-plan",
+      "slug": "add-sample",
       "depth": 3,
-      "intro": "<p data-block-key=\"irnbl\">This is the laboratory management plan core page</p>",
-      "owner": 1,
-      "title": "Core Data Management Plan",
+      "intro": "<p data-block-key=\"i81sz\">Add a new sample here</p>",
+      "owner": 2,
+      "title": "Add sample",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/core-data-management-plan/",
+      "url_path": "/easydmp-home/add-sample/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "Core Data Management Plan",
-      "content_type": 30,
-      "live_revision": 12,
+      "draft_title": "Add sample",
+      "content_type": 35,
+      "live_revision": 11,
       "show_in_menus": true,
-      "latest_revision": 12,
-      "translation_key": "2048f21d-3019-4349-8a8d-dbd13a63f86a",
-      "last_published_at": "2024-09-09T14:41:51.790Z",
-      "first_published_at": "2024-09-09T14:41:38.332Z",
+      "latest_revision": 11,
+      "translation_key": "823ee5f5-d259-4a22-9313-47764a46aa2e",
+      "last_published_at": "2025-01-17T11:46:10.570Z",
+      "first_published_at": "2025-01-17T11:46:10.570Z",
       "search_description": "",
-      "thankyou_page_title": "Thank you",
+      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T14:41:51.747Z"
+      "latest_revision_created_at": "2025-01-17T11:46:10.560Z"
     },
     "approved_go_live_at": null
   }
@@ -2951,48 +2241,47 @@
   "fields": {
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "9",
-    "created_at": "2024-09-09T14:52:16.326Z",
+    "object_id": "8",
+    "created_at": "2025-01-17T11:47:35.954Z",
     "user": [
       "admin"
     ],
-    "object_str": "User information",
+    "object_str": "Sample list",
     "content": {
-      "pk": 9,
-      "live": true,
+      "pk": 8,
+      "live": false,
       "path": "000100010005",
-      "slug": "user-data",
+      "slug": "sample-list",
       "depth": 3,
-      "intro": "<p data-block-key=\"9p3j1\">Fill the form with your information</p>",
-      "owner": 1,
-      "title": "User information",
+      "intro": "<p data-block-key=\"kvdus\">Check your samples here</p>",
+      "owner": 2,
+      "title": "Sample list",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/user-data/",
+      "url_path": "/easydmp-home/sample-list/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "User information",
-      "content_type": 41,
+      "draft_title": "Sample list",
+      "content_type": 34,
       "live_revision": null,
-      "show_in_menus": false,
+      "show_in_menus": true,
       "latest_revision": null,
-      "translation_key": "c6280600-0edc-484b-992c-f831fca2b0d0",
+      "translation_key": "0aede413-6bc3-42b0-81f6-db41597847be",
       "last_published_at": null,
       "first_published_at": null,
       "search_description": "",
-      "thankyou_page_title": "Thank you!",
       "wagtail_admin_comments": [],
       "has_unpublished_changes": false,
       "latest_revision_created_at": null
@@ -3006,488 +2295,50 @@
   "fields": {
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
     "base_content_type": [
       "wagtailcore",
       "page"
     ],
-    "object_id": "9",
-    "created_at": "2024-09-09T14:52:24.896Z",
+    "object_id": "8",
+    "created_at": "2025-01-17T11:47:41.924Z",
     "user": [
       "admin"
     ],
-    "object_str": "User information",
+    "object_str": "Sample list",
     "content": {
-      "pk": 9,
-      "live": true,
+      "pk": 8,
+      "live": false,
       "path": "000100010005",
-      "slug": "user-data",
+      "slug": "sample-list",
       "depth": 3,
-      "intro": "<p data-block-key=\"9p3j1\">Fill the form with your information</p>",
-      "owner": 1,
-      "title": "User information",
+      "intro": "<p data-block-key=\"kvdus\">Check your samples here</p>",
+      "owner": 2,
+      "title": "Sample list",
       "locale": 1,
       "locked": false,
       "expired": false,
       "alias_of": null,
       "numchild": 0,
-      "url_path": "/easydmp-home/user-data/",
+      "url_path": "/easydmp-home/sample-list/",
       "expire_at": null,
       "locked_at": null,
       "locked_by": null,
       "seo_title": "",
       "go_live_at": null,
-      "draft_title": "User information",
-      "content_type": 41,
-      "live_revision": 14,
-      "show_in_menus": false,
+      "draft_title": "Sample list",
+      "content_type": 34,
+      "live_revision": null,
+      "show_in_menus": true,
       "latest_revision": 14,
-      "translation_key": "c6280600-0edc-484b-992c-f831fca2b0d0",
-      "last_published_at": "2024-09-09T14:52:16.352Z",
-      "first_published_at": "2024-09-09T14:52:16.352Z",
-      "search_description": "",
-      "thankyou_page_title": "Thank you!",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T14:52:16.326Z"
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 16,
-  "fields": {
-    "content_type": [
-      "home",
-      "homepage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "6",
-    "created_at": "2024-09-09T14:53:22.895Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "DIMMT - Homepage",
-    "content": {
-      "pk": 6,
-      "body": "",
-      "live": true,
-      "path": "00010002",
-      "slug": "dimmt-home",
-      "depth": 2,
-      "intro": "This is the home page of DIMMT",
-      "owner": 1,
-      "title": "DIMMT - Homepage",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "DIMMT Homepage",
-      "content_type": 28,
-      "live_revision": 7,
-      "show_in_menus": false,
-      "latest_revision": 7,
-      "translation_key": "63d9b509-ab72-449b-ba49-3fc15b546f80",
-      "last_published_at": "2024-09-09T13:27:42.805Z",
-      "first_published_at": "2024-09-09T13:27:42.805Z",
-      "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T13:27:42.780Z"
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 17,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "10",
-    "created_at": "2024-09-09T14:53:50.247Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Proposal Submission",
-    "content": {
-      "pk": 10,
-      "live": true,
-      "path": "000100020001",
-      "slug": "proposal-submission",
-      "depth": 3,
-      "intro": "<p data-block-key=\"fcq9v\">Enter your proposal</p>",
-      "owner": 1,
-      "title": "Proposal Submission",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/proposal-submission/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Proposal Submission",
-      "content_type": 34,
-      "live_revision": null,
-      "show_in_menus": false,
-      "latest_revision": null,
-      "translation_key": "7ca51a5c-fa1d-4193-b386-13f7d1bfa0cb",
-      "last_published_at": null,
-      "first_published_at": null,
-      "search_description": "",
-      "thankyou_page_title": "Thank you!",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": null
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 18,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "10",
-    "created_at": "2024-09-09T14:54:02.445Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Proposal Submission",
-    "content": {
-      "pk": 10,
-      "live": true,
-      "path": "000100020001",
-      "slug": "proposal-submission",
-      "depth": 3,
-      "intro": "<p data-block-key=\"fcq9v\">Enter your proposal</p>",
-      "owner": 1,
-      "title": "Proposal Submission",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/proposal-submission/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Proposal Submission",
-      "content_type": 34,
-      "live_revision": 17,
-      "show_in_menus": true,
-      "latest_revision": 17,
-      "translation_key": "7ca51a5c-fa1d-4193-b386-13f7d1bfa0cb",
-      "last_published_at": "2024-09-09T14:53:50.271Z",
-      "first_published_at": "2024-09-09T14:53:50.271Z",
-      "search_description": "",
-      "thankyou_page_title": "Thank you!",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T14:53:50.247Z"
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 19,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "11",
-    "created_at": "2024-09-09T14:54:25.836Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Proposal List",
-    "content": {
-      "pk": 11,
-      "live": true,
-      "path": "000100020002",
-      "slug": "proposal-list",
-      "depth": 3,
-      "intro": "<p data-block-key=\"s9i7w\">Search the proposals</p>",
-      "owner": 1,
-      "title": "Proposal List",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/proposal-list/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Proposal List",
-      "content_type": 33,
-      "live_revision": null,
-      "show_in_menus": false,
-      "latest_revision": null,
-      "translation_key": "bfe9941f-2fe7-4860-9543-493d12a1fc03",
+      "translation_key": "0aede413-6bc3-42b0-81f6-db41597847be",
       "last_published_at": null,
       "first_published_at": null,
       "search_description": "",
       "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": null
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 20,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "11",
-    "created_at": "2024-09-09T14:54:34.277Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Proposal List",
-    "content": {
-      "pk": 11,
-      "live": true,
-      "path": "000100020002",
-      "slug": "proposal-list",
-      "depth": 3,
-      "intro": "<p data-block-key=\"s9i7w\">Search the proposals</p>",
-      "owner": 1,
-      "title": "Proposal List",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/proposal-list/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Proposal List",
-      "content_type": 33,
-      "live_revision": 19,
-      "show_in_menus": false,
-      "latest_revision": 19,
-      "translation_key": "bfe9941f-2fe7-4860-9543-493d12a1fc03",
-      "last_published_at": "2024-09-09T14:54:25.860Z",
-      "first_published_at": "2024-09-09T14:54:25.860Z",
-      "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T14:54:25.836Z"
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 21,
-  "fields": {
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "11",
-    "created_at": "2024-09-09T14:55:58.184Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Proposal List",
-    "content": {
-      "pk": 11,
-      "live": true,
-      "path": "000100020002",
-      "slug": "proposal-list",
-      "depth": 3,
-      "intro": "<p data-block-key=\"s9i7w\">Search the proposals</p>",
-      "owner": 1,
-      "title": "Proposal List",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/proposal-list/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Proposal List",
-      "content_type": 33,
-      "live_revision": 20,
-      "show_in_menus": true,
-      "latest_revision": 20,
-      "translation_key": "bfe9941f-2fe7-4860-9543-493d12a1fc03",
-      "last_published_at": "2024-09-09T14:54:34.317Z",
-      "first_published_at": "2024-09-09T14:54:25.860Z",
-      "search_description": "",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T14:54:34.277Z"
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 22,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "12",
-    "created_at": "2024-09-09T14:59:38.255Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Service Request",
-    "content": {
-      "pk": 12,
-      "live": true,
-      "path": "000100020003",
-      "slug": "service-request",
-      "depth": 3,
-      "intro": "<p data-block-key=\"qkwd3\">Fill the service request form</p>",
-      "owner": 1,
-      "title": "Service Request",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/service-request/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Service Request",
-      "content_type": 39,
-      "live_revision": null,
-      "show_in_menus": true,
-      "latest_revision": null,
-      "translation_key": "49ac5f9c-4bcc-4c51-bd2f-bfecd8ae40fc",
-      "last_published_at": null,
-      "first_published_at": null,
-      "search_description": "",
-      "thankyou_page_title": "Thank you!",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": null
-    },
-    "approved_go_live_at": null
-  }
-},
-{
-  "model": "wagtailcore.revision",
-  "pk": 23,
-  "fields": {
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "base_content_type": [
-      "wagtailcore",
-      "page"
-    ],
-    "object_id": "12",
-    "created_at": "2024-09-09T14:59:46.176Z",
-    "user": [
-      "admin"
-    ],
-    "object_str": "Service Request",
-    "content": {
-      "pk": 12,
-      "live": true,
-      "path": "000100020003",
-      "slug": "service-request",
-      "depth": 3,
-      "intro": "<p data-block-key=\"qkwd3\">Fill the service request form</p>",
-      "owner": 1,
-      "title": "Service Request",
-      "locale": 1,
-      "locked": false,
-      "expired": false,
-      "alias_of": null,
-      "numchild": 0,
-      "url_path": "/dimmt-home/service-request/",
-      "expire_at": null,
-      "locked_at": null,
-      "locked_by": null,
-      "seo_title": "",
-      "go_live_at": null,
-      "draft_title": "Service Request",
-      "content_type": 39,
-      "live_revision": 22,
-      "show_in_menus": true,
-      "latest_revision": 22,
-      "translation_key": "49ac5f9c-4bcc-4c51-bd2f-bfecd8ae40fc",
-      "last_published_at": "2024-09-09T14:59:38.280Z",
-      "first_published_at": "2024-09-09T14:59:38.280Z",
-      "search_description": "",
-      "thankyou_page_title": "Thank you!",
-      "wagtail_admin_comments": [],
-      "has_unpublished_changes": false,
-      "latest_revision_created_at": "2024-09-09T14:59:38.255Z"
+      "has_unpublished_changes": true,
+      "latest_revision_created_at": "2025-01-17T11:47:35.954Z"
     },
     "approved_go_live_at": null
   }
@@ -3498,8 +2349,8 @@
   "fields": {
     "path": "0001",
     "depth": 1,
-    "numchild": 2,
-    "translation_key": "27e7f12e-83de-4c92-8cc5-2a83830b3ad6",
+    "numchild": 1,
+    "translation_key": "e3198d26-cfea-43b6-99ac-49a42389fcc7",
     "locale": 1,
     "latest_revision": null,
     "live": true,
@@ -3536,22 +2387,22 @@
     "path": "00010001",
     "depth": 2,
     "numchild": 5,
-    "translation_key": "1608fe09-8c4e-4f5e-ab80-289c638dfd5e",
+    "translation_key": "7b91540b-305b-442b-96b2-b92e2c3f48a9",
     "locale": 1,
-    "latest_revision": 1,
+    "latest_revision": 3,
     "live": true,
     "has_unpublished_changes": false,
-    "first_published_at": "2024-09-05T13:52:51.275Z",
-    "last_published_at": "2024-09-05T13:52:51.275Z",
-    "live_revision": 1,
+    "first_published_at": "2025-01-17T11:38:27.296Z",
+    "last_published_at": "2025-01-17T11:38:45.965Z",
+    "live_revision": 3,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
     "locked": false,
     "locked_at": null,
     "locked_by": null,
-    "title": "easyDMP - Homepage",
-    "draft_title": "easyDMP - Homepage",
+    "title": "easydmp home",
+    "draft_title": "easydmp home",
     "slug": "easydmp-home",
     "content_type": [
       "home",
@@ -3564,7 +2415,7 @@
     "seo_title": "",
     "show_in_menus": false,
     "search_description": "",
-    "latest_revision_created_at": "2024-09-05T13:52:51.248Z",
+    "latest_revision_created_at": "2025-01-17T11:38:45.946Z",
     "alias_of": null
   }
 },
@@ -3575,22 +2426,22 @@
     "path": "000100010001",
     "depth": 3,
     "numchild": 0,
-    "translation_key": "6866906e-422c-498d-8655-95db1c9fc8c7",
+    "translation_key": "bdf19d1e-c800-44c7-8174-3dbcf8f36678",
     "locale": 1,
-    "latest_revision": 10,
+    "latest_revision": 9,
     "live": true,
     "has_unpublished_changes": false,
-    "first_published_at": "2024-09-05T13:53:55.881Z",
-    "last_published_at": "2024-09-09T14:10:40.242Z",
-    "live_revision": 10,
+    "first_published_at": "2025-01-17T11:39:48.791Z",
+    "last_published_at": "2025-01-17T11:43:09.701Z",
+    "live_revision": 9,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
     "locked": false,
     "locked_at": null,
     "locked_by": null,
-    "title": "Switch laboratory",
-    "draft_title": "Switch laboratory",
+    "title": "Select Laboratory",
+    "draft_title": "Select Laboratory",
     "slug": "switch-laboratory",
     "content_type": [
       "home",
@@ -3603,7 +2454,7 @@
     "seo_title": "",
     "show_in_menus": false,
     "search_description": "",
-    "latest_revision_created_at": "2024-09-09T14:10:40.185Z",
+    "latest_revision_created_at": "2025-01-17T11:43:09.685Z",
     "alias_of": null
   }
 },
@@ -3614,35 +2465,35 @@
     "path": "000100010002",
     "depth": 3,
     "numchild": 0,
-    "translation_key": "1382d740-f808-4637-b26f-0ca6c1406aa1",
+    "translation_key": "2a01456b-5467-421c-927e-66724e6b6887",
     "locale": 1,
-    "latest_revision": 5,
+    "latest_revision": 8,
     "live": true,
     "has_unpublished_changes": false,
-    "first_published_at": "2024-09-05T13:56:03.460Z",
-    "last_published_at": "2024-09-09T13:12:13.412Z",
-    "live_revision": 5,
+    "first_published_at": "2025-01-17T11:40:47.092Z",
+    "last_published_at": "2025-01-17T11:42:49.990Z",
+    "live_revision": 8,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
     "locked": false,
     "locked_at": null,
     "locked_by": null,
-    "title": "Sample Submission Page",
-    "draft_title": "Sample Submission Page",
-    "slug": "sample-submission-page",
+    "title": "User Information",
+    "draft_title": "User Information",
+    "slug": "user-data",
     "content_type": [
       "home",
-      "samplepage"
+      "userdatapage"
     ],
-    "url_path": "/easydmp-home/sample-submission-page/",
+    "url_path": "/easydmp-home/user-data/",
     "owner": [
       "admin"
     ],
     "seo_title": "",
-    "show_in_menus": true,
+    "show_in_menus": false,
     "search_description": "",
-    "latest_revision_created_at": "2024-09-09T13:12:13.329Z",
+    "latest_revision_created_at": "2025-01-17T11:42:49.968Z",
     "alias_of": null
   }
 },
@@ -3650,95 +2501,17 @@
   "model": "wagtailcore.page",
   "pk": 6,
   "fields": {
-    "path": "00010002",
-    "depth": 2,
-    "numchild": 3,
-    "translation_key": "63d9b509-ab72-449b-ba49-3fc15b546f80",
-    "locale": 1,
-    "latest_revision": 16,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": "2024-09-09T13:27:42.805Z",
-    "last_published_at": "2024-09-09T14:53:22.946Z",
-    "live_revision": 16,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "DIMMT - Homepage",
-    "draft_title": "DIMMT - Homepage",
-    "slug": "dimmt-home",
-    "content_type": [
-      "home",
-      "homepage"
-    ],
-    "url_path": "/dimmt-home/",
-    "owner": [
-      "admin"
-    ],
-    "seo_title": "",
-    "show_in_menus": false,
-    "search_description": "",
-    "latest_revision_created_at": "2024-09-09T14:53:22.895Z",
-    "alias_of": null
-  }
-},
-{
-  "model": "wagtailcore.page",
-  "pk": 7,
-  "fields": {
     "path": "000100010003",
     "depth": 3,
     "numchild": 0,
-    "translation_key": "5ebb79bf-a42e-4d3e-a9da-f68981036c23",
+    "translation_key": "78e13932-7f41-476a-ae1b-3d3c3416063a",
     "locale": 1,
-    "latest_revision": 9,
+    "latest_revision": 12,
     "live": true,
     "has_unpublished_changes": false,
-    "first_published_at": "2024-09-09T13:30:07.734Z",
-    "last_published_at": "2024-09-09T13:30:33.153Z",
-    "live_revision": 9,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "Sample List",
-    "draft_title": "Sample List",
-    "slug": "sample-list",
-    "content_type": [
-      "home",
-      "samplelistpage"
-    ],
-    "url_path": "/easydmp-home/sample-list/",
-    "owner": [
-      "admin"
-    ],
-    "seo_title": "",
-    "show_in_menus": true,
-    "search_description": "",
-    "latest_revision_created_at": "2024-09-09T13:30:33.117Z",
-    "alias_of": null
-  }
-},
-{
-  "model": "wagtailcore.page",
-  "pk": 8,
-  "fields": {
-    "path": "000100010004",
-    "depth": 3,
-    "numchild": 0,
-    "translation_key": "2048f21d-3019-4349-8a8d-dbd13a63f86a",
-    "locale": 1,
-    "latest_revision": 13,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": "2024-09-09T14:41:38.332Z",
-    "last_published_at": "2024-09-09T14:42:18.741Z",
-    "live_revision": 13,
+    "first_published_at": "2025-01-17T11:45:10.269Z",
+    "last_published_at": "2025-01-17T11:46:18.274Z",
+    "live_revision": 12,
     "go_live_at": null,
     "expire_at": null,
     "expired": false,
@@ -3759,24 +2532,63 @@
     "seo_title": "",
     "show_in_menus": true,
     "search_description": "",
-    "latest_revision_created_at": "2024-09-09T14:42:18.707Z",
+    "latest_revision_created_at": "2025-01-17T11:46:18.253Z",
     "alias_of": null
   }
 },
 {
   "model": "wagtailcore.page",
-  "pk": 9,
+  "pk": 7,
+  "fields": {
+    "path": "000100010004",
+    "depth": 3,
+    "numchild": 0,
+    "translation_key": "823ee5f5-d259-4a22-9313-47764a46aa2e",
+    "locale": 1,
+    "latest_revision": 13,
+    "live": true,
+    "has_unpublished_changes": false,
+    "first_published_at": "2025-01-17T11:46:10.570Z",
+    "last_published_at": "2025-01-17T11:46:25.471Z",
+    "live_revision": 13,
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "locked_at": null,
+    "locked_by": null,
+    "title": "Add sample",
+    "draft_title": "Add sample",
+    "slug": "add-sample",
+    "content_type": [
+      "home",
+      "samplepage"
+    ],
+    "url_path": "/easydmp-home/add-sample/",
+    "owner": [
+      "admin"
+    ],
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "latest_revision_created_at": "2025-01-17T11:46:25.453Z",
+    "alias_of": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 8,
   "fields": {
     "path": "000100010005",
     "depth": 3,
     "numchild": 0,
-    "translation_key": "c6280600-0edc-484b-992c-f831fca2b0d0",
+    "translation_key": "0aede413-6bc3-42b0-81f6-db41597847be",
     "locale": 1,
     "latest_revision": 15,
     "live": true,
     "has_unpublished_changes": false,
-    "first_published_at": "2024-09-09T14:52:16.352Z",
-    "last_published_at": "2024-09-09T14:52:24.931Z",
+    "first_published_at": "2025-01-17T11:47:41.933Z",
+    "last_published_at": "2025-01-17T11:47:41.933Z",
     "live_revision": 15,
     "go_live_at": null,
     "expire_at": null,
@@ -3784,138 +2596,21 @@
     "locked": false,
     "locked_at": null,
     "locked_by": null,
-    "title": "User information",
-    "draft_title": "User information",
-    "slug": "user-data",
+    "title": "Sample list",
+    "draft_title": "Sample list",
+    "slug": "sample-list",
     "content_type": [
       "home",
-      "userdatapage"
+      "samplelistpage"
     ],
-    "url_path": "/easydmp-home/user-data/",
-    "owner": [
-      "admin"
-    ],
-    "seo_title": "",
-    "show_in_menus": false,
-    "search_description": "",
-    "latest_revision_created_at": "2024-09-09T14:52:24.896Z",
-    "alias_of": null
-  }
-},
-{
-  "model": "wagtailcore.page",
-  "pk": 10,
-  "fields": {
-    "path": "000100020001",
-    "depth": 3,
-    "numchild": 0,
-    "translation_key": "7ca51a5c-fa1d-4193-b386-13f7d1bfa0cb",
-    "locale": 1,
-    "latest_revision": 18,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": "2024-09-09T14:53:50.271Z",
-    "last_published_at": "2024-09-09T14:54:02.490Z",
-    "live_revision": 18,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "Proposal Submission",
-    "draft_title": "Proposal Submission",
-    "slug": "proposal-submission",
-    "content_type": [
-      "home",
-      "proposalsubmissionpage"
-    ],
-    "url_path": "/dimmt-home/proposal-submission/",
+    "url_path": "/easydmp-home/sample-list/",
     "owner": [
       "admin"
     ],
     "seo_title": "",
     "show_in_menus": true,
     "search_description": "",
-    "latest_revision_created_at": "2024-09-09T14:54:02.445Z",
-    "alias_of": null
-  }
-},
-{
-  "model": "wagtailcore.page",
-  "pk": 11,
-  "fields": {
-    "path": "000100020002",
-    "depth": 3,
-    "numchild": 0,
-    "translation_key": "bfe9941f-2fe7-4860-9543-493d12a1fc03",
-    "locale": 1,
-    "latest_revision": 21,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": "2024-09-09T14:54:25.860Z",
-    "last_published_at": "2024-09-09T14:55:58.232Z",
-    "live_revision": 21,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "Proposal List",
-    "draft_title": "Proposal List",
-    "slug": "proposal-list",
-    "content_type": [
-      "home",
-      "proposallistpage"
-    ],
-    "url_path": "/dimmt-home/proposal-list/",
-    "owner": [
-      "admin"
-    ],
-    "seo_title": "",
-    "show_in_menus": true,
-    "search_description": "",
-    "latest_revision_created_at": "2024-09-09T14:55:58.184Z",
-    "alias_of": null
-  }
-},
-{
-  "model": "wagtailcore.page",
-  "pk": 12,
-  "fields": {
-    "path": "000100020003",
-    "depth": 3,
-    "numchild": 0,
-    "translation_key": "49ac5f9c-4bcc-4c51-bd2f-bfecd8ae40fc",
-    "locale": 1,
-    "latest_revision": 23,
-    "live": true,
-    "has_unpublished_changes": false,
-    "first_published_at": "2024-09-09T14:59:38.280Z",
-    "last_published_at": "2024-09-09T14:59:46.219Z",
-    "live_revision": 23,
-    "go_live_at": null,
-    "expire_at": null,
-    "expired": false,
-    "locked": false,
-    "locked_at": null,
-    "locked_by": null,
-    "title": "Service Request",
-    "draft_title": "Service Request",
-    "slug": "service-request",
-    "content_type": [
-      "home",
-      "servicerequestsubmissionpage"
-    ],
-    "url_path": "/dimmt-home/service-request/",
-    "owner": [
-      "admin"
-    ],
-    "seo_title": "",
-    "show_in_menus": true,
-    "search_description": "",
-    "latest_revision_created_at": "2024-09-09T14:59:46.176Z",
+    "latest_revision_created_at": "2025-01-17T11:47:41.924Z",
     "alias_of": null
   }
 },
@@ -4070,74 +2765,8 @@
     "label": "easydmp [default]",
     "action": "wagtail.create",
     "data": {},
-    "timestamp": "2024-09-05T13:53:09.317Z",
-    "uuid": "6d06aacd-d27a-4112-b201-767a8c911bb5",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": true,
-    "deleted": false,
-    "object_id": "2"
-  }
-},
-{
-  "model": "wagtailcore.modellogentry",
-  "pk": 2,
-  "fields": {
-    "content_type": [
-      "auth",
-      "group"
-    ],
-    "label": "LATE",
-    "action": "wagtail.delete",
-    "data": {},
-    "timestamp": "2024-09-09T13:14:38.572Z",
-    "uuid": "717047f0-4004-484e-90d6-5a5c09e05f41",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": false,
-    "deleted": false,
-    "object_id": "4"
-  }
-},
-{
-  "model": "wagtailcore.modellogentry",
-  "pk": 3,
-  "fields": {
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "label": "admin",
-    "action": "wagtail.edit",
-    "data": {},
-    "timestamp": "2024-09-09T13:23:00.761Z",
-    "uuid": "e9db336b-23d5-4942-b60e-dcdad8dd3227",
-    "user": [
-      "admin"
-    ],
-    "revision": null,
-    "content_changed": true,
-    "deleted": false,
-    "object_id": "1"
-  }
-},
-{
-  "model": "wagtailcore.modellogentry",
-  "pk": 4,
-  "fields": {
-    "content_type": [
-      "wagtailcore",
-      "site"
-    ],
-    "label": "DIMMT",
-    "action": "wagtail.create",
-    "data": {},
-    "timestamp": "2024-09-09T13:28:01.739Z",
-    "uuid": "d1a048b3-1e00-472c-bc56-49321ce1d95e",
+    "timestamp": "2025-01-17T11:41:24.045Z",
+    "uuid": "2c24b74a-2afb-42b2-be44-eca7f46d46b6",
     "user": [
       "admin"
     ],
@@ -4148,10 +2777,49 @@
   }
 },
 {
+  "model": "wagtailcore.modellogentry",
+  "pk": 2,
+  "fields": {
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "label": "admin",
+    "action": "wagtail.edit",
+    "data": {},
+    "timestamp": "2025-01-17T11:43:45.876Z",
+    "uuid": "6f970cf3-e257-441b-b510-d5308a6aa60b",
+    "user": [
+      "admin"
+    ],
+    "revision": null,
+    "content_changed": true,
+    "deleted": false,
+    "object_id": "2"
+  }
+},
+{
   "model": "wagtailredirects.redirect",
   "pk": 1,
   "fields": {
-    "old_path": "/switch-lab",
+    "old_path": "/user-information",
+    "site": [
+      "easydmp.localhost",
+      8080
+    ],
+    "is_permanent": true,
+    "redirect_page": 5,
+    "redirect_page_route_path": "",
+    "redirect_link": "",
+    "automatically_created": true,
+    "created_at": "2025-01-17T11:42:50.006Z"
+  }
+},
+{
+  "model": "wagtailredirects.redirect",
+  "pk": 2,
+  "fields": {
+    "old_path": "/select-laboratory",
     "site": [
       "easydmp.localhost",
       8080
@@ -4161,68 +2829,42 @@
     "redirect_page_route_path": "",
     "redirect_link": "",
     "automatically_created": true,
-    "created_at": "2024-09-09T13:19:03.560Z"
+    "created_at": "2025-01-17T11:43:09.716Z"
+  }
+},
+{
+  "model": "home.dmppage",
+  "pk": 6,
+  "fields": {
+    "page_ptr": 6,
+    "intro": "<p data-block-key=\"510rm\">This is the page to edit your core data management plan</p>",
+    "thankyou_page_title": "Thank you!"
   }
 },
 {
   "model": "home.samplelistpage",
-  "pk": 7,
+  "pk": 8,
   "fields": {
-    "page_ptr": 7,
-    "intro": "<p data-block-key=\"mve4n\">This is the list of all the samples of your lab</p>"
+    "page_ptr": 8,
+    "intro": "<p data-block-key=\"kvdus\">Check your samples here</p>"
   }
 },
 {
   "model": "home.samplepage",
-  "pk": 5,
+  "pk": 7,
   "fields": {
-    "page_ptr": 5,
-    "intro": "<p data-block-key=\"3lsk9\">Enter the new sample information here</p>",
-    "thankyou_page_title": "Thank you!"
-  }
-},
-{
-  "model": "home.servicerequestsubmissionpage",
-  "pk": 12,
-  "fields": {
-    "page_ptr": 12,
-    "intro": "<p data-block-key=\"qkwd3\">Fill the service request form</p>",
-    "thankyou_page_title": "Thank you!"
-  }
-},
-{
-  "model": "home.proposallistpage",
-  "pk": 11,
-  "fields": {
-    "page_ptr": 11,
-    "intro": "<p data-block-key=\"s9i7w\">Search the proposals</p>"
-  }
-},
-{
-  "model": "home.proposalsubmissionpage",
-  "pk": 10,
-  "fields": {
-    "page_ptr": 10,
-    "intro": "<p data-block-key=\"fcq9v\">Enter your proposal</p>",
+    "page_ptr": 7,
+    "intro": "<p data-block-key=\"i81sz\">Add a new sample here</p>",
     "thankyou_page_title": "Thank you!"
   }
 },
 {
   "model": "home.userdatapage",
-  "pk": 9,
+  "pk": 5,
   "fields": {
-    "page_ptr": 9,
-    "intro": "<p data-block-key=\"9p3j1\">Fill the form with your information</p>",
+    "page_ptr": 5,
+    "intro": "<p data-block-key=\"0jfv1\">Edit the user information here and add api tokens</p>",
     "thankyou_page_title": "Thank you!"
-  }
-},
-{
-  "model": "home.dmppage",
-  "pk": 8,
-  "fields": {
-    "page_ptr": 8,
-    "intro": "<p data-block-key=\"irnbl\">This is the laboratory management plan core page</p>",
-    "thankyou_page_title": "Thank you"
   }
 },
 {
@@ -4230,7 +2872,7 @@
   "pk": 4,
   "fields": {
     "page_ptr": 4,
-    "intro": "<p data-block-key=\"uu1e7\">Select the working laboratory</p>"
+    "intro": "<p data-block-key=\"8ziiz\">Select here your laboratory for the session.</p>"
   }
 },
 {
@@ -4238,16 +2880,7 @@
   "pk": 3,
   "fields": {
     "page_ptr": 3,
-    "intro": "This is the homepage of easydmp",
-    "body": ""
-  }
-},
-{
-  "model": "home.homepage",
-  "pk": 6,
-  "fields": {
-    "page_ptr": 6,
-    "intro": "This is the home page of DIMMT",
+    "intro": "This is the home page of easyDMP",
     "body": ""
   }
 }

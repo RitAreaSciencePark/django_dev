@@ -242,7 +242,7 @@ class Questions(models.Model):
 
 
 class Administration(models.Model):
-    sr_id = models.CharField(max_length=50, primary_key=True, default=uuid4())
+    sr_id = models.CharField(max_length=50, primary_key=True) #  FIXME: default=uuid4() implement in forms
     lab_id = models.CharField(max_length=50)
     dmptitle = models.CharField(max_length=128, blank=True)
     user_id = models.CharField(max_length=50)
@@ -310,7 +310,7 @@ class labDMP(models.Model):
     # 'C) Do you use a well defined standard to name your samples?',3)
     sample_standard = models.CharField(max_length=128,blank=True)
     # 'D) Do you use a well defined metadata schema and format?',3)
-    metadata_schema_defined = models.CharField(blank=True) # TODO: IF YES WICH ONE (do the widget)
+    metadata_schema_defined = models.CharField(blank=True) # TODO: IF YES WHICH ONE (do the widget)
     # 'III Publication phase',1)
     # 'All the answers below have to be understood in the PRP project context, that is the implementations required by the project are developing the scenario described below.')
     # '1. Data and metadata publication',2)

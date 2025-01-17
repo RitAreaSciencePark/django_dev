@@ -4,33 +4,11 @@
   "pk": "admin",
   "fields": {
     "name_surname": "Marco Prenassi",
-    "email": "m.prenassi@gmail.com",
-    "affiliation": "Area Science Park",
+    "email": "marco.prenassi@areasciencepark.it",
+    "affiliation": "Area Science Park, Trieste",
     "gender": "male",
-    "legal_status": "OTH",
+    "legal_status": null,
     "research_role": "technician"
-  }
-},
-{
-  "model": "PRP_CDM_app.proposals",
-  "pk": "4f65b16f-2949-4d0d-a7b7-8a90bb75aef8",
-  "fields": {
-    "user_id": "admin",
-    "proposal_status": "Submitted",
-    "proposal_feasibility": "",
-    "proposal_date": "2024-09-09",
-    "proposal_filename": "uploads/proposals/admin/easyDMP_vYnxuCE.drawio"
-  }
-},
-{
-  "model": "PRP_CDM_app.proposals",
-  "pk": "f6e36d41-3315-4288-bd47-a106e03e8dba",
-  "fields": {
-    "user_id": "admin",
-    "proposal_status": "Submitted",
-    "proposal_feasibility": "",
-    "proposal_date": "2024-09-09",
-    "proposal_filename": "uploads/proposals/admin/AFM_Czzzk4i.png"
   }
 },
 {
@@ -45,77 +23,6 @@
   "pk": "LAME",
   "fields": {
     "description": "Laboratory of Electron Microscopy"
-  }
-},
-{
-  "model": "PRP_CDM_app.servicerequests",
-  "pk": "504f1684-1dba-485c-a93f-4aa77883dea9",
-  "fields": {
-    "proposal_id": "f6e36d41-3315-4288-bd47-a106e03e8dba",
-    "lab_id": "LAME",
-    "sr_status": "Submitted",
-    "exp_description": "LOREM IPSUM",
-    "output_delivery_date": "2024-01-01"
-  }
-},
-{
-  "model": "PRP_CDM_app.servicerequests",
-  "pk": "e1327c2d-d540-4cda-879d-6ab3165c4a54",
-  "fields": {
-    "proposal_id": "f6e36d41-3315-4288-bd47-a106e03e8dba",
-    "lab_id": "LAGE",
-    "sr_status": "Submitted",
-    "exp_description": "IPSE DIXIT",
-    "output_delivery_date": "2024-01-22"
-  }
-},
-{
-  "model": "PRP_CDM_app.samples",
-  "pk": "c7832103-56b5-4246-a014-8a4f413c24a7",
-  "fields": {
-    "sr_id": null,
-    "lab_id": "LAGE",
-    "sample_description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dicti",
-    "sample_feasibility": "",
-    "sample_status": "Submitted"
-  }
-},
-{
-  "model": "PRP_CDM_app.lagesamples",
-  "pk": "c7832103-56b5-4246-a014-8a4f413c24a7",
-  "fields": {
-    "samples_ptr": "c7832103-56b5-4246-a014-8a4f413c24a7",
-    "type": "pellet",
-    "is_volume_in_ul": "Yes",
-    "is_buffer_used": "No: None",
-    "is_quality": "No:",
-    "sample_date_of_delivery": "2024-02-02",
-    "sample_back": false,
-    "reagents_provided_by_client": false,
-    "reagents_date_of_delivery": null,
-    "sample_sheet_filename": "uploads/samples/Laboratories object (LAGE)/c7832103-56b5-4246-a014-8a4f413c24a7/AFM.png",
-    "additional_filename": ""
-  }
-},
-{
-  "model": "PRP_CDM_app.labdmp",
-  "pk": "LAGE",
-  "fields": {
-    "user_id": "admin",
-    "instrument_metadata_collection": "Yes: Oxford Nanopore, Illumina Novaseq6000",
-    "additional_enotebook_open_collection": "Yes: elabFTW",
-    "sample_standard": "Yes: bam, fastq",
-    "metadata_schema_defined": "No",
-    "open_trusted_repo_published_data": false,
-    "open_data_licence": "Yes: CC by",
-    "open_access_journal_publication": false,
-    "clear_data_provenance": false,
-    "related_data_open": false,
-    "licence_scientific_documents": true,
-    "raw_data_storage_location": "Orfeo datacenter",
-    "raw_data_storage_time_retention": "10 years for human sample, for other sample it depends on the users",
-    "backup_policy_published_data": "",
-    "backup_policy_unplublished_data": ""
   }
 }
 ]

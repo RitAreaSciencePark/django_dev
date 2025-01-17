@@ -1,3 +1,4 @@
+# modules implemented in the container! In case you see red
 from django.db import models, connections
 from wagtail.fields import RichTextField
 from wagtail.models import Page
@@ -39,6 +40,7 @@ Group.add_to_class('laboratory', models.BooleanField(default=False))
 from .decos_elab import Decos_Elab_API
 from .decos_jenkins import Decos_Jenkins_API
 
+# TODO: Refactor the html templates to an ordered structure!
 
 @register_setting # Settings in admin page
 class HeaderSettings(BaseGenericSetting):
@@ -87,7 +89,7 @@ class FooterSettings(BaseGenericSetting):
 
 @register_setting
 class ApiSettings(BaseGenericSetting): # TODO: Implement this, it is now hardcoded!
-    # TODO: FIX FOR MULTIPLE LABS!  
+    # FIXME: FIX FOR MULTIPLE LABS!  
     elab_base_url = models.URLField(verbose_name = "elab url", blank=True)
     jenkins_base_url = models.URLField(verbose_name="jenkins url", blank = True)
     
@@ -96,6 +98,7 @@ class ApiSettings(BaseGenericSetting): # TODO: Implement this, it is now hardcod
         FieldPanel("jenkins_base_url"),
     ]
 
+# template: file://./templates/home/home_page.html
 class HomePage(Page):
     intro = models.CharField(max_length=250, default="")
     body = RichTextField(blank=True)
@@ -105,6 +108,7 @@ class HomePage(Page):
     FieldPanel("body"),
     ]
 
+# template: file://./templates/home/home_page.html
 class SwitchLabPage(Page):
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
@@ -125,7 +129,7 @@ class SwitchLabPage(Page):
                 laboratory = form.cleaned_data.get('lab_selected')
                 request.session["lab_selected"] = laboratory
                 try:
-                    return redirect(request.session["return_page"])  # TODO: Not working as intended
+                    return redirect(request.session["return_page"])  # FIXME: Not working as intended
                 except:
                     return redirect('/')
         else:
@@ -200,14 +204,14 @@ class UserDataPage(Page):
 
                         data.user_id = Users.objects.get(pk=username)
                         data.save()
-                        return render(request, 'home/user_data_page.html', {
+                        return render(request, 'home/utility_pages/user_data_page.html', {
                         'page': self,
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
                         'user_data': form_user,
                         'api_token_data': form_api_tokens,
                     })
                 else:
-                    return render(request, 'home/user_data_page.html', {
+                    return render(request, 'home/utility_pages/user_data_page.html', {
                     'page': self,
                     # We pass the data to the thank you page, data.datavarchar and data.dataint!
                     'user_data': form_user,
@@ -242,7 +246,7 @@ class UserDataPage(Page):
             except Exception as e: # TODO Properly catch this
                 form_api_tokens = APITokenForm()
 
-        return render(request, 'home/user_data_page.html', {
+        return render(request, 'home/utility_pages/user_data_page.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'user_data': form_user,
@@ -349,7 +353,7 @@ class SamplePage(Page): # EASYDMP / DIMMT?
         dataQuery = dataQuery.filter(sr_id__contains = filter)
         table = ServiceRequestTable(dataQuery)
         RequestConfig(request).configure(table)
-        table.paginate(page=request.GET.get("page",1), per_page=25) # TODO: per page settings?
+        table.paginate(page=request.GET.get("page",1), per_page=25) # TODO: implement dynamic per page settings?
         pageDict = {
             'page': self,
             'lab': lab.lab_id,
@@ -376,9 +380,10 @@ class SamplePage(Page): # EASYDMP / DIMMT?
         for formTemplate in formlist:
             if pageDict['lab'].lower() in formTemplate:
                 return render(request, 'home/forms/' + formTemplate, pageDict)
-        return render(request, 'home/generic_form_page.html', pageDict)
+        return render(request, 'home/forms/generic_form_page.html', pageDict)
 
-class SampleListPage(Page): # EASYDMP
+class SampleListPage(Page): # EASYDMP 
+    
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -399,22 +404,29 @@ class SampleListPage(Page): # EASYDMP
             request.session["return_page"] = request.META['HTTP_REFERER']
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
-
+        jenkins_filelist_status = "API not working"
         try: # TODO: MAKE IT NOT HARDCODED!
+            # TODO: Add a callback or a initial timer
             jenkins_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab).values("jenkins_token").first()['jenkins_token']
             credentials = (username, jenkins_token)
             # 'http://localhost:9000/' or jenkins-test
             jenkins_api = Decos_Jenkins_API('http://jenkins-test:8080/', credentials)
-            sample_id_list = jenkins_api.get_sample_list(f"test_Folder/job/folderList")
-            sample_list = []
-            for sample_id, sample_location in sample_id_list:
-                try:
-                    sample = (Samples.objects.get(pk = sample_id))
-                    sample.sample_location = "/"+sample_location
-                    sample.save()
-                except Samples.DoesNotExist as e:
-                    print("Debug: {e}")
-
+            jenkins_filelist_status = jenkins_api.get_latest_build(f"test_Folder/job/folderList")['result']
+            if jenkins_filelist_status is None:
+                jenkins_filelist_status = 'Waiting'
+            else:
+                if request.POST['list_folders'] == 'true':
+                    jenkins_api.build_job(job_path= f"test_Folder/job/folderList", secret_token="folderList_SECRET_TOKEN")
+                    jenkins_filelist_status = 'Sent'
+                sample_id_list = jenkins_api.get_sample_list(f"test_Folder/job/folderList")
+                sample_list = []
+                for sample_id, sample_location in sample_id_list:
+                    try:
+                        sample = (Samples.objects.get(pk = sample_id))
+                        sample.sample_location = "/"+sample_location
+                        sample.save()
+                    except Samples.DoesNotExist as e:
+                        print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
         except Exception as e: # TODO: catch and manage this
             print(f"error on jenkins_api: {e}") 
         if "filter" in request.GET:
@@ -434,10 +446,11 @@ class SampleListPage(Page): # EASYDMP
         table = SamplesTable(data)
         RequestConfig(request).configure(table)
 
-        table.paginate(page=request.GET.get("page",1), per_page=25)
-        return render(request, 'home/proposal_list.html', { # TODO: WHY PROPOSALS, WHYY!!!?! 
+        table.paginate(page=request.GET.get("page",1), per_page=25) # TODO: softcode paginate settings
+        return render(request, 'home/sample_pages/sample_list.html', {
             'page': self,
             'table': table,
+            'jenkins_file_status': jenkins_filelist_status,
         })
 
 class DMPPage(Page): # EASYDMP
@@ -479,7 +492,7 @@ class DMPPage(Page): # EASYDMP
                 data.lab_id = request.session["lab_selected"]
                 data.user_id = username
                 data.save()
-                return render(request, 'home/labdmp_page.html', {
+                return render(request, 'home/dmp_pages/labdmp_page.html', {
                     'page': self,
                     # We pass the data to the thank you page, data.datavarchar and data.dataint!
                     'data': form,
@@ -501,7 +514,7 @@ class DMPPage(Page): # EASYDMP
             except Exception as e: # TODO Properly catch this
                 form = DMPform()
 
-        return render(request, 'home/labdmp_page.html', {
+        return render(request, 'home/dmp_pages/labdmp_page.html', {
                 'page': self,
                 # We pass the data to the thank you page, data.datavarchar and data.dataint!
                 'data': form,
@@ -511,7 +524,7 @@ class DMPPage(Page): # EASYDMP
 class DMPSearchPage(Page): # EASYDMP
     pass
 
-class DMPViewPage(Page): #EASYDMP
+class DMPViewPage(Page): #EASYDMP # TODO: implement this page
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -526,7 +539,7 @@ class DMPViewPage(Page): #EASYDMP
                 request.session["return_page"] = request.META['HTTP_REFERER']
                 next = request.POST.get("next", "/switch-laboratory")
                 return redirect(next)
-        except KeyError: # TODO: Fix the HTTP_REFERER Not present! 
+        except KeyError: # FIXME: Fix the HTTP_REFERER Not present! 
             request.session["return_page"] = request.META['HTTP_REFERER']
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)

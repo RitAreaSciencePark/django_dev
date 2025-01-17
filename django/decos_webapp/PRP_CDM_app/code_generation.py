@@ -6,8 +6,8 @@ from datetime import datetime
 import re
 
 def affiliationShortnener(affiliation):
-    out = re.sub("(?<=\w{4})(\w+)","", affiliation)
-    out = re.sub("(\s+)", "", out)
+    out = re.sub("(?<=\\w{4})(\\w+)","", affiliation)
+    out = re.sub("(\\s+)", "", out)
     return out
 
 def proposal_id_generation(affiliation):
