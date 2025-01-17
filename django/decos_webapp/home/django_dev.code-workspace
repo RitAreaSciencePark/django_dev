@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "django_dev",
+			"path": "../../.."
+		},
+		{
+			"name": "decos_elabftw_API",
+			"path": "../../../decos_elabftw_API"
+		}
+	],
+	"settings": {}
+}

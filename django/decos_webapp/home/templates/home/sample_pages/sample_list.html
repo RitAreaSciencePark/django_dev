@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags django_tables2  %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="{% static 'css/list_page.css' %}">
+
+<form method="post" action="">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-light" name="list_folders" value="true">List folders</button>
+</form>
+
+<form method="get" action="" id="refresh_form" name="refresh_form" >
+    <input type="submit" class="btn btn-light" id="refresh_btn" value="Refresh"></button>
+</form>
+<p>
+{% if jenkins_file_status == "Waiting" %}
+    The system is checking the file, refresh the page.
+{% elif jenkins_file_status == "Sent" %}
+    Request sent. Wait sometime and refresh the page.
+{% elif jenkins_file_status != "SUCCESS" %}
+    warning: file search completed with failure.
+{% else %}
+    File list ready.
+{% endif %}
+</p>
+
+Filter:
+<form action="." method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText" placeholder="filter...">
+    <button type="submit" class="btn btn-primary">search</button>
+</form>
+{% render_table table %}
+
+{% endblock %}

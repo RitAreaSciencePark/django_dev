@@ -11,7 +11,6 @@ docker exec -w /app/django/decos_webapp django_dev-webapp-1 python3 manage.py du
 printf "Done - File: backups/backup_dump_$timestamp.json created.\n"
 docker exec -w /app/django/decos_webapp django_dev-webapp-1 python3 manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --database prpmetadata-db --indent 2 > backups/backup_dump_decos_metadata_$timestamp.json
 
-
 printf "Resetting databases..."
 # RESET the DATABASE
 docker exec django_dev-db-1 dropdb -U decos 'decos_webapp_db' -f
@@ -24,7 +23,7 @@ printf "Initial Migration..."
 # Initial Migrate
 docker exec -w /app/django/decos_webapp django_dev-webapp-1 python3 manage.py migrate
 docker exec -w /app/django/decos_webapp django_dev-webapp-1 python3 manage.py migrate --database prpmetadata-db
-printf "Inital Migration Done."
+printf "Initial Migration Done."
 
 echo "Deleting Wagtail welcome page..."
 # DELETE welcome page in WAGTAIL (if django native is not necessary)
