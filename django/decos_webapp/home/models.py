@@ -1,5 +1,7 @@
 # modules implemented in the container! In case you see red
 from django.db import models, connections
+
+### wagtail imports
 from wagtail.fields import RichTextField
 from wagtail.models import Page
 from wagtail.admin.panels import (
@@ -10,37 +12,46 @@ from wagtail.contrib.settings.models import (
     BaseGenericSetting,
     register_setting,
 )
+### end wagtail imports
 
+### django forms imports with PRP_CMD
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django import forms
-
+from django.forms.models import model_to_dict
 from django.contrib.auth.models import User, Group
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, APITokenForm, ProposalSubmissionForm, SRSubmissionForm#, LageSamplesForm, LameSamplesForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, APITokenForm, ProposalSubmissionForm, SRSubmissionForm, InstrumentsForm #, LageSamplesForm, LameSamplesForm
 
-from PRP_CDM_app.models import labDMP, Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens
+from PRP_CDM_app.models import labDMP, Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens, Instruments
+from PRP_CDM_app.models import LabXInstrument
 from django.template.loader import render_to_string
+# TODO: use it or not, decide: from PRP_CDM_app.reports import ReportDefinition 
+### end django forms imports with PRP_CDM
 
+### file system import, mainly for file attachments
 from os import listdir
 from os.path import isfile,join,dirname
+###
 
-from uuid import uuid4
-from PRP_CDM_app.reports import ReportDefinition
-from django.forms.models import model_to_dict
+### Id generators
+# FIXME: is this used? from uuid import uuid4
+from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation, sample_id_generation, instrument_id_generation
+### end Id generators
 
-from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation, sample_id_generation
-
+### dynamic tables for reporting 
 from .tables import ProposalsTable,ServiceRequestTable,SamplesTable
 from django_tables2.config import RequestConfig
+### end dynamic tables for reporting 
 
-from django.contrib.auth.models import Group
-Group.add_to_class('laboratory', models.BooleanField(default=False))   
-
+### APIs
 from .decos_elab import Decos_Elab_API
 from .decos_jenkins import Decos_Jenkins_API
+### end APIs
 
-# TODO: Refactor the html templates to an ordered structure!
+
+# FIXME: I frankly do not remember what does the next line does: so, good luck.
+Group.add_to_class('laboratory', models.BooleanField(default=False))   
 
 @register_setting # Settings in admin page
 class HeaderSettings(BaseGenericSetting):
@@ -593,6 +604,73 @@ class DMPViewPage(Page): #EASYDMP # TODO: implement this page
             if pageDict['lab'].lower() in reportTemplate:
                 return render(request, 'home/reports/' + reportTemplate, pageDict)
         return render(request, 'home/generic_dmp_view.html', pageDict)
+
+class InstrumentsPage(Page): # EASYDMP
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        
+        try:
+            if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+        except KeyError:
+            request.session["return_page"] = request.META['HTTP_REFERER']
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
+        
+        lab = request.session['lab_selected']
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = InstrumentsForm(data=request.POST)
+            if form.is_valid():
+                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                # In our example the routing takes care of the external db save
+                data = form.save(commit=False)
+                data.instrument_id = instrument_id_generation(form['vendor'].data, form['model'].data)
+                data.save()
+                labxinstrument = LabXInstrument()
+                labxinstrument.lab_id = Laboratories.objects.get(pk = lab)
+                labxinstrument.instrument_id = data
+                labxinstrument.save()
+                # data.lab_id = request.session["lab_selected"]
+                # data.user_id = username
+                # data.save()
+                return render(request, 'home/lab_management_pages/instruments_page.html', { # TODO: softcode the template selection
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': form,
+                    'lab': request.session['lab_selected'],
+                })
+            else:
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors, # TODO: improve this
+                    })
+        form = InstrumentsForm()
+        return render(request, 'home/lab_management_pages/instruments_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': form,
+                'lab': request.session['lab_selected'],
+            })
 
 class ProposalSubmissionPage(Page): # USER DATA DIMMT
     intro = RichTextField(blank=True)

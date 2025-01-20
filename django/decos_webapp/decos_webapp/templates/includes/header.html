@@ -107,13 +107,26 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         {% for menuitem in site_root.get_children.live.in_menu.private %}
-                        {% if 'sample' in menuitem.content_type.model or 'service' in menuitem.content_type.model or 'proposal' in menuitem.content_type.model or 'dmp' in menuitem.content_type.model %}
-                        {% else %}
-                            <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                        {% if 'laboratory' in menuitem.content_type.model or 'instrument' in menuitem.content_type.model or 'technique' in menuitem.content_type.model%}
+                        <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                         {% endif %}
                         {% endfor %}
                     </div>
-                    
+
+
+                    <!-- If needed, beware, CSS is not your friend
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                    Other</button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    {% for menuitem in site_root.get_children.live.in_menu.private %}
+                    {% if 'sample' in menuitem.content_type.model or 'service' in menuitem.content_type.model or 'proposal' in menuitem.content_type.model or 'dmp' in menuitem.content_type.model or 'instrument' in menuitem.content_type.model %}
+                    {% else %}
+                        <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                    -->
             </div>
             {% endif %}
 

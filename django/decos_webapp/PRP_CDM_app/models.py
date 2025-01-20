@@ -200,7 +200,7 @@ class InstrumentXTechnique(models.Model):
         db_table= 'instrument_x_technique'.lower()
 
 class LabXInstrument(models.Model):
-    x_id = models.CharField(max_length=50, primary_key=True)
+    # x_id = models.CharField(max_length=50, primary_key=True)
     lab_id = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
     instrument_id = models.ForeignKey(Instruments, on_delete=models.PROTECT)
 

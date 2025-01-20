@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms/labdmp_page.css' %}">
+
+
+    <h1><b>{{ lab }}: ADD INSTRUMENT</b></h1>
+
+    {{ page.intro | richtext }}
+
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div class="section_div">
+            <h4><b> GENERAL INSTRUMENT DATA </b></h4>
+            <p>
+                <i>What is the instrument vendor?</i> {{ data.vendor }}
+                <br><i>What is the instrument model?</i> {{ data.model }} <br>
+                <i>Can you add a description of the instrument?</i> {{ data.description }}
+            </p>
+        </div>
+
+        <p><input type="submit" value="Add Instrument" class="btn btn-primary"></p>
+    </form>
+
+{% endblock %}
+

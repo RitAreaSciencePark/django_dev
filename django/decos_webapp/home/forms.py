@@ -2,7 +2,7 @@ from django import forms
 # This import point to the external app schema!
 from PRP_CDM_app.forms import FormsDefinition
 from PRP_CDM_app.models import labDMP
-from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens
+from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens, Instruments
 from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
 
 class LabSwitchForm(forms.Form): 
@@ -98,6 +98,14 @@ class APITokenForm(forms.ModelForm):
         }
         exclude = ['user_id']
 
+class InstrumentsForm(forms.ModelForm):
+
+        # see https://docs.djangoproject.com/en/1.9/topics/forms/ for more complex example.
+        # We are using a ModelForm, it is not mandatory
+        
+        class Meta:
+            model = Instruments
+            fields = ['vendor', 'model', 'description']
 
 
 class ProposalSubmissionForm(forms.ModelForm):
@@ -145,6 +153,19 @@ class SRForSampleForm(forms.ModelForm):
             # Filtra i sr_id basati su questi proposal_id
             self.fields['sr_id'].queryset = ServiceRequests.objects.filter(proposal_id__in=user_proposals)
 
+class SRForSampleForm(forms.ModelForm):
+    class Meta:
+        model = Samples
+        fields =  ['sr_id']
+        
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(SRForSampleForm, self).__init__(*args, **kwargs)
+        if user is not None:
+            # Ottieni tutti i proposal_id associati all'utente loggato
+            user_proposals = Proposals.objects.filter(user_id=user)
+            # Filtra i sr_id basati su questi proposal_id
+            self.fields['sr_id'].queryset = ServiceRequests.objects.filter(proposal_id__in=user_proposals)
 
 '''class LageSamplesForm(forms.ModelForm):
     class Meta:

@@ -4,11 +4,20 @@ from PRP_CDM_app.models import Proposals, ServiceRequests, Samples
 
 from datetime import datetime
 import re
+import random as rd
+
 
 def affiliationShortnener(affiliation):
     out = re.sub("(?<=\\w{4})(\\w+)","", affiliation)
     out = re.sub("(\\s+)", "", out)
     return out
+
+# TODO Comment everything here!
+def instrument_id_generation(model, vendor):
+    model.lower()
+    instrument_id = re.sub(r'[^A-Za-z0-9_]', '', f"{model}_{vendor}")
+    instrument_id += "_" + str(rd.randint(1000,9999))
+    return instrument_id
 
 def proposal_id_generation(affiliation):
     try:
