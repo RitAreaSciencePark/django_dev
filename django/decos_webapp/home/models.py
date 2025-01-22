@@ -47,6 +47,7 @@ from django_tables2.config import RequestConfig
 ### APIs
 from .decos_elab import Decos_Elab_API
 from .decos_jenkins import Decos_Jenkins_API
+from APIs.decos_minio_API.decos_minio_API import decos_minio
 ### end APIs
 
 
@@ -415,31 +416,48 @@ class SampleListPage(Page): # EASYDMP
             request.session["return_page"] = request.META['HTTP_REFERER']
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
-        jenkins_filelist_status = "API not working"
+                
         try: # TODO: MAKE IT NOT HARDCODED!
+            # MINIO
+            client = decos_minio(endpoint="s3.dev.rd.areasciencepark.it", access_key="zxRyi8A7evZKbitAyU5t",
+                                secret_key="HaQnLIJaKTvjkktpAp9UccSU3vv1P4g3cl5wuH2t")
+            data_locations = client.get_sample_list(lab=lab)
+            for sample_id, sample_location in data_locations:
+                try:
+                    sample = (Samples.objects.get(pk = sample_id))
+                    sample.sample_location = "/"+ sample_location.object_name
+                    sample.save()
+                except Samples.DoesNotExist as e:
+                    print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
+            
+            '''sample_list = []
+            for sample_id, sample_location in data_locations:
+                try:
+                    sample = (Samples.objects.get(pk = sample_id))
+                    sample.sample_location = "/"+sample_location
+                    sample.save()
+                except Samples.DoesNotExist as e:
+                    print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
+                    ''' #TODO: IMPLEMENT ME NOW!
+        except Exception as e: # TODO: catch and manage this
+            print(f"error on minio: {e}")
+
+            # JENKINS
             # TODO: Add a callback or a initial timer
-            jenkins_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab).values("jenkins_token").first()['jenkins_token']
-            credentials = (username, jenkins_token)
-            # 'http://localhost:9000/' or jenkins-test
-            jenkins_api = Decos_Jenkins_API('http://jenkins-test:8080/', credentials)
-            jenkins_filelist_status = jenkins_api.get_latest_build(f"test_Folder/job/folderList")['result']
+        '''
+        try:
+            jenkins_api = Decos_Jenkins_API(username=username, lab=lab)
             if jenkins_filelist_status is None:
                 jenkins_filelist_status = 'Waiting'
             else:
                 if request.POST['list_folders'] == 'true':
+                    jenkins_filelist_status = jenkins_api.get_latest_build(f"test_Folder/job/folderList")['result']
                     jenkins_api.build_job(job_path= f"test_Folder/job/folderList", secret_token="folderList_SECRET_TOKEN")
                     jenkins_filelist_status = 'Sent'
-                sample_id_list = jenkins_api.get_sample_list(f"test_Folder/job/folderList")
-                sample_list = []
-                for sample_id, sample_location in sample_id_list:
-                    try:
-                        sample = (Samples.objects.get(pk = sample_id))
-                        sample.sample_location = "/"+sample_location
-                        sample.save()
-                    except Samples.DoesNotExist as e:
-                        print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
+
         except Exception as e: # TODO: catch and manage this
             print(f"error on jenkins_api: {e}") 
+        '''
         if "filter" in request.GET:
             filter = request.GET.get("filter","")
         else:
@@ -461,7 +479,7 @@ class SampleListPage(Page): # EASYDMP
         return render(request, 'home/sample_pages/sample_list.html', {
             'page': self,
             'table': table,
-            'jenkins_file_status': jenkins_filelist_status,
+            'minio_filelist_status': "",
         })
 
 class DMPPage(Page): # EASYDMP

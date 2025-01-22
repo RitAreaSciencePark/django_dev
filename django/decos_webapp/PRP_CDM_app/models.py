@@ -147,7 +147,6 @@ class LageSamples(Samples):
             return 'uploads/samples/{0}/{1}/{2}'.format(instance.lab_id, instance.sample_id, filename)
 
     sample_sheet_filename = models.FileField(blank=True, upload_to=user_directory_path)
-
     additional_filename = models.FileField(blank=True, upload_to=user_directory_path)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
@@ -165,7 +164,6 @@ class LameSamples(Samples):
         return 'uploads/samples/{0}/{1}/{2}'.format(instance.sr_id.sr_id, instance.sample_id, filename)
 
     sample_sheet_filename = models.FileField(blank=True, upload_to=user_directory_path)
-
     additional_filename = models.FileField(blank=True, upload_to=user_directory_path)
 
     # give the name of the table, lowercase for postgres (I've put a "lower() to remember")

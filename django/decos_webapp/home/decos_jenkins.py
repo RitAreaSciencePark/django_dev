@@ -3,10 +3,22 @@ from django.template.loader import render_to_string
 from PRP_CDM_app.models import LageSamples
 from django.forms.models import model_to_dict
 from APIs.decos_jenkins_API.decos_jenkins_API import Server
+from PRP_CDM_app.models import API_Tokens
 import re
 
 class Decos_Jenkins_API(Server):
+    
+    def __init__(self, username, lab):
+        user_id = username, 
+        laboratory_id = lab
+        jenkins_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab.lab_id).values("jenkins_token").first()['jenkins_token']
+        credentials = (username, jenkins_token)
+        # 'http://localhost:9000/' or jenkins-test
+        # TODO: SOFTCODE HOST:
+        host = 'http://jenkins-test:8080/'
+        super().__init__(host, credentials)
 
+'''
     def get_sample_list(self,path_info):
         raw_output = self.get_console_info(path_info)
         pattern = r"s_\w+"
@@ -22,7 +34,7 @@ class Decos_Jenkins_API(Server):
         return sample_id_list
 
 
-    '''host = secrets.host
+    host = secrets.host
     credentials = (secrets.id, secrets.token)
     server = Server(host, credentials)
     folder_list = server.get_job_folders()
