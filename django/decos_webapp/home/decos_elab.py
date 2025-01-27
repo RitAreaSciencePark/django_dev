@@ -5,6 +5,8 @@ from django.forms.models import model_to_dict
 
 class Decos_Elab_API(ElabFTWAPI):
 
+
+# FIXME: fix me when prp-eln is up
     def _new_LAGE_experiment(self, experiment_info, username):
         dict_to_render = model_to_dict(experiment_info)
         title = f"{dict_to_render["sample_id"]}: {dict_to_render["sample_short_description"]}"

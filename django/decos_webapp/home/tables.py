@@ -1,4 +1,4 @@
-from django_tables2 import tables, Column
+from django_tables2 import tables, Column, TemplateColumn
 
 from PRP_CDM_app.models import Proposals,ServiceRequests,Samples
 
@@ -33,6 +33,10 @@ class ServiceRequestTable(tables.Table):
         }
 
 class SamplesTable(tables.Table):
+    button_column = TemplateColumn(verbose_name=(' '),
+                                    template_name='home/sample_pages/sample_page_button_column.html',
+                                    orderable=False)
+
     class Meta:
         model = Samples
         template_name = "django_tables2/bootstrap.html"

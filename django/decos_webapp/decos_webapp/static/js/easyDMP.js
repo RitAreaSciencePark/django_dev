@@ -3,5 +3,5 @@ $(document).one('submit','#refresh_form',function(e){
     $("#refresh_btn").hide();
     setTimeout(() => {
         $('#refresh_form').submit();
-    }, 10000);
+    }, 1000);
 });

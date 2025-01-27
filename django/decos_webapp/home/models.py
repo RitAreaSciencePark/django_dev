@@ -50,7 +50,7 @@ from .decos_jenkins import Decos_Jenkins_API
 from APIs.decos_minio_API.decos_minio_API import decos_minio
 ### end APIs
 
-
+# FIXME: the first character of the widget when recovered do not appear. Editsamples
 # FIXME: I frankly do not remember what does the next line does: so, good luck.
 Group.add_to_class('laboratory', models.BooleanField(default=False))   
 
@@ -316,6 +316,7 @@ class SamplePage(Page): # EASYDMP / DIMMT?
             return redirect(next)
         
         # Elab API init
+        # TODO: SOFTCODE THIS
         try:
             elab_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab).values("elab_token").first()['elab_token']
             elab_api = Decos_Elab_API('https://prp-electronic-lab.areasciencepark.it/', elab_token) # TODO: softcode this (check API settings)
@@ -323,9 +324,9 @@ class SamplePage(Page): # EASYDMP / DIMMT?
             print(f"error on elab_api: {e}") 
 
         if request.method == 'POST':
-            # Dynamic form orchestrator (returns a factory that return the class form, why, 'cause django)
+            # Dynamic form orchestrator (func that returns a factory that return the class form, why, 'cause django)
             # Check PRP_CDM_App form and models
-            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES)
+            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES, getInstance=False)
 
             for form in forms:
                 if not form.is_valid():
@@ -345,10 +346,7 @@ class SamplePage(Page): # EASYDMP / DIMMT?
                     # final "TRUE" commit on db
                     data.save()
                     # Experiment created in elab, TODO: insert this in a better designed workflow
-                    try:
-                        elab_api.create_new_decos_experiment(lab=lab,username=username,experiment_info=data)
-                    except UnboundLocalError as e:
-                        print( " Elab api ") # TODO: catch this better!
+
             # Return thank you page html rendered page        
             return render(request, 'home/thank_you_page.html', {
                 'page': self,
@@ -357,7 +355,7 @@ class SamplePage(Page): # EASYDMP / DIMMT?
                 })
 
         else:
-            forms = form_orchestrator(user_lab=lab.lab_id, request=None, filerequest=None)
+            forms = form_orchestrator(user_lab=lab.lab_id, request=None, filerequest=None, getInstance=False)
         
         # Dropdown for service requests --> 
         # check the service request in the dropdown
@@ -416,31 +414,6 @@ class SampleListPage(Page): # EASYDMP
             request.session["return_page"] = request.META['HTTP_REFERER']
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
-                
-        try: # TODO: MAKE IT NOT HARDCODED!
-            # MINIO
-            client = decos_minio(endpoint="s3.dev.rd.areasciencepark.it", access_key="zxRyi8A7evZKbitAyU5t",
-                                secret_key="HaQnLIJaKTvjkktpAp9UccSU3vv1P4g3cl5wuH2t")
-            data_locations = client.get_sample_list(lab=lab)
-            for sample_id, sample_location in data_locations:
-                try:
-                    sample = (Samples.objects.get(pk = sample_id))
-                    sample.sample_location = "/"+ sample_location.object_name
-                    sample.save()
-                except Samples.DoesNotExist as e:
-                    print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
-            
-            '''sample_list = []
-            for sample_id, sample_location in data_locations:
-                try:
-                    sample = (Samples.objects.get(pk = sample_id))
-                    sample.sample_location = "/"+sample_location
-                    sample.save()
-                except Samples.DoesNotExist as e:
-                    print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
-                    ''' #TODO: IMPLEMENT ME NOW!
-        except Exception as e: # TODO: catch and manage this
-            print(f"error on minio: {e}")
 
             # JENKINS
             # TODO: Add a callback or a initial timer
@@ -469,6 +442,45 @@ class SampleListPage(Page): # EASYDMP
             filter = request.POST.get("filter","")
             request.GET = request.GET.copy()
             request.GET["filter"] = request.POST.get("filter","")
+            elab_write = request.POST.get("elab_write",None)
+            if elab_write:
+                tokens = API_Tokens.objects.filter(laboratory_id=lab.lab_id,user_id=Users.objects.get(pk = username))
+                token = tokens.first()
+                elab_api = Decos_Elab_API(ApiSettings.elab_base_url,token.elab_token)
+                sample = Samples.objects.get(pk = request.POST['elab_write'])
+
+                try:
+                    elab_api.create_new_decos_experiment(lab=lab,username=username,experiment_info=sample)
+                except UnboundLocalError as e:
+                    print( " Elab api ") # TODO: catch this better!
+                
+
+            try: # TODO: MAKE IT NOT HARDCODED!
+                # MINIO
+                debug = request.POST.get("refresh")
+                if request.POST.get("refresh","false") == "true":
+                    client = decos_minio(endpoint="s3.dev.rd.areasciencepark.it", access_key="zxRyi8A7evZKbitAyU5t",
+                                        secret_key="HaQnLIJaKTvjkktpAp9UccSU3vv1P4g3cl5wuH2t")
+                    data_locations = client.get_sample_list(lab=lab)
+                    for sample_id, sample_location in data_locations:
+                        try:
+                            sample = (Samples.objects.get(pk = sample_id))
+                            sample.sample_location = "/"+ sample_location.object_name
+                            sample.save()
+                        except Samples.DoesNotExist as e:
+                            print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
+                
+                '''sample_list = []
+                for sample_id, sample_location in data_locations:
+                    try:
+                        sample = (Samples.objects.get(pk = sample_id))
+                        sample.sample_location = "/"+sample_location
+                        sample.save()
+                    except Samples.DoesNotExist as e:
+                        print("Debug: {e}") # TODO: properly manage this, TODO: implement a log library?
+                        ''' #TODO: IMPLEMENT ME NOW!
+            except Exception as e: # TODO: catch
+                print(f"debug: {e}")
         
         data = Samples.objects.filter(lab_id=request.session.get('lab_selected'))
         data = data.filter(sample_id__contains = filter)
@@ -481,6 +493,96 @@ class SampleListPage(Page): # EASYDMP
             'table': table,
             'minio_filelist_status': "",
         })
+
+class EditSamplePage(Page):
+    intro = RichTextField(blank=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        
+        if request.method == 'POST':
+            sample = Samples.objects.get(pk = request.POST['sample_id_hidden'])
+            lab = sample.lab_id
+            # Dynamic form orchestrator (func that returns a factory that return the class form, why, 'cause django)
+            # Check PRP_CDM_App form and models
+            forms = form_orchestrator(user_lab=lab.lab_id, request=request.POST, filerequest=request.FILES, getInstance=False)
+
+            for form in forms:
+                if not form.is_valid():
+                    return render(request, 'home/error_page.html', {
+                        'page': self,
+                        'errors': form.errors, # TODO: improve this
+                    })
+                else:
+                    # Data is saved to db here
+                    data = form.save(commit=False) # form data inserted here
+                    # other info not in the form are inserted here ->
+                    if(request.POST.get("sr_id_hidden") and (request.POST.get("sr_id_hidden") != 'internal')):
+                        data.sr_id = ServiceRequests.objects.get(pk=request.POST.get("sr_id_hidden"))
+                    data.sample_id = sample.sample_id
+                    data.sample_location = sample.sample_location
+                    data.lab_id = lab
+                    data.sample_status = 'Submitted'
+                    # final "TRUE" commit on db
+                    data.save()
+                    # Experiment created in elab, TODO: insert this in a better designed workflow
+                    # TODO: Manage elab edits
+            # Return thank you page html rendered page        
+            return render(request, 'home/thank_you_page.html', {
+                'page': self,
+                # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                'data': data,
+                })
+        
+
+        sample = Samples.objects.get(pk = request.GET['sample_id'])
+        lab = sample.lab_id
+        forms = form_orchestrator(user_lab=lab.lab_id, request=request, filerequest=None, getInstance=True)
+            
+
+        pageDict = {
+            'page': self,
+            'lab': lab.lab_id,
+            'sr_id': sample.sr_id,
+            'table': None,
+            'sample_id': sample.sample_id
+            }
+        
+        # every form could be created by multiple PRP_CDM_App tables, so we use "multiple forms"
+        # one for every table, we put them in a list and visualize them in a linear layout (vertical)
+        for form in forms:
+            pageDict[form.Meta.model.__name__] = form
+        pageDict['forms'] = forms
+        formlist =[]
+        # return the form page, with the form as data.
+        # TODO: while using settings is correct, create/find another softcoded var!!
+        try:
+            home_path = settings.BASE_DIR
+            abs_path = join(home_path,"home/templates/home/forms/")
+            formlist = [f for f in listdir(abs_path)]
+        except Exception as e:
+            e # TODO: properly catch this
+
+        for formTemplate in formlist:
+            if pageDict['lab'].lower() in formTemplate:
+                return render(request, 'home/forms/' + formTemplate, pageDict)
+        else:
+            return render(request, 'home/forms/generic_form_page.html', pageDict)
+
+
+class PipelinesPage(Page):
+    intro = RichTextField(blank=True)
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+    ]
+        
+        
+        
+
 
 class DMPPage(Page): # EASYDMP
     intro = RichTextField(blank=True)

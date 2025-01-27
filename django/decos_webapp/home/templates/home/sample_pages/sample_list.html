@@ -11,8 +11,10 @@
     <button type="submit" class="btn btn-light" name="list_folders" value="true">List folders</button>
 </form>
 
-<form method="get" action="" id="refresh_form" name="refresh_form" >
-    <input type="submit" class="btn btn-light" id="refresh_btn" value="Refresh"></button>
+<form method="post" action="" id="refresh_form" name="refresh" value="true" >
+    {% csrf_token %}
+    <input type="hidden" name="refresh" value="true">
+    <input type="submit" class="btn btn-light" id="refresh_btn" value="refresh"></button>
 </form>
 <p>
 {% if jenkins_file_status == "Waiting" %}

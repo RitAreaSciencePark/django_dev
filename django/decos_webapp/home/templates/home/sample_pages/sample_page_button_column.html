@@ -1,0 +1,17 @@
+<form method="get" action="/edit-sample-entry/">
+    <input type="hidden" name="sample_id" value="{{ record.sample_id }}">
+    <input type="submit" class="btn btn-light" id="edit_btn" value="edit"></button>
+</form>
+<form method="post" action="">
+    {% csrf_token %}
+    <input type="hidden" name="elab_write" value="{{ record.sample_id }}">
+    <input type="submit" class="btn btn-light" id="edit_btn" value="elab write"></button>
+</form>
+
+<form method="get" action="/pipelines_page/">
+    <input type="hidden" name="sample_id" value="{{ record.sample_id }}">
+    <input type="submit" class="btn btn-light" id="edit_btn" value="pipelines"></button>
+</form>
+
+
+

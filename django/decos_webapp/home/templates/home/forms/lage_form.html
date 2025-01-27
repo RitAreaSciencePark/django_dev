@@ -14,6 +14,7 @@
 
 {{ page.intro | richtext }}
 
+{% if table %}
 <form id="sr_selection" method="get" action="">
     <div class="section_div">
         <h4><b> GENERAL SAMPLE INFORMATION </b></h4>
@@ -46,6 +47,8 @@
         </div>
 
 </form>
+{% endif %}
+
 <i>Service Request: </i> {{ sr_id }}
 </p>
 
@@ -57,6 +60,7 @@
     {% else %}
     <input type="hidden" name="sr_id_hidden" value="internal" />
     {% endif %}
+    <input type="hidden" name="sample_id_hidden" value="{{ sample_id }}">
     </p>
     <p>
         <i>Please insert a brief descriptive title of your experiment (max 64 characters):</i> <br>
