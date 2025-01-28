@@ -1,5 +1,28 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags django_tables2  %}
+{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags  %}
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms/lage_form.css' %}">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<h1><b>{{ sample_id }} pipelines </b></h1>
+<div class="section_div">
+    <p>
+        <form method="post" action="">
+            {% csrf_token %}
+            <input type="hidden" name="pipelines" value="{{ sample_id }}">
+            <input type="submit" class="btn btn-light" id="edit_btn" value="start pipeline"></button>
+        </form>
+        <form method="get" action="">
+            <input type="hidden" name="pipelines" value="{{ sample_id }}">
+            <input type="hidden" name="output" value="output">
+            <input type="submit" class="btn btn-light" id="edit_btn" value="get output"></button>
+        </form>
+    </p>
+    <div class="section_div">
+        {{ console_output }}   
+    </div>
+</div>
 
 {% endblock %}

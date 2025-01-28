@@ -446,14 +446,14 @@ class SampleListPage(Page): # EASYDMP
             if elab_write:
                 tokens = API_Tokens.objects.filter(laboratory_id=lab.lab_id,user_id=Users.objects.get(pk = username))
                 token = tokens.first()
-                elab_api = Decos_Elab_API(ApiSettings.elab_base_url,token.elab_token)
+                elab_api = Decos_Elab_API(ApiSettings.objects.get(pk = 1).elab_base_url,token.elab_token)
                 sample = Samples.objects.get(pk = request.POST['elab_write'])
 
                 try:
                     elab_api.create_new_decos_experiment(lab=lab,username=username,experiment_info=sample)
                 except UnboundLocalError as e:
+                    pass
                     print( " Elab api ") # TODO: catch this better!
-                
 
             try: # TODO: MAKE IT NOT HARDCODED!
                 # MINIO
@@ -573,17 +573,42 @@ class EditSamplePage(Page):
         else:
             return render(request, 'home/forms/generic_form_page.html', pageDict)
 
-
 class PipelinesPage(Page):
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
     ]
-        
-        
-        
 
+    def serve(self, request):
 
+        # TEST
+        pipeline_name = "test_pipeline_with_parameters"
+        secret_token = "parameter_test_pipeline_SECRET_TOKEN"
+
+        #
+        if request.user.is_authenticated:
+            username = request.user.username
+        # TODO: try me
+        jenkins_client = Decos_Jenkins_API(username=username, lab=request.session.get('lab_selected'))
+
+        if request.method == 'POST':
+            sample_id = request.POST.get("pipelines",None)
+            data = {"data0": sample_id,"data1": "DATA001"}
+                # TODO: move JENKINS entrypoint to a dedicated page
+            if sample_id:
+                jenkins_client.start(sample_id=None, pipeline_name=pipeline_name, secret_token=secret_token, data=data)
+
+        output = jenkins_client.get_pipeline_output(pipeline_name=pipeline_name)
+        if request.GET.get("output", None):
+            return render(request, 'home/sample_pages/pipelines_page.html', {
+            'page': self,
+            'sample_id': request.GET.get("pipelines",None),
+            'console_output': output
+        })
+        return render(request, 'home/sample_pages/pipelines_page.html', {
+            'page': self,
+            'sample_id': request.GET.get("pipelines",None),
+        })
 class DMPPage(Page): # EASYDMP
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(

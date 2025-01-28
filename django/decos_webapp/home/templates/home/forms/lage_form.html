@@ -51,8 +51,8 @@
 
 <i>Service Request: </i> {{ sr_id }}
 </p>
-
-<form action="." method="POST" enctype="multipart/form-data" id="sampleform">
+<div class="section_div">
+    <form action="." method="POST" enctype="multipart/form-data" id="sampleform">
     <br>
     {% csrf_token %}
     {% if "sr_" in sr_id %}
@@ -72,7 +72,7 @@
     </p>
     <br>
     </div>
-
+</div>
     <div class="section_div">
         <h4><b> LAGE SAMPLE INFORMATION </b></h4>
         <br>
@@ -80,8 +80,7 @@
             <i>Type of sample</i>: <br> {{ LageSamples.type }} <br>
             <i>In the list of samples, have you included the volume expressed in µl? (if not, specify why)</i>: <br>
             Yes? {{ LageSamples.is_volume_in_ul }} <br>
-            <i>In the list of samples, have you included the Buffer used? (if not, specify why)</i>: <br> Yes? {{
-            LageSamples.is_buffer_used }} <br>
+            <i>In the list of samples, have you included the Buffer used? (if not, specify why)</i>: <br> Yes? {{ LageSamples.is_buffer_used }} <br>
             <i>Expected date of delivery ("YYYY-MM-DD")</i>: <br> {{ LageSamples.sample_date_of_delivery }} <br>
             <i>[Not Mandatory] In the list of samples, have you specified the quality (if available RIN in case of RNA,
                 DIN in case of DNA, and/or 260/280nm ratio)?</i>: <br> Yes? {{ LageSamples.is_quality }} <br>
@@ -89,6 +88,7 @@
 
             <br>
         </p>
+    </div>
     </div>
     <div class="section_div">
         <h4><b> FILES </b></h4>

@@ -122,4 +122,14 @@ class Server:
             parameters = args[0]
         else:
             parameters = kwargs.get('parameters', None)
-        response = self.session.get(f"{self.host}/job/{job_path}/build?token={secret_token}", auth=self.credentials)
+        
+        if parameters:
+            pass
+
+        if kwargs.get('data', None):
+            data = kwargs.get('data')
+            response = requests.post(f"{self.host}/job/{job_path}/buildWithParameters", auth=self.credentials, params={"token" : secret_token }, data=data)
+        else:
+            response = self.session.post(f"{self.host}/job/{job_path}/build", auth=self.credentials, params={"token" : secret_token })
+
+
