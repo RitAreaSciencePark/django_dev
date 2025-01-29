@@ -171,6 +171,7 @@ class LameSamples(Samples):
         db_table= 'lame_samples'.lower()
 
 class Instruments(models.Model):
+    # TODO: put lab_id or put this in Laboratories
     instrument_id = models.CharField(max_length=50, primary_key=True)
     vendor = models.CharField(max_length=50)
     model = models.CharField(max_length=50)

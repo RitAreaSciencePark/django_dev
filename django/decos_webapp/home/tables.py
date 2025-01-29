@@ -1,6 +1,6 @@
 from django_tables2 import tables, Column, TemplateColumn
 
-from PRP_CDM_app.models import Proposals,ServiceRequests,Samples
+from PRP_CDM_app.models import Proposals,ServiceRequests,Samples, Instruments
 
 class ProposalsTable(tables.Table):
     proposal_id = Column(empty_values=(),attrs={"th": {"id": "foo"}},verbose_name="id of the proposal")
@@ -50,4 +50,14 @@ class SamplesForResultsTable(tables.Table):
         fields = ("sample_id","sample_short_description")
         row_attrs = {
         "onClick": lambda record: f"document.getElementById('sample_id_hidden').value = '{record.sample_id}'; document.getElementById('sample_selection').submit();"
+        }
+
+class InstrumentsForResultsTable(tables.Table):
+    class Meta:
+        model = Instruments
+        template_name = "django_tables2/bootstrap-responsive.html"
+        fields = ("instrument_id","model","vendor")
+        row_attrs = {
+        "onClick": lambda record: f"document.getElementById('instrument_id_hidden').value = '{record.instrument_id}'; document.getElementById('instrument_selection').submit();"
+        # "onClick": lambda record: f'alert("I am an alert box!")',
         }

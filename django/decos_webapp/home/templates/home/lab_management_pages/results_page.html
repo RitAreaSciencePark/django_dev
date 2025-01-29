@@ -12,19 +12,25 @@
 
     {{ page.intro | richtext }}
 
-    <form action="." method="POST">
-        {% csrf_token %}
+    <form action="." method="GET">
         <div class="section_div">
+            <input type="hidden" id="sample_list_hidden" name="sample_list" value="{{ sample_list }}">
+            <input type="hidden" id="public_dataset_list_hidden" name="public_dataset_list" value="{{ public_dataset_list }}">
+            <input type="hidden" id="instrument_list_hidden" name="instrument_list" value="{{ instrument_list }}">
+            <input type="hidden" id="software_list_hidden" name="software_list" value="{{ software_list }}">
+
             <h4><b> RESULTS </b></h4>
             <p>
-                <i>What is the location of the dataset?</i> {{ data.main_repository }}
-                <br><i>What is the doi of the article?</i> {{ data.article_doi }} <br>
+                <i>What is the location of the dataset?</i>
+                <input type="text" class="form-control" id="main_repository_text" name="main_repository" aria-describedby="main_repository_text" value="{{ main_repository }}">
+                <br><i>What is the doi of the article?</i>
+                <input type="text" class="form-control" id="article_doi_text" name="article_doi" aria-describedby="article_doi_text" value="{{ article_doi }}"><br>
             </p>
         </div>
 
 
 
-        <p><input type="submit" value="Add Result" class="btn btn-primary"></p>
+        <p><input type="submit" value="Save section" class="btn btn-primary"></p>
     </form>
 
     <div class="section_div">
@@ -32,10 +38,15 @@
         <br>
         <i>This results were produced with a sample or a public dataset?</i>
         <form id="sample_selection" method="get" action="">
+            <input type="hidden" id="article_doi_hidden" name="article_doi" value="{{ article_doi }}">
+            <input type="hidden" id="main_repository_hidden" name="main_repository" value="{{ main_repository }}">
+
             <input type="hidden" id="sample_id_hidden" name="sample_id" value="public">
             <input type="hidden" id="sample_list_hidden" name="sample_list" value="{{ sample_list }}">
             <input type="hidden" id="public_dataset_list_hidden" name="public_dataset_list" value="{{ public_dataset_list }}">
-
+            <input type="hidden" id="instrument_list_hidden" name="instrument_list" value="{{ instrument_list }}">
+            <input type="hidden" id="instrument_list_hidden" name="instrument_list" value="{{ instrument_list }}">
+            <input type="hidden" id="software_list_hidden" name="software_list" value="{{ software_list }}">
             <div class="sample_selection" id="dropMenu">
                 <div class="dropdown {{ sample_filter }}dropup">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -43,7 +54,7 @@
                         Sample
                     </button>
                     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
-                        <input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText"
+                        <input type="text" class="form-control" id="filterText" name="sample_filter" aria-describedby="filterText"
                             placeholder="filter...">
                         <button type="submit" class="btn btn-primary">search</button>
 
@@ -75,8 +86,64 @@
     {% for public_dataset in public_dataset_list_view %}
     {{ public_dataset }}
     {% endfor %}
-
     </div>
 
+    <div class="section_div">
+        <h4><b> INSTRUMENT/SOFTWARE </b></h4>
+        <br>
+        <i>What is the instrument/software that was used to produce these results?</i>
+        <form id="instrument_selection" method="get" action="">
+            <input type="hidden" id="article_doi_hidden" name="article_doi" value="{{ article_doi }}">
+            <input type="hidden" id="main_repository_hidden" name="main_repository" value="{{ main_repository }}">
+
+            <input type="hidden" id="sample_list_hidden" name="sample_list" value="{{ sample_list }}">
+            <input type="hidden" id="public_dataset_list_hidden" name="public_dataset_list" value="{{ public_dataset_list }}">
+           
+            <input type="hidden" id="instrument_id_hidden" name="instrument_id" value="">
+            <input type="hidden" id="instrument_list_hidden" name="instrument_list" value="{{ instrument_list }}">
+            <input type="hidden" id="software_list_hidden" name="software_list" value="{{ software_list }}">
+            
+            <div class="instrument_selection" id="dropMenu">
+                <div class="dropdown {{ instrument_filter }}dropup">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                        Instrument
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                        <input type="text" class="form-control" id="filterText" name="instrument_filter" aria-describedby="filterText"
+                            placeholder="filter...">
+                        <button type="submit" class="btn btn-primary">search</button>
+
+                        <div class="dropdown-item" type="div" id="dropdown-div">
+                            {% render_table instruments_table %}
+                        </div>
+                    </div>
+                </div>
+                <div class="instrument_id_selection">
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                            Software
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">    
+                            <div class="dropdown-item" type="div" id="dropdown-div">
+                                Insert dataset link: 
+                                <input type="text" name="software_id">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% for instrument_id in instrument_list_view %}
+    {{ instrument_id }}
+    {% endfor %}
+    <br>
+    {% for software in software_list_view %}
+    {{ software }}
+    {% endfor %}
+    </div>
+
+    
 {% endblock %}
 

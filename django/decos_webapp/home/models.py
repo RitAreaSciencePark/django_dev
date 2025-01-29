@@ -40,7 +40,7 @@ from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation
 ### end Id generators
 
 ### dynamic tables for reporting 
-from .tables import ProposalsTable,ServiceRequestTable,SamplesTable, SamplesForResultsTable
+from .tables import ProposalsTable,ServiceRequestTable,SamplesTable, SamplesForResultsTable, InstrumentsForResultsTable
 from django_tables2.config import RequestConfig
 ### end dynamic tables for reporting 
 
@@ -851,12 +851,8 @@ class ResultsPage(Page):
                 # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
                 # In our example the routing takes care of the external db save
                 data = form.save(commit=False)
-                data.instrument_id = instrument_id_generation(form['vendor'].data, form['model'].data)
-                data.save()
-                labxinstrument = LabXInstrument()
-                labxinstrument.lab_id = Laboratories.objects.get(pk = lab)
-                labxinstrument.instrument_id = data
-                labxinstrument.save()
+                data.result_id = data.doi # FIXME: a improve the pk?
+                # data.save()
                 # data.lab_id = request.session["lab_selected"]
                 # data.user_id = username
                 # data.save()
@@ -872,28 +868,23 @@ class ResultsPage(Page):
                         # We pass the data to the thank you page, data.datavarchar and data.dataint!
                         'errors': form.errors, # TODO: improve this
                     })
-        form = ResultsForm()
-        isFiltered = ()
+
                 # first sample filter selection dropdown ->
-        if "filter" in request.GET:
-            filter = request.GET.get("filter","")
-            if filter != "" :
-                sample_filter = "open "
+        if "sample_filter" in request.GET:
+            sample_filter = request.GET.get("sample_filter","")
+            if sample_filter != "" :
+                sample_filter_set = "open "
             else:
-                sample_filter = " "
+                sample_filter_set = " "
         else:
-            filter = ""
+            sample_filter = ""
             request.GET = request.GET.copy()
-            request.GET["filter"]= ""
-            sample_filter = " "
+            request.GET["sample_filter"]= ""
+            sample_filter_set = " "
 
         sample_list = []
-
         if "sample_list" in request.GET:
             sample_list =request.GET.get('sample_list','')
-
-            # "['s_internal_00002', 's_internal_00003', 's_internal_00005']"
-            # '["s_internal_00001", "s_internal_00003"]'
             if sample_list != "":
                 sample_list = json.loads(sample_list)
             if "sample_id" in request.GET:
@@ -902,38 +893,93 @@ class ResultsPage(Page):
                     sample_list.append(sample_id)
 
         public_dataset_list = []
-
         if "public_dataset_list" in request.GET:
             public_dataset_list =request.GET.get('public_dataset_list','')
             if public_dataset_list != "[]":
                 public_dataset_list = json.loads(public_dataset_list)
             else:
                 public_dataset_list = []
-        
         if "public_dataset_location" in request.GET:
             public_dataset_location = request.GET.get("public_dataset_location","")
             if public_dataset_location != "":
                 public_dataset_list.append(public_dataset_location)
 
+                # first sample filter selection dropdown ->
+        if "instrument_filter" in request.GET:
+            instrument_filter = request.GET.get("instrument_filter","")
+            if instrument_filter != "" :
+                instrument_filter_set = "open "
+            else:
+                instrument_filter_set = " "
+        else:
+            instrument_filter = ""
+            request.GET = request.GET.copy()
+            request.GET["instrument_filter"]= ""
+            instrument_filter_set = " "
 
-                # Dropdown for service requests --> 
-        # check the service request in the dropdown
+        instrument_list = []
+        if "instrument_list" in request.GET:
+            instrument_list =request.GET.get('instrument_list','')
+            if instrument_list != "":
+                instrument_list = json.loads(instrument_list)
+            if "instrument_id" in request.GET:
+                instrument_id = request.GET.get("instrument_id","")
+                if instrument_id != "":
+                    instrument_list.append(instrument_id)
+
+        software_list = []
+        if "software_list" in request.GET:
+            software_list =request.GET.get('software_list','')
+            if software_list != "":
+                software_list = json.loads(software_list)
+            if "software_id" in request.GET:
+                software_id = request.GET.get("software_id","")
+                if software_id != "":
+                    software_list.append(software_id)
+
+
+        # REPORTS
+        article_doi = request.GET.get("article_doi","")
+        main_repository = request.GET.get("main_repository","")
+    
+        # SAMPLES
+        # Dropdown for Samples requests --> 
+        # check the Samples request in the dropdown
         dataQuery = Samples.objects.filter(lab_id=lab)
-        dataQuery = dataQuery.filter(sample_id__contains = filter)
-        table = SamplesForResultsTable(dataQuery)
-        RequestConfig(request).configure(table)
-        table.paginate(page=request.GET.get("page",1), per_page=5) # TODO: implement dynamic per page settings?
+        dataQuery = dataQuery.filter(sample_id__contains = sample_filter)
+        sample_table = SamplesForResultsTable(dataQuery)
+        RequestConfig(request).configure(sample_table)
+        sample_table.paginate(page=request.GET.get("page",1), per_page=5) # TODO: implement dynamic per page settings?
+        
+        # INSTRUMENTS
+        # Dropdown for Instruments requests --> 
+        # check the Instruments request in the dropdown
+        # dataQuery = Instruments.objects.filter(lab_id=lab)
+        dataQuery = Instruments.objects.filter(instrument_id__contains = instrument_filter)
+        instrument_table = InstrumentsForResultsTable(dataQuery)
+        RequestConfig(request).configure(instrument_table)
+        instrument_table.paginate(page=request.GET.get("page",1), per_page=5) # TODO: implement dynamic per page settings?
+        
         pageDict = {
             'page': self,
             'lab': lab,
-            'data': form,
-            'sample_table': table,
-            'sample_filter' : sample_filter,
+            'article_doi': article_doi,
+            'main_repository': main_repository,            
+            'sample_table': sample_table,
+            'sample_filter' : sample_filter_set,
+            'instrument_filter' : instrument_filter_set,
             'sample_list' : json.dumps(sample_list),
             'sample_list_view' : sample_list,
             'public_dataset_list' : json.dumps(public_dataset_list),
             'public_dataset_list_view' : public_dataset_list,
+            'instruments_table' : instrument_table,
+            'instrument_list' : json.dumps(instrument_list),
+            'instrument_list_view' : instrument_list,
+            'software_list' : json.dumps(software_list),
+            'software_list_view' : software_list,
             }
+
+        
 
 
         return render(request, 'home/lab_management_pages/results_page.html', pageDict)
