@@ -107,7 +107,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         {% for menuitem in site_root.get_children.live.in_menu.private %}
-                        {% if 'laboratory' in menuitem.content_type.model or 'instrument' in menuitem.content_type.model or 'technique' in menuitem.content_type.model%}
+                        {% if 'laboratory' in menuitem.content_type.model or 'instrument' in menuitem.content_type.model or 'technique' in menuitem.content_type.model or 'result' in menuitem.content_type.model %}
                         <a class="dropdown-item" type="button" id="dropdown-button" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                         {% endif %}
                         {% endfor %}

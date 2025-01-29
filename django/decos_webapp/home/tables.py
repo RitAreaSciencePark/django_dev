@@ -41,3 +41,13 @@ class SamplesTable(tables.Table):
         model = Samples
         template_name = "django_tables2/bootstrap.html"
         fields = ("sample_id","sr_id","sample_feasibility","sample_status","sample_location")
+
+
+class SamplesForResultsTable(tables.Table):
+    class Meta:
+        model = Samples
+        template_name = "django_tables2/bootstrap-responsive.html"
+        fields = ("sample_id","sample_short_description")
+        row_attrs = {
+        "onClick": lambda record: f"document.getElementById('sample_id_hidden').value = '{record.sample_id}'; document.getElementById('sample_selection').submit();"
+        }

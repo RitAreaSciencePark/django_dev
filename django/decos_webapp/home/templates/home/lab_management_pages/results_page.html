@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar navigation_tags wagtailimages_tags django_tables2  %}
+
+{% block body_class %}template-form{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms/labdmp_page.css' %}">
+
+
+    <h1><b>{{ lab }}: ADD RESULT</b></h1>
+
+    {{ page.intro | richtext }}
+
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div class="section_div">
+            <h4><b> RESULTS </b></h4>
+            <p>
+                <i>What is the location of the dataset?</i> {{ data.main_repository }}
+                <br><i>What is the doi of the article?</i> {{ data.article_doi }} <br>
+            </p>
+        </div>
+
+
+
+        <p><input type="submit" value="Add Result" class="btn btn-primary"></p>
+    </form>
+
+    <div class="section_div">
+        <h4><b> SAMPLE </b></h4>
+        <br>
+        <i>This results were produced with a sample or a public dataset?</i>
+        <form id="sample_selection" method="get" action="">
+            <input type="hidden" id="sample_id_hidden" name="sample_id" value="public">
+            <input type="hidden" id="sample_list_hidden" name="sample_list" value="{{ sample_list }}">
+            <input type="hidden" id="public_dataset_list_hidden" name="public_dataset_list" value="{{ public_dataset_list }}">
+
+            <div class="sample_selection" id="dropMenu">
+                <div class="dropdown {{ sample_filter }}dropup">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                        Sample
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+                        <input type="text" class="form-control" id="filterText" name="filter" aria-describedby="filterText"
+                            placeholder="filter...">
+                        <button type="submit" class="btn btn-primary">search</button>
+
+                        <div class="dropdown-item" type="div" id="dropdown-div">
+                            {% render_table sample_table %}
+                        </div>
+                    </div>
+                </div>
+                <div class="sample_id_selection">
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle='dropdown' aria-haspopup="true" aria-expanded="true">
+                            Public Dataset
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">    
+                            <div class="dropdown-item" type="div" id="dropdown-div">
+                                Insert dataset link: 
+                                <input type="text" name="public_dataset_location">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% for sample_id in sample_list_view %}
+    {{ sample_id }}
+    {% endfor %}
+    <br>
+    {% for public_dataset in public_dataset_list_view %}
+    {{ public_dataset }}
+    {% endfor %}
+
+    </div>
+
+{% endblock %}
+

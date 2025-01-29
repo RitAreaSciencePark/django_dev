@@ -349,3 +349,37 @@ class labDMP(models.Model):
     class Meta:
         db_table= 'labdmp'.lower()
 
+class Results(models.Model):
+    result_id = models.CharField(max_length=50, primary_key=True)
+    main_repository = models.CharField(max_length=2048, blank=True)
+    article_doi = models.CharField(max_length=256, blank=True)
+    # TODO: complete the model
+    class Meta:
+        db_table= 'results'.lower()
+
+class ResultxInstrument(models.Model):
+    x_id = models.CharField(max_length=50, primary_key=True)
+    results = models.ForeignKey(Results, on_delete=models.PROTECT)
+    instruments = models.ForeignKey(Instruments, on_delete=models.PROTECT)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'result_x_instrument'.lower()
+
+class ResultxSample(models.Model):
+    x_id = models.CharField(max_length=50, primary_key=True)
+    results = models.ForeignKey(Results, on_delete=models.PROTECT)
+    samples = models.ForeignKey(Instruments, on_delete=models.PROTECT)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'result_x_sample'.lower()
+
+class ResultxLab(models.Model):
+    x_id = models.CharField(max_length=50, primary_key=True)
+    results = models.ForeignKey(Results, on_delete=models.PROTECT)
+    lab = models.ForeignKey(Laboratories, on_delete=models.PROTECT)
+
+    # give the name of the table, lowercase for postgres (I've put a "lower() to remember")
+    class Meta:
+        db_table= 'result_x_lab'.lower()

@@ -21,7 +21,7 @@ from django import forms
 from django.forms.models import model_to_dict
 from django.contrib.auth.models import User, Group
 
-from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, APITokenForm, ProposalSubmissionForm, SRSubmissionForm, InstrumentsForm #, LageSamplesForm, LameSamplesForm
+from .forms import form_orchestrator, LabSwitchForm, DMPform, UserDataForm, APITokenForm, ProposalSubmissionForm, SRSubmissionForm, InstrumentsForm, ResultsForm #, LageSamplesForm, LameSamplesForm
 
 from PRP_CDM_app.models import labDMP, Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens, Instruments
 from PRP_CDM_app.models import LabXInstrument
@@ -40,9 +40,11 @@ from PRP_CDM_app.code_generation import sr_id_generation, proposal_id_generation
 ### end Id generators
 
 ### dynamic tables for reporting 
-from .tables import ProposalsTable,ServiceRequestTable,SamplesTable
+from .tables import ProposalsTable,ServiceRequestTable,SamplesTable, SamplesForResultsTable
 from django_tables2.config import RequestConfig
 ### end dynamic tables for reporting 
+
+import json
 
 ### APIs
 from .decos_elab import Decos_Elab_API
@@ -315,13 +317,6 @@ class SamplePage(Page): # EASYDMP / DIMMT?
             next = request.POST.get("next", "/switch-laboratory")
             return redirect(next)
         
-        # Elab API init
-        # TODO: SOFTCODE THIS
-        try:
-            elab_token = API_Tokens.objects.filter(user_id=username, laboratory_id = lab).values("elab_token").first()['elab_token']
-            elab_api = Decos_Elab_API('https://prp-electronic-lab.areasciencepark.it/', elab_token) # TODO: softcode this (check API settings)
-        except Exception as e: # TODO: catch and manage this
-            print(f"error on elab_api: {e}") 
 
         if request.method == 'POST':
             # Dynamic form orchestrator (func that returns a factory that return the class form, why, 'cause django)
@@ -494,7 +489,7 @@ class SampleListPage(Page): # EASYDMP
             'minio_filelist_status': "",
         })
 
-class EditSamplePage(Page):
+class EditSamplePage(Page): # EASYDMP
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -573,7 +568,7 @@ class EditSamplePage(Page):
         else:
             return render(request, 'home/forms/generic_form_page.html', pageDict)
 
-class PipelinesPage(Page):
+class PipelinesPage(Page): # EASYDMP
     intro = RichTextField(blank=True)
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -609,6 +604,7 @@ class PipelinesPage(Page):
             'page': self,
             'sample_id': request.GET.get("pipelines",None),
         })
+
 class DMPPage(Page): # EASYDMP
     intro = RichTextField(blank=True)
     thankyou_page_title = models.CharField(
@@ -816,6 +812,132 @@ class InstrumentsPage(Page): # EASYDMP
                 'data': form,
                 'lab': request.session['lab_selected'],
             })
+
+class ResultsPage(Page):
+    intro = RichTextField(blank=True)
+    thankyou_page_title = models.CharField(
+        max_length=255, help_text="Title text to use for the 'thank you' page")
+    # Note that there's nothing here for specifying the actual form fields -
+    # those are still defined in forms.py. There's no benefit to making these
+    # editable within the Wagtail admin, since you'd need to make changes to
+    # the code to make them work anyway.
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('thankyou_page_title'),
+    ]
+
+    def serve(self,request):
+        if request.user.is_authenticated:
+            username = request.user.username
+        
+        try:
+            if(request.session['lab_selected'] is None):
+                request.session["return_page"] = request.META['HTTP_REFERER']
+                next = request.POST.get("next", "/switch-laboratory")
+                return redirect(next)
+        except KeyError:
+            request.session["return_page"] = request.META['HTTP_REFERER']
+            next = request.POST.get("next", "/switch-laboratory")
+            return redirect(next)
+        
+        lab = request.session['lab_selected']
+
+        if request.method == 'POST':
+            # If the method is POST, validate the data and perform a save() == INSERT VALUE INTO
+            form = ResultsForm(data=request.POST)
+            if form.is_valid():
+                # BEWARE: This is a modelForm and not a object/model, "save" do not have some arguments of the same method, like using=db_tag
+                # to work with a normal django object insert a line: data = form.save(commit=False) and then data is a basic model: e.g., you can use data.save(using=external_generic_db)
+                # In our example the routing takes care of the external db save
+                data = form.save(commit=False)
+                data.instrument_id = instrument_id_generation(form['vendor'].data, form['model'].data)
+                data.save()
+                labxinstrument = LabXInstrument()
+                labxinstrument.lab_id = Laboratories.objects.get(pk = lab)
+                labxinstrument.instrument_id = data
+                labxinstrument.save()
+                # data.lab_id = request.session["lab_selected"]
+                # data.user_id = username
+                # data.save()
+                return render(request, 'home/lab_management_pages/results_page.html', { # TODO: softcode the template selection
+                    'page': self,
+                    # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                    'data': form,
+                    'lab': request.session['lab_selected'],
+                })
+            else:
+                return render(request, 'home/error_page.html', {
+                        'page': self,
+                        # We pass the data to the thank you page, data.datavarchar and data.dataint!
+                        'errors': form.errors, # TODO: improve this
+                    })
+        form = ResultsForm()
+        isFiltered = ()
+                # first sample filter selection dropdown ->
+        if "filter" in request.GET:
+            filter = request.GET.get("filter","")
+            if filter != "" :
+                sample_filter = "open "
+            else:
+                sample_filter = " "
+        else:
+            filter = ""
+            request.GET = request.GET.copy()
+            request.GET["filter"]= ""
+            sample_filter = " "
+
+        sample_list = []
+
+        if "sample_list" in request.GET:
+            sample_list =request.GET.get('sample_list','')
+
+            # "['s_internal_00002', 's_internal_00003', 's_internal_00005']"
+            # '["s_internal_00001", "s_internal_00003"]'
+            if sample_list != "":
+                sample_list = json.loads(sample_list)
+            if "sample_id" in request.GET:
+                sample_id = request.GET.get("sample_id","")
+                if sample_id != "" and sample_id != 'public':
+                    sample_list.append(sample_id)
+
+        public_dataset_list = []
+
+        if "public_dataset_list" in request.GET:
+            public_dataset_list =request.GET.get('public_dataset_list','')
+            if public_dataset_list != "[]":
+                public_dataset_list = json.loads(public_dataset_list)
+            else:
+                public_dataset_list = []
+        
+        if "public_dataset_location" in request.GET:
+            public_dataset_location = request.GET.get("public_dataset_location","")
+            if public_dataset_location != "":
+                public_dataset_list.append(public_dataset_location)
+
+
+                # Dropdown for service requests --> 
+        # check the service request in the dropdown
+        dataQuery = Samples.objects.filter(lab_id=lab)
+        dataQuery = dataQuery.filter(sample_id__contains = filter)
+        table = SamplesForResultsTable(dataQuery)
+        RequestConfig(request).configure(table)
+        table.paginate(page=request.GET.get("page",1), per_page=5) # TODO: implement dynamic per page settings?
+        pageDict = {
+            'page': self,
+            'lab': lab,
+            'data': form,
+            'sample_table': table,
+            'sample_filter' : sample_filter,
+            'sample_list' : json.dumps(sample_list),
+            'sample_list_view' : sample_list,
+            'public_dataset_list' : json.dumps(public_dataset_list),
+            'public_dataset_list_view' : public_dataset_list,
+            }
+
+
+        return render(request, 'home/lab_management_pages/results_page.html', pageDict)
+
 
 class ProposalSubmissionPage(Page): # USER DATA DIMMT
     intro = RichTextField(blank=True)

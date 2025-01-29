@@ -2,7 +2,7 @@ from django import forms
 # This import point to the external app schema!
 from PRP_CDM_app.forms import FormsDefinition
 from PRP_CDM_app.models import labDMP
-from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens, Instruments
+from PRP_CDM_app.models import Users, Proposals, ServiceRequests, Laboratories, Samples, API_Tokens, Instruments, Results
 from PRP_CDM_app.fields import BooleanIfWhat, MultiChoicheAndOtherWidget
 
 class LabSwitchForm(forms.Form): 
@@ -112,6 +112,15 @@ class InstrumentsForm(forms.ModelForm):
         class Meta:
             model = Instruments
             fields = ['vendor', 'model', 'description']
+
+class ResultsForm(forms.ModelForm):
+        
+        # see https://docs.djangoproject.com/en/1.9/topics/forms/ for more complex example.
+        # We are using a ModelForm, it is not mandatory
+        
+        class Meta:
+            model = Results
+            fields = ['main_repository', 'article_doi']
 
 
 class ProposalSubmissionForm(forms.ModelForm):
